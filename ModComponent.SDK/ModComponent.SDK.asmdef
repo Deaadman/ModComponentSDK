@@ -1,0 +1,20 @@
+{
+    "name": "ModComponent.SDK",
+    "rootNamespace": "",
+    "references": [
+        "Unity.Addressables",
+        "Unity.Addressables.Editor",
+        "Deadman.ModComponent.API"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

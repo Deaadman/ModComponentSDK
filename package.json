@@ -1,0 +1,15 @@
+{
+  "name": "com.deadman.modcomponent.sdk",
+  "version": "2.0.0",
+  "displayName": "ModComponent SDK",
+  "description": "Testing New Version.",
+  "unity": "2021.3",
+  "unityRelease": "16f1",
+  "documentationUrl": "",
+  "changelogUrl": "",
+  "licensesUrl": "",
+  "author": {
+    "name": "Deadman",
+    "url": "https://github.com/Deaadman"
+  }
+}
