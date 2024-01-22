@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Deadman.ModComponent.ModManager
+namespace ModComponent.ModManager
 {
     public class Mod : ScriptableObject
     {

@@ -4,14 +4,13 @@ using UnityEditor.AddressableAssets.Build;
 using UnityEditor.AddressableAssets.Settings;
 using UnityEditor.AddressableAssets.Settings.GroupSchemas;
 
-namespace Deadman.ModComponent
+namespace ModComponent
 {
     public class AddressablesManager
     {
         public static AddressableAssetGroup CreatePackedAssetsGroup(string groupName)
         {
-            var settings = AddressableAssetSettingsDefaultObject.Settings ??
-                           AddressableAssetSettings.Create(AddressableAssetSettingsDefaultObject.kDefaultConfigFolder,
+            var settings = AddressableAssetSettingsDefaultObject.Settings != null ? AddressableAssetSettingsDefaultObject.Settings : AddressableAssetSettings.Create(AddressableAssetSettingsDefaultObject.kDefaultConfigFolder,
                                                            AddressableAssetSettingsDefaultObject.kDefaultConfigAssetName,
                                                            true,
                                                            true);
@@ -41,13 +40,14 @@ namespace Deadman.ModComponent
                                                            true,
                                                            true);
 
-            settings.OverridePlayerVersion = modName;
+            settings.OverridePlayerVersion = Common.Utilities.SanitizeFileName(modName);
 
             settings.ShaderBundleNaming = ShaderBundleNaming.Custom;
-            settings.ShaderBundleCustomNaming = modName;
+            settings.ShaderBundleCustomNaming = Common.Utilities.SanitizeFileName(modName);
 
             settings.BuildRemoteCatalog = true;
             settings.RemoteCatalogBuildPath.SetVariableByName(settings, AddressableAssetSettings.kLocalBuildPath);
+            settings.RemoteCatalogLoadPath.SetVariableByName(settings, AddressableAssetSettings.kLocalLoadPath);
         }
 
         [InitializeOnLoadMethod]

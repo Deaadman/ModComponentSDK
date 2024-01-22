@@ -5,10 +5,10 @@ using System.IO;
 using System.IO.Compression;
 using UnityEditor.AddressableAssets.Settings;
 using UnityEditor.AddressableAssets;
-using Deadman.ModComponent.Components;
+using ModComponent.Components;
 using Newtonsoft.Json;
 
-namespace Deadman.ModComponent.ModManager
+namespace ModComponent.ModManager
 {
     public class ModManager
     {
@@ -35,11 +35,13 @@ namespace Deadman.ModComponent.ModManager
 
         public static string ExportModAsModComponent(Mod mod, string outputPath)
         {
-            var group = AddressablesManager.CreatePackedAssetsGroup(mod.Name);
+            var group = AddressablesManager.CreatePackedAssetsGroup(Common.Utilities.SanitizeFileName(mod.Name));
             AddressablesManager.ConfigureDefaultAddressableSettings(mod.Name);
 
             AddAssetsToAddressablesGroup(mod.Items, group);
             AddAssetsToAddressablesGroup(mod.Icons, group);
+
+            ClearAssetBundlesDirectory(AssetBundlesPath);
 
             AddressableAssetSettings.BuildPlayerContent();
 
@@ -58,15 +60,17 @@ namespace Deadman.ModComponent.ModManager
         private static string PrepareModFolder(Mod mod)
         {
             string modFolderPath = Path.Combine(ModAssetsPath, mod.Name);
-            string bundlesFolderPath = Path.Combine(modFolderPath, "bundles").Replace("\\", "/");
 
+            ClearModFolder(modFolderPath, AssetDatabase.GetAssetPath(mod));
+
+            string bundlesFolderPath = Path.Combine(modFolderPath, "bundle");
             Directory.CreateDirectory(bundlesFolderPath);
 
             foreach (var file in Directory.EnumerateFiles(AssetBundlesPath))
             {
                 if (!file.EndsWith(".hash"))
                 {
-                    string sanitizedFileName = SanitizeFileName(Path.GetFileName(file));
+                    string sanitizedFileName = Common.Utilities.SanitizeFileName(Path.GetFileName(file), true);
                     string destFile = Path.Combine(bundlesFolderPath, sanitizedFileName);
                     File.Copy(file, destFile, true);
                 }
@@ -111,7 +115,7 @@ namespace Deadman.ModComponent.ModManager
                 string fullFilePath = Path.GetFullPath(file.FullName);
                 if (file.Extension != ".meta" && fullFilePath != modAssetPath)
                 {
-                    string relativePath = SanitizeFileName(file.FullName[(di.FullName.Length + 1)..]);
+                    string relativePath = Common.Utilities.SanitizeFileName(fullFilePath[(di.FullName.Length + 1)..], true).Replace("\\", "/");
                     zip.CreateEntryFromFile(fullFilePath, relativePath, System.IO.Compression.CompressionLevel.Optimal);
                 }
             }
@@ -119,7 +123,7 @@ namespace Deadman.ModComponent.ModManager
 
         private static void SerializeModComponentToJson(Mod mod, string modFolderPath)
         {
-            string autoMappedFolderPath = Path.Combine(modFolderPath, "auto-mapped"));
+            string autoMappedFolderPath = Path.Combine(modFolderPath, "auto-mapped");
             Directory.CreateDirectory(autoMappedFolderPath);
 
             foreach (var prefab in mod.Items)
@@ -134,8 +138,8 @@ namespace Deadman.ModComponent.ModManager
                         modComponent.WeightKG,
                         modComponent.DaysToDecay,
                         modComponent.MaxHP,
-                        modComponent.InitialCondition,
-                        modComponent.InventoryCategory,
+                        InitialCondition = modComponent.initialCondition.ToString(),
+                        InventoryCategory = modComponent.inventoryCategory.ToString(),
                         modComponent.PickUpAudio,
                         modComponent.PutBackAudio,
                         modComponent.StowAudio,
@@ -159,11 +163,6 @@ namespace Deadman.ModComponent.ModManager
             }
         }
 
-        private static string SanitizeFileName(string fileName)
-        {
-            return fileName.Replace(" ", "").ToLower();
-        }
-
         private static void AddAssetsToAddressablesGroup(Object[] assets, AddressableAssetGroup group)
         {
             var settings = AddressableAssetSettingsDefaultObject.Settings;
@@ -175,6 +174,58 @@ namespace Deadman.ModComponent.ModManager
                 var entry = settings.CreateOrMoveEntry(guid, group);
 
                 entry.address = Path.GetFileNameWithoutExtension(assetPath);
+            }
+        }
+
+        private static void ClearAssetBundlesDirectory(string directoryPath)
+        {
+            if (Directory.Exists(directoryPath))
+            {
+                var files = Directory.GetFiles(directoryPath);
+                foreach (var file in files)
+                {
+                    File.Delete(file);
+                }
+
+                var directories = Directory.GetDirectories(directoryPath);
+                foreach (var dir in directories)
+                {
+                    Directory.Delete(dir, true);
+                }
+            }
+            else
+            {
+                Directory.CreateDirectory(directoryPath);
+            }
+        }
+
+        private static void ClearModFolder(string folderPath, string excludePath)
+        {
+            if (Directory.Exists(folderPath))
+            {
+                FileInfo excludeFile = new(excludePath);
+
+                foreach (var file in Directory.GetFiles(folderPath))
+                {
+                    FileInfo fileInfo = new(file);
+                    if (fileInfo.FullName != excludeFile.FullName)
+                    {
+                        File.Delete(file);
+                    }
+                }
+
+                foreach (var dir in Directory.GetDirectories(folderPath))
+                {
+                    DirectoryInfo dirInfo = new(dir);
+                    if (dirInfo.FullName != excludeFile.DirectoryName)
+                    {
+                        Directory.Delete(dir, true);
+                    }
+                }
+            }
+            else
+            {
+                Directory.CreateDirectory(folderPath);
             }
         }
     }

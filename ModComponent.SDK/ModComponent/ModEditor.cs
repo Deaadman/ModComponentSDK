@@ -1,8 +1,8 @@
 using UnityEngine;
 using UnityEditor;
-using Deadman.ModComponent.ModManager;
+using ModComponent.ModManager;
 
-namespace Deadman.ModComponent
+namespace ModComponent
 {
     [CustomEditor(typeof(Mod))]
     public class ModEditor : Editor

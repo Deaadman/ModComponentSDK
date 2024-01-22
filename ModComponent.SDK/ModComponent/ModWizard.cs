@@ -1,8 +1,8 @@
-using Deadman.ModComponent.ModManager;
+using ModComponent.ModManager;
 using System.IO;
 using UnityEditor;
 
-namespace Deadman.ModComponent
+namespace ModComponent
 {
     public class ModWizard : ScriptableWizard
     {
@@ -10,7 +10,7 @@ namespace Deadman.ModComponent
         public string modAuthor = "Author";
         public static readonly string modFolderName = "_ModComponent";
 
-        [MenuItem("Mod Component/New Mod", false, 42160)]
+        [MenuItem("ModComponent SDK/Create New Mod", false, 100)]
         static void CreateWizard()
         {
             DisplayWizard<ModWizard>("Create Mod", "Create");

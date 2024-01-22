@@ -1,11 +1,11 @@
 using UnityEditor.IMGUI.Controls;
 using System.Collections.Generic;
-using Deadman.ModComponent.ModManager;
+using ModComponent.ModManager;
 using UnityEditor;
 using UnityEngine;
 using System;
 
-namespace Deadman.ModComponent.UserInterface
+namespace ModComponent.UserInterface
 {
     public class ModManagerTreeView : TreeView
     {
@@ -78,8 +78,29 @@ namespace Deadman.ModComponent.UserInterface
             base.SingleClickedItem(id);
             if (idToMod.TryGetValue(id, out Mod mod))
             {
-                Selection.activeObject = mod;
-                OnItemSelected?.Invoke(mod);
+                string displayName = idToDisplayName[id];
+
+                if (mod.Name == displayName)
+                {
+                    Selection.activeObject = mod;
+                    OnItemSelected?.Invoke(mod);
+                }
+                else if (mod.Items != null)
+                {
+                    GameObject selectedPrefab = Array.Find(mod.Items, item => item.name == displayName);
+                    if (selectedPrefab != null)
+                    {
+                        Selection.activeGameObject = selectedPrefab;
+                    }
+                }
+                else if (mod.Icons != null)
+                {
+                    Texture2D selectedTexture = Array.Find(mod.Icons, item => item.name == displayName);
+                    if (selectedTexture != null)
+                    {
+                        Selection.activeObject = selectedTexture;
+                    }
+                }
             }
         }
 

@@ -4,7 +4,8 @@
     "references": [
         "Unity.Addressables",
         "Unity.Addressables.Editor",
-        "Deadman.ModComponent.API"
+        "ModComponent.API",
+        "ModComponent.Common"
     ],
     "includePlatforms": [
         "Editor"

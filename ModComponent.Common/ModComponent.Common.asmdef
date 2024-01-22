@@ -1,9 +1,7 @@
 {
-    "name": "ModComponent.API",
+    "name": "ModComponent.Common",
     "rootNamespace": "",
-    "references": [
-        "ModComponent.Common"
-    ],
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

@@ -1,9 +1,9 @@
-using Deadman.ModComponent.ModManager;
+using ModComponent.ModManager;
 using UnityEditor;
 using UnityEditor.IMGUI.Controls;
 using UnityEngine;
 
-namespace Deadman.ModComponent.UserInterface
+namespace ModComponent.UserInterface
 {
     public class ModManagerUserInterface : EditorWindow
     {
@@ -11,7 +11,7 @@ namespace Deadman.ModComponent.UserInterface
         private TreeViewState treeViewState;
         private Mod selectedMod;
 
-        [MenuItem("Mod Component/Mod Manager")]
+        [MenuItem("ModComponent SDK/Mod Manager (" + ModComponentSDK.SDK_VERSION + ")", false, 0)]
         public static void ShowWindow()
         {
             GetWindow<ModManagerUserInterface>("Mod Manager");
