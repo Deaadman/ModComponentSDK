@@ -8,9 +8,9 @@ using ModComponent.Components;
 namespace ModComponent.Editor.API
 {
     [CustomEditor(typeof(ModGenericComponent))]
-    public class ModGenericComponentEditor : UnityEditor.Editor
+    internal class ModGenericComponentEditor : UnityEditor.Editor
     {
-        enum Tab { Common, Audio, Inspect, About }
+        private enum Tab { Common, Audio, Inspect, About }
         private Tab selectedTab = Tab.Common;
 
         private readonly Dictionary<string, SerializedProperty> serializedProperties = new();

@@ -6,11 +6,11 @@ using UnityEngine;
 
 namespace ModComponent.SDK
 {
-    public class ContributorsEditor : EditorWindow
+    internal class ContributorsEditor : EditorWindow
     {
         private readonly Dictionary<string, bool> ContributorFoldouts = new();
 
-        public static void ShowWindow()
+        internal static void ShowWindow()
         {
             var contributiorsEditor = GetWindow<ContributorsEditor>("MC Contributors");
             contributiorsEditor.Show();

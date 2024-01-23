@@ -15,9 +15,9 @@ using CompressionLevel = System.IO.Compression.CompressionLevel;
 
 namespace ModComponent.ModManager
 {
-    public class ModManager
+    internal class ModManager
     {
-        private const string ModAssetsPath = "Assets/_ModComponent";
+        internal const string ModAssetsPath = "Assets/_ModComponent";
         private const string AssetBundlesPath = ".\\AssetBundles\\";
 
         private static void AddAssetsToAddressablesGroup(UnityEngine.Object[] assets, AddressableAssetGroup group)
@@ -96,7 +96,7 @@ namespace ModComponent.ModManager
             File.WriteAllText(filePath, json);
         }
 
-        public static void ExportLocalization(Mod mod, string modFolderPath)
+        internal static void ExportLocalization(Mod mod, string modFolderPath)
         {
             if (mod.localization != null)
             {
@@ -139,7 +139,7 @@ namespace ModComponent.ModManager
             }
         }
 
-        public static string ExportModAsModComponent(Mod mod, string outputPath)
+        internal static string ExportModAsModComponent(Mod mod, string outputPath)
         {
             var group = AddressablesManager.CreatePackedAssetsGroup(FileUtility.SanitizeFileName(mod.Name));
             AddressablesManager.ConfigureDefaultAddressableSettings(mod.Name);
@@ -163,7 +163,7 @@ namespace ModComponent.ModManager
             return modComponentPath;
         }
 
-        public static List<Mod> GetAllMods()
+        internal static List<Mod> GetAllMods()
         {
             List<Mod> mods = new();
 

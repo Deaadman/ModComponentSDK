@@ -8,16 +8,16 @@ using UnityEngine;
 
 namespace ModComponent.SDK
 {
-    public class ModManagerTreeView : TreeView
+    internal class ModManagerTreeView : TreeView
     {
         private Dictionary<int, Mod> idToMod;
         private Dictionary<int, string> idToDisplayName;
         private int currentID = 1;
 
-        public delegate void ItemSelectedAction(Mod mod);
-        public event ItemSelectedAction OnItemSelected;
+        internal delegate void ItemSelectedAction(Mod mod);
+        internal event ItemSelectedAction OnItemSelected;
 
-        public ModManagerTreeView(TreeViewState treeViewState, List<Mod> mods)
+        internal ModManagerTreeView(TreeViewState treeViewState, List<Mod> mods)
             : base(treeViewState)
         {
             idToMod = new Dictionary<int, Mod>();

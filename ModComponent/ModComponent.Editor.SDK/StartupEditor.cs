@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace ModComponent.SDK
 {
-    public class StartupEditor : EditorWindow
+    internal class StartupEditor : EditorWindow
     {
         private void OnGUI()
         {

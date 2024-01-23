@@ -6,7 +6,7 @@ using UnityEditor;
 namespace ModComponent.SDK
 {
     [CustomEditor(typeof(Mod))]
-    public class ModEditor : UnityEditor.Editor
+    internal class ModEditor : UnityEditor.Editor
     {
         SerializedProperty requiredModsProperty;
         SerializedProperty itemsProperty;

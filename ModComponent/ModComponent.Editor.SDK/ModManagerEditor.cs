@@ -6,14 +6,14 @@ using UnityEngine;
 
 namespace ModComponent.SDK
 {
-    public class ModManagerEditor : EditorWindow
+    internal class ModManagerEditor : EditorWindow
     {
         private ModManagerTreeView modTreeView;
         private TreeViewState treeViewState;
         private Mod selectedMod;
 
         [MenuItem("ModComponent SDK/Mod Manager (" + Information.SDK_VERSION + ")", false, 0)]
-        public static void ShowWindow()
+        internal static void ShowWindow()
         {
             GetWindow<ModManagerEditor>("Mod Manager");
         }

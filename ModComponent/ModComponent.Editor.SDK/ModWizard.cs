@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace ModComponent.SDK
 {
-    public class ModWizard : ScriptableWizard
+    internal class ModWizard : ScriptableWizard
     {
         [Tooltip("The name of this ModComponent.")]
         public string modName = "My Mod";
@@ -17,7 +17,7 @@ namespace ModComponent.SDK
         public static readonly string modFolderName = "_ModComponent";
 
         [MenuItem("ModComponent SDK/Create New Mod", false, 100)]
-        static void CreateWizard()
+        private static void CreateWizard()
         {
             DisplayWizard<ModWizard>("Create New Mod", "Create");
         }

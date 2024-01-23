@@ -6,9 +6,9 @@ using UnityEngine;
 
 namespace ModComponent.Editor
 {
-    public static class EditorContentDrawer
+    internal static class EditorContentDrawer
     {
-        public static void DrawWelcomeContent()
+        internal static void DrawWelcomeContent()
         {
             GUILayout.BeginVertical(ModComponentEditorStyles.BackgroundBox);
             GUILayout.Label($"Welcome to the {Information.SDK_NAME}!", ModComponentEditorStyles.CenteredLabelBold);

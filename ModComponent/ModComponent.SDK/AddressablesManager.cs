@@ -8,9 +8,9 @@ using UnityEditor.AddressableAssets.Settings.GroupSchemas;
 
 namespace ModComponent.SDK
 {
-    public class AddressablesManager
+    internal class AddressablesManager
     {
-        public static AddressableAssetGroup CreatePackedAssetsGroup(string groupName)
+        internal static AddressableAssetGroup CreatePackedAssetsGroup(string groupName)
         {
             var settings = AddressableAssetSettingsDefaultObject.Settings != null ? AddressableAssetSettingsDefaultObject.Settings : AddressableAssetSettings.Create(AddressableAssetSettingsDefaultObject.kDefaultConfigFolder,
                                                            AddressableAssetSettingsDefaultObject.kDefaultConfigAssetName,
@@ -34,7 +34,7 @@ namespace ModComponent.SDK
             return group;
         }
 
-        public static void ConfigureDefaultAddressableSettings(string modName)
+        internal static void ConfigureDefaultAddressableSettings(string modName)
         {
             var settings = AddressableAssetSettingsDefaultObject.Settings != null ? AddressableAssetSettingsDefaultObject.Settings : AddressableAssetSettingsDefaultObject.Settings =
                            AddressableAssetSettings.Create(AddressableAssetSettingsDefaultObject.kDefaultConfigFolder,
@@ -53,7 +53,7 @@ namespace ModComponent.SDK
         }
 
         [InitializeOnLoadMethod]
-        internal static void SetCustomLocalBuildPath()
+        private static void SetCustomLocalBuildPath()
         {
             var settings = AddressableAssetSettingsDefaultObject.Settings;
             if (settings == null)

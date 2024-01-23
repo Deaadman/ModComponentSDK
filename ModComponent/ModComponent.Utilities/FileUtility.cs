@@ -1,13 +1,13 @@
 namespace ModComponent.Utilities
 {
-    public class FileUtility
+    internal class FileUtility
     {
-        public static string SanitizeFileName(string fileName)
+        internal static string SanitizeFileName(string fileName)
         {
             return fileName.Replace(" ", "");
         }
 
-        public static string SanitizeFileName(string fileName, bool lowercase)
+        internal static string SanitizeFileName(string fileName, bool lowercase)
         {
             return fileName.Replace(" ", "").ToLower();
         }

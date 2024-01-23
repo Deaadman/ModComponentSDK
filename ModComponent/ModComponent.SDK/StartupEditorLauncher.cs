@@ -4,7 +4,7 @@ using UnityEditor;
 namespace ModComponent.SDK
 {
     [InitializeOnLoad]
-    public class StartupEditorLauncher
+    internal class StartupEditorLauncher
     {
         static StartupEditorLauncher()
         {
