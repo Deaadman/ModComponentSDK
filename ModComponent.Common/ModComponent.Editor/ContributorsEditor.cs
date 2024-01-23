@@ -1,4 +1,3 @@
-using ModComponent.Common;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -17,10 +16,10 @@ namespace ModComponent.Editor
 
         private void OnGUI()
         {
-            GUILayout.BeginVertical(ModComponentGUIStyles.BackgroundBox, GUILayout.Width(position.width - 20f));
+            GUILayout.BeginVertical(ModComponentEditorStyles.BackgroundBox, GUILayout.Width(position.width - 20));
 
-            GUILayout.Label("Contributors of ModComponent / ModComponent SDK", ModComponentGUIStyles.CenteredLabelBold);
-            GUILayout.Label("The following people below have contributed to either ModComponent or ModComponent SDK. Click on the profiles to learn more about their contributions and optionally show your appreciation with a donation.", ModComponentGUIStyles.CenteredGreyMiniLabel);
+            GUILayout.Label("Contributors of ModComponent / ModComponent SDK", ModComponentEditorStyles.CenteredLabelBold);
+            GUILayout.Label("The following people below have contributed to either ModComponent or ModComponent SDK. Click on the profiles to learn more about their contributions and optionally show your appreciation with a donation.", ModComponentEditorStyles.CenteredGreyMiniLabel);
             GUILayout.Space(10);
 
             GUILayout.Label("Current Contributors", EditorStyles.boldLabel);
@@ -61,7 +60,7 @@ namespace ModComponent.Editor
             {
                 GUILayout.BeginHorizontal();
                 GUILayout.Space(20);
-                GUILayout.Label(role, ModComponentGUIStyles.WrappedLabel);
+                GUILayout.Label(role, ModComponentEditorStyles.WrappedLabel);
                 GUILayout.EndHorizontal();
             }
         }

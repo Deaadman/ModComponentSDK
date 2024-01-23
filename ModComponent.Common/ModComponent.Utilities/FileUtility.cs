@@ -1,4 +1,4 @@
-namespace ModComponent.Common
+namespace ModComponent.Utilities
 {
     public class FileUtility
     {

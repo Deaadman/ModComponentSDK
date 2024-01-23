@@ -29,12 +29,12 @@ namespace ModComponent.Editor
             EditorGUILayout.TextField("Author", mod.Author);
             EditorGUI.EndDisabledGroup();
 
-            mod.Version = EditorGUILayout.TextField("Version", mod.Version);
-            EditorGUILayout.PropertyField(requiredModsProperty, new GUIContent("Required Mods"), true);
-            mod.RequiresDLC = EditorGUILayout.Toggle("Requires DLC", mod.RequiresDLC);
+            mod.Version = EditorGUILayout.TextField(new GUIContent("Version", "The current version of this ModComponent."), mod.Version);
+            EditorGUILayout.PropertyField(requiredModsProperty, new GUIContent("Required Mods", "An array of required mods for this ModComponent to work."), true);
+            mod.RequiresDLC = EditorGUILayout.Toggle(new GUIContent("Requires DLC", "Set to true if this mod requires TFTFT to work."), mod.RequiresDLC);
 
-            EditorGUILayout.PropertyField(itemsProperty, new GUIContent("Gear Items"), true);
-            EditorGUILayout.PropertyField(iconsProperty, new GUIContent("Icons"), true);
+            EditorGUILayout.PropertyField(itemsProperty, new GUIContent("Gear Items", "An array of GEAR Items, drag a drop GEAR prefabs into this."), true);
+            EditorGUILayout.PropertyField(iconsProperty, new GUIContent("Icons", "An array of Textures, which vary from Inventory Icons to Crafting Icons. DO NOT drag textures for your GEAR Items in here."), true);
 
             if (GUI.changed)
             {

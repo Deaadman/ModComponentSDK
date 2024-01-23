@@ -1,9 +1,9 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace ModComponent.Common
+namespace ModComponent.Editor
 {
-    public static class ModComponentGUIStyles
+    public static class ModComponentEditorStyles
     {
         public static GUIStyle BackgroundBox = new(EditorStyles.helpBox)
         {
@@ -34,5 +34,22 @@ namespace ModComponent.Common
             wordWrap = true,
             fontSize = 11
         };
+
+        public static void DrawPropertyWithUnit(SerializedProperty property, string unit, GUIContent label = null)
+        {
+            Rect position = EditorGUILayout.GetControlRect();
+            EditorGUI.BeginProperty(position, label, property);
+            EditorGUI.PropertyField(position, property, label ?? GUIContent.none);
+
+            var unitStyle = new GUIStyle(EditorStyles.label)
+            {
+                alignment = TextAnchor.MiddleRight,
+                fontSize = 10
+            };
+            var unitRect = new Rect(position.xMax - 40, position.y, 35, position.height);
+
+            GUI.Label(unitRect, unit, unitStyle);
+            EditorGUI.EndProperty();
+        }
     }
 }

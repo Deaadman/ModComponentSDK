@@ -1,3 +1,4 @@
+using ModComponent.General;
 using ModComponent.ModManager;
 using UnityEditor;
 using UnityEditor.IMGUI.Controls;
@@ -11,7 +12,7 @@ namespace ModComponent.Editor
         private TreeViewState treeViewState;
         private Mod selectedMod;
 
-        [MenuItem("ModComponent SDK/Mod Manager (" + ModComponentSDK.SDK_VERSION + ")", false, 0)]
+        [MenuItem("ModComponent SDK/Mod Manager (" + Information.SDK_VERSION + ")", false, 0)]
         public static void ShowWindow()
         {
             GetWindow<ModManagerEditor>("Mod Manager");

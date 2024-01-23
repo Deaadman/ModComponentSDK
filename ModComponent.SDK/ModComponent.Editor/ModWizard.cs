@@ -1,19 +1,23 @@
 using ModComponent.ModManager;
 using System.IO;
 using UnityEditor;
+using UnityEngine;
 
 namespace ModComponent.Editor
 {
     public class ModWizard : ScriptableWizard
     {
+        [Tooltip("The name of this ModComponent.")]
         public string modName = "My Mod";
+
+        [Tooltip("The author of this ModComponent.")]
         public string modAuthor = "Author";
         public static readonly string modFolderName = "_ModComponent";
 
         [MenuItem("ModComponent SDK/Create New Mod", false, 100)]
         static void CreateWizard()
         {
-            DisplayWizard<ModWizard>("Create Mod", "Create");
+            DisplayWizard<ModWizard>("Create New Mod", "Create");
         }
 
         void OnWizardCreate()
@@ -40,7 +44,7 @@ namespace ModComponent.Editor
 
         void OnWizardUpdate()
         {
-            helpString = "Create a new Mod for Mod Component.\nFill in the details to create a new Mod asset.";
+            helpString = "Fill out the below details to create a new Mod asset.\nThis lays down the groundwork for creating a custom ModComponent.";
 
             errorString = "";
             if (string.IsNullOrEmpty(modName))
