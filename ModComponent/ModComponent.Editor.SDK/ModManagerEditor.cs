@@ -1,10 +1,10 @@
-using ModComponent.General;
+#if UNITY_EDITOR
 using ModComponent.ModManager;
 using UnityEditor;
 using UnityEditor.IMGUI.Controls;
 using UnityEngine;
 
-namespace ModComponent.Editor
+namespace ModComponent.SDK
 {
     public class ModManagerEditor : EditorWindow
     {
@@ -62,3 +62,4 @@ namespace ModComponent.Editor
         }
     }
 }
+#endif

@@ -1,8 +1,9 @@
+#if UNITY_EDITOR
 using ModComponent.ModManager;
 using UnityEngine;
 using UnityEditor;
 
-namespace ModComponent.Editor
+namespace ModComponent.SDK
 {
     [CustomEditor(typeof(Mod))]
     public class ModEditor : UnityEditor.Editor
@@ -10,12 +11,14 @@ namespace ModComponent.Editor
         SerializedProperty requiredModsProperty;
         SerializedProperty itemsProperty;
         SerializedProperty iconsProperty;
+        SerializedProperty localizationProperty;
 
         private void OnEnable()
         {
             requiredModsProperty = serializedObject.FindProperty("RequiredMods");
             itemsProperty = serializedObject.FindProperty("Items");
             iconsProperty = serializedObject.FindProperty("Icons");
+            localizationProperty = serializedObject.FindProperty("localization");
         }
 
         public override void OnInspectorGUI()
@@ -27,6 +30,7 @@ namespace ModComponent.Editor
             EditorGUI.BeginDisabledGroup(true);
             EditorGUILayout.TextField("Name", mod.Name);
             EditorGUILayout.TextField("Author", mod.Author);
+            EditorGUILayout.PropertyField(localizationProperty, new GUIContent("Localization", "Localization settings for this mod."));
             EditorGUI.EndDisabledGroup();
 
             mod.Version = EditorGUILayout.TextField(new GUIContent("Version", "The current version of this ModComponent."), mod.Version);
@@ -45,3 +49,4 @@ namespace ModComponent.Editor
         }
     }
 }
+#endif

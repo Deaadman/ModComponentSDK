@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using ModComponent.ModManager;
 using System;
 using System.Collections.Generic;
@@ -5,7 +6,7 @@ using UnityEditor;
 using UnityEditor.IMGUI.Controls;
 using UnityEngine;
 
-namespace ModComponent.Editor
+namespace ModComponent.SDK
 {
     public class ModManagerTreeView : TreeView
     {
@@ -140,3 +141,4 @@ namespace ModComponent.Editor
         }
     }
 }
+#endif

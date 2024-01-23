@@ -1,7 +1,7 @@
-using ModComponent.Editor;
+#if UNITY_EDITOR
 using UnityEditor;
 
-namespace ModComponent
+namespace ModComponent.SDK
 {
     [InitializeOnLoad]
     public class StartupEditorLauncher
@@ -22,3 +22,4 @@ namespace ModComponent
         }
     }
 }
+#endif

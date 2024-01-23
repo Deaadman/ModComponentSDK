@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using ModComponent.Utilities;
 using UnityEditor;
 using UnityEditor.AddressableAssets;
@@ -5,7 +6,7 @@ using UnityEditor.AddressableAssets.Build;
 using UnityEditor.AddressableAssets.Settings;
 using UnityEditor.AddressableAssets.Settings.GroupSchemas;
 
-namespace ModComponent
+namespace ModComponent.SDK
 {
     public class AddressablesManager
     {
@@ -80,3 +81,4 @@ namespace ModComponent
         }
     }
 }
+#endif

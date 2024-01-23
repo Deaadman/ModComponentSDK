@@ -1,8 +1,10 @@
+#if UNITY_EDITOR
+using ModComponent.Editor;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-namespace ModComponent.Editor
+namespace ModComponent.SDK
 {
     public class ContributorsEditor : EditorWindow
     {
@@ -66,3 +68,4 @@ namespace ModComponent.Editor
         }
     }
 }
+#endif

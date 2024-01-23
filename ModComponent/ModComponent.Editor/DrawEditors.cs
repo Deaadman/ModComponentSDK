@@ -1,10 +1,10 @@
-using ModComponent.Editor;
-using ModComponent.General;
+#if UNITY_EDITOR
+using ModComponent.SDK;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-namespace ModComponent.Utilities
+namespace ModComponent.Editor
 {
     public static class EditorContentDrawer
     {
@@ -51,3 +51,4 @@ namespace ModComponent.Utilities
         }
     }
 }
+#endif

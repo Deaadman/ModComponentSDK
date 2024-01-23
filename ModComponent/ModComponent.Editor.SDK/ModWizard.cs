@@ -1,9 +1,11 @@
+#if UNITY_EDITOR
 using ModComponent.ModManager;
+using ModComponent.Utilities;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
 
-namespace ModComponent.Editor
+namespace ModComponent.SDK
 {
     public class ModWizard : ScriptableWizard
     {
@@ -36,8 +38,15 @@ namespace ModComponent.Editor
                 Directory.CreateDirectory(specificFolderPath);
             }
 
-            string assetPath = Path.Combine(specificFolderPath, modName + ".asset");
+            string assetPath = Path.Combine(specificFolderPath, FileUtility.SanitizeFileName(modName) + ".asset");
             AssetDatabase.CreateAsset(mod, assetPath);
+
+            string localizationAssetPath = Path.Combine(specificFolderPath, FileUtility.SanitizeFileName(modName) + "Localization.asset");
+            Localization localization = CreateInstance<Localization>();
+            AssetDatabase.CreateAsset(localization, localizationAssetPath);
+
+            mod.localization = localization;
+
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
         }
@@ -62,3 +71,4 @@ namespace ModComponent.Editor
         }
     }
 }
+#endif

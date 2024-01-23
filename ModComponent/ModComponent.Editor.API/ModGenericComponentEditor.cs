@@ -1,11 +1,11 @@
-using ModComponent.Utilities;
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Reflection;
-using ModComponent.Editor;
+using ModComponent.Components;
 
-namespace ModComponent.Components.Editor
+namespace ModComponent.Editor.API
 {
     [CustomEditor(typeof(ModGenericComponent))]
     public class ModGenericComponentEditor : UnityEditor.Editor
@@ -132,3 +132,4 @@ namespace ModComponent.Components.Editor
         }
     }
 }
+#endif

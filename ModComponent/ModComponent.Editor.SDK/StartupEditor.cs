@@ -1,8 +1,9 @@
-using ModComponent.Utilities;
+#if UNITY_EDITOR
+using ModComponent.Editor;
 using UnityEditor;
 using UnityEngine;
 
-namespace ModComponent.Editor
+namespace ModComponent.SDK
 {
     public class StartupEditor : EditorWindow
     {
@@ -14,3 +15,4 @@ namespace ModComponent.Editor
         }
     }
 }
+#endif

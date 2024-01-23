@@ -9,6 +9,8 @@ namespace ModComponent.ModManager
         public string Version;
         public string[] RequiredMods;
         public bool RequiresDLC;
+
+        public Localization localization;
         public GameObject[] Items = new GameObject[0];
         public Texture2D[] Icons = new Texture2D[0];
 

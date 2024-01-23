@@ -1,7 +1,10 @@
 {
-    "name": "ModComponent.Common",
+    "name": "ModComponent.SDK",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "Unity.Addressables",
+        "Unity.Addressables.Editor"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

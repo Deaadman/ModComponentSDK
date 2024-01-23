@@ -1,4 +1,4 @@
-namespace ModComponent.General
+namespace ModComponent.SDK
 {
     public class Information
     {
