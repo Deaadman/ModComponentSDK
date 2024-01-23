@@ -1,8 +1,10 @@
 #if UNITY_EDITOR
+using ModComponent.Behaviours;
 using ModComponent.Components;
 using ModComponent.SDK;
 using ModComponent.Utilities;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
@@ -10,7 +12,6 @@ using UnityEditor;
 using UnityEditor.AddressableAssets.Settings;
 using UnityEditor.AddressableAssets;
 using UnityEngine;
-using System;
 using CompressionLevel = System.IO.Compression.CompressionLevel;
 
 namespace ModComponent.ModManager
@@ -230,40 +231,24 @@ namespace ModComponent.ModManager
 
             foreach (var prefab in mod.Items)
             {
-                if (prefab.TryGetComponent<ModGenericComponent>(out var modComponent))
+                var componentData = new Dictionary<string, object>();
+
+                if (prefab.TryGetComponent<ModGenericComponent>(out var modGenericComponent))
                 {
-                    var modComponentData = new
-                    {
-                        modComponent.DisplayNameLocalizationId,
-                        modComponent.DescriptionLocalizatonId,
-                        modComponent.InventoryActionLocalizationId,
-                        modComponent.WeightKG,
-                        modComponent.DaysToDecay,
-                        modComponent.MaxHP,
-                        InitialCondition = modComponent.initialCondition.ToString(),
-                        InventoryCategory = modComponent.inventoryCategory.ToString(),
-                        modComponent.PickUpAudio,
-                        modComponent.PutBackAudio,
-                        modComponent.StowAudio,
-                        modComponent.WornOutAudio,
-                        modComponent.InspectOnPickup,
-                        modComponent.InspectDistance,
-                        InspectAngles = new float[] { modComponent.InspectAngles.x, modComponent.InspectAngles.y, modComponent.InspectAngles.z },
-                        InspectOffset = new float[] { modComponent.InspectOffset.x, modComponent.InspectOffset.y, modComponent.InspectOffset.z },
-                        InspectScale = new float[] { modComponent.InspectScale.x, modComponent.InspectScale.y, modComponent.InspectScale.z },
-                        modComponent.NormalModel,
-                        modComponent.InspectModel
-                    };
-
-                    var wrappedData = new { ModGenericComponent = modComponentData };
-
-                    string json = JsonConvert.SerializeObject(wrappedData, Formatting.Indented);
-                    string jsonFileName = prefab.name.StartsWith("GEAR_") ? prefab.name[5..] : prefab.name;
-                    string jsonFilePath = Path.Combine(autoMappedFolderPath, jsonFileName + ".json");
-                    File.WriteAllText(jsonFilePath, json);
+                    componentData.Add("ModGenericComponent", SerializeUtility.SerializeComponent(modGenericComponent));
                 }
+
+                if (prefab.TryGetComponent<ModStackableBehaviour>(out var modStackableBehaviour))
+                {
+                    componentData.Add("ModStackableBehaviour", SerializeUtility.SerializeComponent(modStackableBehaviour));
+                }
+
+                string json = JsonConvert.SerializeObject(componentData, Formatting.Indented);
+                string jsonFileName = prefab.name.StartsWith("GEAR_") ? prefab.name[5..] : prefab.name;
+                string jsonFilePath = Path.Combine(autoMappedFolderPath, jsonFileName + ".json");
+                File.WriteAllText(jsonFilePath, json);
             }
-        }   
+        }
     }
 }
 #endif

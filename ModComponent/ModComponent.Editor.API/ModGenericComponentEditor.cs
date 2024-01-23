@@ -107,6 +107,7 @@ namespace ModComponent.Editor.API
 
         private void DrawFields(string[] propertyNames)
         {
+            GUILayout.BeginVertical(ModComponentEditorStyles.BackgroundBox);
             foreach (string name in propertyNames)
             {
                 if (serializedProperties.TryGetValue(name, out SerializedProperty property))
@@ -122,6 +123,7 @@ namespace ModComponent.Editor.API
                     }
                 }
             }
+            GUILayout.EndVertical();
         }
 
         private void DrawAboutFields()
