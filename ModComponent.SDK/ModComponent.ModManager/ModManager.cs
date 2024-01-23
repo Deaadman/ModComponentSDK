@@ -86,7 +86,9 @@ namespace ModComponent.ModManager
             {
                 Name = mod.Name,
                 Author = mod.Author,
-                Version = mod.Version
+                Version = mod.Version,
+                Requires = mod.RequiredMods,
+                RequiresDLC = mod.RequiresDLC
             };
 
             string json = JsonUtility.ToJson(buildInfo, true);
