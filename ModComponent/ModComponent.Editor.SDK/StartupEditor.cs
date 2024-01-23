@@ -1,9 +1,8 @@
 #if UNITY_EDITOR
-using ModComponent.Editor;
 using UnityEditor;
 using UnityEngine;
 
-namespace ModComponent.SDK
+namespace ModComponent.Editor.SDK
 {
     internal class StartupEditor : EditorWindow
     {

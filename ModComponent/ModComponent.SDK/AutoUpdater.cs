@@ -1,4 +1,5 @@
 #if UNITY_EDITOR
+using ModComponent.Editor.SDK;
 using Newtonsoft.Json.Linq;
 using System.IO;
 using System.Net;
@@ -7,50 +8,33 @@ using UnityEngine;
 
 namespace ModComponent.SDK
 {
-    [InitializeOnLoad]
-    public class PackageAutoUpdater
+    internal class AutoUpdater
     {
-        static PackageAutoUpdater()
+        private static readonly string currentVersion = Information.SDK_VERSION;
+        private static string latestVersion;
+        private static string latestVersionChanges;
+
+        [InitializeOnLoadMethod]
+        internal static void Initialize()
         {
-            EditorApplication.update += CheckForUpdate;
-        }
-
-        private static void CheckForUpdate()
-        {
-            EditorApplication.update -= CheckForUpdate;
-
-            string currentVersion = Information.SDK_VERSION;
-            string latestVersion = GetLatestVersionFromServer();
-
+            FetchLatestReleaseInfo();
             if (latestVersion != null && latestVersion != currentVersion)
             {
-                PromptForUpdate(currentVersion, latestVersion);
+                EditorApplication.update += OpenUpdateWindow;
             }
             else
             {
-                Debug.Log("Your package is up to date.");
+                Debug.Log("ModComponent SDK is up-to-date.");
             }
         }
 
-        private static void PromptForUpdate(string currentVersion, string latestVersion)
+        internal static void OpenUpdateWindow()
         {
-            bool userWantsToUpdate = EditorUtility.DisplayDialog(
-                "Update Available",
-                $"A new version of the package is available. \n\nCurrent Version: {currentVersion}\nLatest Version: {latestVersion}\n\nWould you like to update?",
-                "Yes, Update",
-                "No, Not Now");
-
-            if (userWantsToUpdate)
-            {
-                UpdatePackage(latestVersion);
-            }
-            else
-            {
-                return;
-            }
+            EditorApplication.update -= OpenUpdateWindow;
+            AutoUpdaterEditor.Init(currentVersion, latestVersion, latestVersionChanges);
         }
 
-        private static void UpdatePackage(string latestVersion)
+        internal static void UpdatePackage(string latestVersion)
         {
             string manifestPath = Path.Combine(Application.dataPath, "..", "Packages", "manifest.json");
             if (File.Exists(manifestPath))
@@ -58,7 +42,7 @@ namespace ModComponent.SDK
                 string manifestContent = File.ReadAllText(manifestPath);
                 JObject manifestJson = JObject.Parse(manifestContent);
 
-                string packageName = "com.deadman.modcomponent.sdk";
+                string packageName = "modcomponent.sdk";
                 if (manifestJson["dependencies"][packageName] != null)
                 {
                     manifestJson["dependencies"][packageName] = latestVersion;
@@ -77,19 +61,23 @@ namespace ModComponent.SDK
             }
         }
 
-        private static string GetLatestVersionFromServer()
+        private static void FetchLatestReleaseInfo()
         {
             try
             {
                 using WebClient client = new();
-                string url = "https://raw.githubusercontent.com/Deaadman/ModComponentSDK/release/package.json";
+                string url = "https://api.github.com/repos/Deaadman/ModComponentSDK/releases/latest";
+                client.Headers.Add("User-Agent", "Unity web request");
                 string json = client.DownloadString(url);
                 JObject jsonObject = JObject.Parse(json);
-                return jsonObject["version"].ToString();
+
+                latestVersion = jsonObject["tag_name"].ToString();
+                latestVersionChanges = jsonObject["body"].ToString();
             }
             catch
             {
-                return null;
+                latestVersion = null;
+                latestVersionChanges = null;
             }
         }
     }

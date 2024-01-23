@@ -1,10 +1,9 @@
 #if UNITY_EDITOR
-using ModComponent.Editor;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-namespace ModComponent.SDK
+namespace ModComponent.Editor.SDK
 {
     internal class ContributorsEditor : EditorWindow
     {

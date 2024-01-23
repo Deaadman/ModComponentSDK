@@ -1,10 +1,11 @@
 #if UNITY_EDITOR
 using ModComponent.ModManager;
+using ModComponent.SDK;
 using UnityEditor;
 using UnityEditor.IMGUI.Controls;
 using UnityEngine;
 
-namespace ModComponent.SDK
+namespace ModComponent.Editor.SDK
 {
     internal class ModManagerEditor : EditorWindow
     {

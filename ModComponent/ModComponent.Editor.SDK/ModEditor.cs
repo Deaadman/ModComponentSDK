@@ -3,7 +3,7 @@ using ModComponent.ModManager;
 using UnityEngine;
 using UnityEditor;
 
-namespace ModComponent.SDK
+namespace ModComponent.Editor.SDK
 {
     [CustomEditor(typeof(Mod))]
     internal class ModEditor : UnityEditor.Editor

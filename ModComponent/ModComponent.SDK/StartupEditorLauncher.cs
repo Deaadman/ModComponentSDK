@@ -1,4 +1,5 @@
 #if UNITY_EDITOR
+using ModComponent.Editor.SDK;
 using UnityEditor;
 
 namespace ModComponent.SDK

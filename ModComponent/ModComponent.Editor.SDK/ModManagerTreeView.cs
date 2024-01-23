@@ -6,7 +6,7 @@ using UnityEditor;
 using UnityEditor.IMGUI.Controls;
 using UnityEngine;
 
-namespace ModComponent.SDK
+namespace ModComponent.Editor.SDK
 {
     internal class ModManagerTreeView : TreeView
     {

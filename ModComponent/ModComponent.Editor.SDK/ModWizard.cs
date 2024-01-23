@@ -5,7 +5,7 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 
-namespace ModComponent.SDK
+namespace ModComponent.Editor.SDK
 {
     internal class ModWizard : ScriptableWizard
     {

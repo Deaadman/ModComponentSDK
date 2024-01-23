@@ -1,4 +1,5 @@
 #if UNITY_EDITOR
+using ModComponent.Editor.SDK;
 using ModComponent.SDK;
 using System.Collections.Generic;
 using UnityEditor;
@@ -16,12 +17,12 @@ namespace ModComponent.Editor
             GUILayout.Space(10);
             GUILayout.Label("To get started, check out the below links:", ModComponentEditorStyles.CenteredLabel);
             DrawButtonWithLink("Quick Start Guide", "");
-            DrawButtonWithLink("Documentation", "https://github.com/dommrogers/ModComponent/blob/master/docs/index.md");
+            DrawButtonWithLink("Documentation", "https://github.com/Deaadman/ModComponentSDK/wiki");
             GUILayout.Space(10);
             DrawSectionWithLinks("General Information / Links", new Dictionary<string, string>
             {
                 { "Changelog", "https://github.com/Deaadman/ModComponentSDK/releases" },
-                { "Discord Server", "https://discord.gg/2mnXAZfGXQ" }
+                { "The Long Dark Modding Discord Server", "https://discord.gg/2mnXAZfGXQ" }
             });
             GUILayout.Space(10);
             GUILayout.Label("Enjoying the SDK? Please consider leaving donations, \n" +
