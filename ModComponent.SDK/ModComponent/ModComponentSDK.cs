@@ -1,4 +1,3 @@
-
 namespace ModComponent
 {
     public class ModComponentSDK

@@ -3,9 +3,9 @@ using UnityEditor;
 using UnityEditor.IMGUI.Controls;
 using UnityEngine;
 
-namespace ModComponent.UserInterface
+namespace ModComponent.Editor
 {
-    public class ModManagerUserInterface : EditorWindow
+    public class ModManagerEditor : EditorWindow
     {
         private ModManagerTreeView modTreeView;
         private TreeViewState treeViewState;
@@ -14,7 +14,7 @@ namespace ModComponent.UserInterface
         [MenuItem("ModComponent SDK/Mod Manager (" + ModComponentSDK.SDK_VERSION + ")", false, 0)]
         public static void ShowWindow()
         {
-            GetWindow<ModManagerUserInterface>("Mod Manager");
+            GetWindow<ModManagerEditor>("Mod Manager");
         }
 
         private void OnEnable()

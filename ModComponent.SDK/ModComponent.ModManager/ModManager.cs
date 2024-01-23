@@ -1,12 +1,13 @@
-using System.Collections.Generic;
-using UnityEditor;
-using UnityEngine;
-using System.IO;
-using System.IO.Compression;
-using UnityEditor.AddressableAssets.Settings;
-using UnityEditor.AddressableAssets;
+using ModComponent.Common;
 using ModComponent.Components;
 using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.IO;
+using System.IO.Compression;
+using UnityEditor;
+using UnityEditor.AddressableAssets.Settings;
+using UnityEditor.AddressableAssets;
+using UnityEngine;
 
 namespace ModComponent.ModManager
 {
@@ -35,7 +36,7 @@ namespace ModComponent.ModManager
 
         public static string ExportModAsModComponent(Mod mod, string outputPath)
         {
-            var group = AddressablesManager.CreatePackedAssetsGroup(Common.Utilities.SanitizeFileName(mod.Name));
+            var group = AddressablesManager.CreatePackedAssetsGroup(FileUtility.SanitizeFileName(mod.Name));
             AddressablesManager.ConfigureDefaultAddressableSettings(mod.Name);
 
             AddAssetsToAddressablesGroup(mod.Items, group);
@@ -70,7 +71,7 @@ namespace ModComponent.ModManager
             {
                 if (!file.EndsWith(".hash"))
                 {
-                    string sanitizedFileName = Common.Utilities.SanitizeFileName(Path.GetFileName(file), true);
+                    string sanitizedFileName = FileUtility.SanitizeFileName(Path.GetFileName(file), true);
                     string destFile = Path.Combine(bundlesFolderPath, sanitizedFileName);
                     File.Copy(file, destFile, true);
                 }
@@ -81,7 +82,7 @@ namespace ModComponent.ModManager
 
         private static void CreateBuildInfoJson(Mod mod, string filePath)
         {
-            var buildInfo = new BuildInfo
+            var buildInfo = new Mod.BuildInfo
             {
                 Name = mod.Name,
                 Author = mod.Author,
@@ -90,13 +91,6 @@ namespace ModComponent.ModManager
 
             string json = JsonUtility.ToJson(buildInfo, true);
             File.WriteAllText(filePath, json);
-        }
-
-        private struct BuildInfo
-        {
-            public string Name;
-            public string Author;
-            public string Version;
         }
 
         private static void PackageModComponent(Mod mod, string modFolderPath, string modComponentPath)
@@ -115,7 +109,7 @@ namespace ModComponent.ModManager
                 string fullFilePath = Path.GetFullPath(file.FullName);
                 if (file.Extension != ".meta" && fullFilePath != modAssetPath)
                 {
-                    string relativePath = Common.Utilities.SanitizeFileName(fullFilePath[(di.FullName.Length + 1)..], true).Replace("\\", "/");
+                    string relativePath = FileUtility.SanitizeFileName(fullFilePath[(di.FullName.Length + 1)..], true).Replace("\\", "/");
                     zip.CreateEntryFromFile(fullFilePath, relativePath, System.IO.Compression.CompressionLevel.Optimal);
                 }
             }

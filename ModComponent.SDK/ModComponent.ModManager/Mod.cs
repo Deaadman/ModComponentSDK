@@ -18,5 +18,12 @@ namespace ModComponent.ModManager
             mod.Author = author;
             return mod;
         }
+
+        internal struct BuildInfo
+        {
+            public string Name;
+            public string Author;
+            public string Version;
+        }
     }
 }

@@ -1,6 +1,6 @@
 namespace ModComponent.Common
 {
-    public class Utilities
+    public class FileUtility
     {
         public static string SanitizeFileName(string fileName)
         {

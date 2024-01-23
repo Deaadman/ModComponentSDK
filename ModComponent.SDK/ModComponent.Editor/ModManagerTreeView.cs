@@ -1,11 +1,11 @@
-using UnityEditor.IMGUI.Controls;
-using System.Collections.Generic;
 using ModComponent.ModManager;
-using UnityEditor;
-using UnityEngine;
 using System;
+using System.Collections.Generic;
+using UnityEditor;
+using UnityEditor.IMGUI.Controls;
+using UnityEngine;
 
-namespace ModComponent.UserInterface
+namespace ModComponent.Editor
 {
     public class ModManagerTreeView : TreeView
     {

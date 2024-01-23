@@ -2,7 +2,7 @@ using ModComponent.ModManager;
 using System.IO;
 using UnityEditor;
 
-namespace ModComponent
+namespace ModComponent.Editor
 {
     public class ModWizard : ScriptableWizard
     {

@@ -1,9 +1,9 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace ModComponent
+namespace ModComponent.Editor
 {
-    public class WelcomeMessageWindow : EditorWindow
+    public class StartupEditor : EditorWindow
     {
         private void OnGUI()
         {

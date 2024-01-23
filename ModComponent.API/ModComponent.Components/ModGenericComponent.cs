@@ -1,5 +1,5 @@
-using UnityEngine;
 using ModComponent.Common;
+using UnityEngine;
 
 namespace ModComponent.Components
 {

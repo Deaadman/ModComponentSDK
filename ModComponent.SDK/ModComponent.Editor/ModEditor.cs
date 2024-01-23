@@ -1,11 +1,11 @@
+using ModComponent.ModManager;
 using UnityEngine;
 using UnityEditor;
-using ModComponent.ModManager;
 
-namespace ModComponent
+namespace ModComponent.Editor
 {
     [CustomEditor(typeof(Mod))]
-    public class ModEditor : Editor
+    public class ModEditor : UnityEditor.Editor
     {
         SerializedProperty itemsProperty;
         SerializedProperty iconsProperty;

@@ -1,3 +1,4 @@
+using ModComponent.Common;
 using UnityEditor;
 using UnityEditor.AddressableAssets;
 using UnityEditor.AddressableAssets.Build;
@@ -40,10 +41,10 @@ namespace ModComponent
                                                            true,
                                                            true);
 
-            settings.OverridePlayerVersion = Common.Utilities.SanitizeFileName(modName);
+            settings.OverridePlayerVersion = FileUtility.SanitizeFileName(modName);
 
             settings.ShaderBundleNaming = ShaderBundleNaming.Custom;
-            settings.ShaderBundleCustomNaming = Common.Utilities.SanitizeFileName(modName);
+            settings.ShaderBundleCustomNaming = FileUtility.SanitizeFileName(modName);
 
             settings.BuildRemoteCatalog = true;
             settings.RemoteCatalogBuildPath.SetVariableByName(settings, AddressableAssetSettings.kLocalBuildPath);
@@ -51,12 +52,11 @@ namespace ModComponent
         }
 
         [InitializeOnLoadMethod]
-        public static void SetCustomLocalBuildPath()
+        internal static void SetCustomLocalBuildPath()
         {
             var settings = AddressableAssetSettingsDefaultObject.Settings;
             if (settings == null)
             {
-                UnityEngine.Debug.LogError("Addressable Asset Settings not found.");
                 return;
             }
 
