@@ -3,7 +3,7 @@ using UnityEngine;
 namespace ModComponent.Behaviours
 {
     [HelpURL("https://github.com/dommrogers/ModComponent/blob/master/docs/Harvestable-Behaviour-Documentation.md")]
-    public class ModHarvestableBehaviour : MonoBehaviour
+    public class ModHarvestableBehaviour : ModBaseBehaviour
     {
         [Tooltip("The audio to play while harvesting.")]
         public string Audio;

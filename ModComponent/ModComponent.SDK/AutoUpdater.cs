@@ -1,8 +1,10 @@
 #if UNITY_EDITOR
 using ModComponent.Editor.SDK;
 using Newtonsoft.Json.Linq;
+using System;
 using System.IO;
 using System.Net;
+using System.Threading.Tasks;
 using UnityEditor;
 using UnityEngine;
 
@@ -10,15 +12,20 @@ namespace ModComponent.SDK
 {
     internal class AutoUpdater
     {
-        private static readonly string currentVersion = Information.SDK_VERSION;
-        private static string latestVersion;
-        private static string latestVersionChanges;
+        private static readonly string CurrentVersion = Information.SDK_VERSION;
+        private static string _latestVersion;
+        private static string _latestVersionChanges;
 
-        [InitializeOnLoadMethod]
-        internal static void Initialize()
+        static AutoUpdater()
         {
-            FetchLatestReleaseInfo();
-            if (latestVersion != null && latestVersion != currentVersion)
+            _ = InitializeAsync();
+        }
+
+        internal static async Task InitializeAsync()
+        {
+            await FetchLatestReleaseInfoAsync();
+
+            if (_latestVersion != null && _latestVersion != CurrentVersion)
             {
                 EditorApplication.update += OpenUpdateWindow;
             }
@@ -28,56 +35,58 @@ namespace ModComponent.SDK
             }
         }
 
-        internal static void OpenUpdateWindow()
+        private static void OpenUpdateWindow()
         {
             EditorApplication.update -= OpenUpdateWindow;
-            AutoUpdaterEditor.Init(currentVersion, latestVersion, latestVersionChanges);
+            AutoUpdaterEditor.Init(CurrentVersion, _latestVersion, _latestVersionChanges);
         }
 
         internal static void UpdatePackage(string latestVersion)
         {
             string manifestPath = Path.Combine(Application.dataPath, "..", "Packages", "manifest.json");
-            if (File.Exists(manifestPath))
-            {
-                string manifestContent = File.ReadAllText(manifestPath);
-                JObject manifestJson = JObject.Parse(manifestContent);
 
-                string packageName = "modcomponent.sdk";
-                if (manifestJson["dependencies"][packageName] != null)
-                {
-                    manifestJson["dependencies"][packageName] = latestVersion;
-                    File.WriteAllText(manifestPath, manifestJson.ToString());
-                    AssetDatabase.Refresh();
-                    Debug.Log("Package updated successfully.");
-                }
-                else
-                {
-                    Debug.LogError("Package not found in manifest.json");
-                }
-            }
-            else
+            if (!File.Exists(manifestPath))
             {
                 Debug.LogError("manifest.json not found");
+                return;
             }
+
+            string manifestContent = File.ReadAllText(manifestPath);
+            var manifestJson = JObject.Parse(manifestContent);
+
+            const string packageName = "modcomponent.sdk";
+            JToken packageToken = manifestJson["dependencies"][packageName];
+
+            if (packageToken == null)
+            {
+                Debug.LogError("Package not found in manifest.json");
+                return;
+            }
+
+            manifestJson["dependencies"][packageName] = latestVersion;
+            File.WriteAllText(manifestPath, manifestJson.ToString());
+            AssetDatabase.Refresh();
+            Debug.Log("Package updated successfully.");
         }
 
-        private static void FetchLatestReleaseInfo()
+        private static async Task FetchLatestReleaseInfoAsync()
         {
             try
             {
-                using WebClient client = new();
-                string url = "https://api.github.com/repos/Deaadman/ModComponentSDK/releases/latest";
+                using var client = new WebClient();
+                const string url = "https://api.github.com/repos/Deaadman/ModComponentSDK/releases/latest";
                 client.Headers.Add("User-Agent", "Unity web request");
-                string json = client.DownloadString(url);
-                JObject jsonObject = JObject.Parse(json);
 
-                latestVersion = jsonObject["tag_name"].ToString();
-                latestVersionChanges = jsonObject["body"].ToString();
+                string json = await client.DownloadStringTaskAsync(new Uri(url));
+                var jsonObject = JObject.Parse(json);
+
+                _latestVersion = jsonObject["tag_name"].ToString();
+                _latestVersionChanges = jsonObject["body"].ToString();
             }
             catch
             {
-                latestVersion = null;
-                latestVersionChanges = null;
+                _latestVersion = null;
+                _latestVersionChanges = null;
             }
         }
     }

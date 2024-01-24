@@ -3,7 +3,7 @@ using UnityEngine;
 namespace ModComponent.Behaviours
 {
     [HelpURL("https://github.com/dommrogers/ModComponent/blob/master/docs/Millable-Behaviour-Documentation.md")]
-    public class ModMillableBehaviour : MonoBehaviour
+    public class ModMillableBehaviour : ModBaseBehaviour
     {
         [Tooltip("The number of minutes required to repair the item.")]
         public int RepairDurationMinutes;
@@ -26,6 +26,7 @@ namespace ModComponent.Behaviours
         [Tooltip("The numbers of each Gear Item required for restoring the item.")]
         public int[] RestoreRequiredGearUnits;
 
+        // Skills needs to be revisted, maybe turn into an enum for easier choice of which skill.
         [Tooltip("The skill associated with repairing/restoring this item.")]
         public string Skill;
     }

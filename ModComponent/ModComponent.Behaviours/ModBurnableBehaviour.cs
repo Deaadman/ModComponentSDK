@@ -3,7 +3,7 @@ using UnityEngine;
 namespace ModComponent.Behaviours
 {
     [HelpURL("https://github.com/dommrogers/ModComponent/blob/master/docs/Burnable-Behaviour-Documentation.md")]
-    public class ModBurnableBehaviour : MonoBehaviour
+    public class ModBurnableBehaviour : ModBaseBehaviour
     {
         [Tooltip("Number of minutes this item adds to the remaining burn time of the fire.")]
         public int BurningMinutes;
@@ -14,7 +14,7 @@ namespace ModComponent.Behaviours
         [Tooltip("Does this item affect the chance for successfully starting a fire? Represents percentage points. Positive values increase the chance, negative values reduce it.")]
         public float SuccessModifier;
 
-        [Tooltip("Temperature increase in °C when added to the fire.")]
+        [Tooltip("Temperature increase when added to the fire.")]
         public float TempIncrease;
 
         [Tooltip("In-game seconds offset for fire starting duration from this accelerant. NOT scaled by fire starting skill. Positive values mean 'slower', negative values mean 'faster'.")]

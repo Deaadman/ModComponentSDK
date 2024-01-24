@@ -3,7 +3,7 @@ using UnityEngine;
 namespace ModComponent.Behaviours
 {
     [HelpURL("https://github.com/dommrogers/ModComponent/blob/master/docs/Repairable-Behaviour-Documentation.md")]
-    public class ModRepairableBehaviour : MonoBehaviour
+    public class ModRepairableBehaviour : ModBaseBehaviour
     {
         [Tooltip("The audio to play while repairing.")]
         public string Audio;

@@ -3,7 +3,7 @@ using UnityEngine;
 namespace ModComponent.Behaviours
 {
     [HelpURL("https://github.com/dommrogers/ModComponent/blob/master/docs/Sharpenable-Behaviour-Documentation.md")]
-    public class ModSharpenableBehaviour : MonoBehaviour
+    public class ModSharpenableBehaviour : ModBaseBehaviour
     {
         [Tooltip("The sound to play while sharpening. Leave empty for a sensible default.")]
         public string Audio;

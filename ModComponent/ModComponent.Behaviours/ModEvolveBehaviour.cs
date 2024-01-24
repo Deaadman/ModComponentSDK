@@ -3,7 +3,7 @@ using UnityEngine;
 namespace ModComponent.Behaviours
 {
     [HelpURL("https://github.com/dommrogers/ModComponent/blob/master/docs/Evolve-Behaviour-Documentation.md")]
-    public class ModEvolveBehaviour : MonoBehaviour
+    public class ModEvolveBehaviour : ModBaseBehaviour
     {
         [Tooltip("Name of the item into which this item will evolve. E.g. 'GEAR_GutDried'")]
         public string TargetItemName;

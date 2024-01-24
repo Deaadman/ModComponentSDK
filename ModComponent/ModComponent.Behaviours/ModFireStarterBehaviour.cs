@@ -3,7 +3,7 @@ using UnityEngine;
 namespace ModComponent.Behaviours
 {
     [HelpURL("https://github.com/dommrogers/ModComponent/blob/master/docs/FireStarter-Behaviour-Documentation.md")]
-    public class ModFireStarterBehaviour : MonoBehaviour
+    public class ModFireStarterBehaviour : ModBaseBehaviour
     {
         [Tooltip("Is the item destroyed immediately after use?")]
         public bool DestroyedOnUse;

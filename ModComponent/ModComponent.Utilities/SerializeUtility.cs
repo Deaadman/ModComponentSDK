@@ -9,6 +9,63 @@ namespace ModComponent.Utilities
         {
             return component switch
             {
+                ModAmmoComponent modAmmoComponent => new
+                {
+                    modAmmoComponent.DisplayNameLocalizationId,
+                    modAmmoComponent.DescriptionLocalizatonId,
+                    modAmmoComponent.InventoryActionLocalizationId,
+                    modAmmoComponent.WeightKG,
+                    modAmmoComponent.DaysToDecay,
+                    modAmmoComponent.MaxHP,
+                    InitialCondition = modAmmoComponent.InitialCondition.ToString(),
+                    InventoryCategory = modAmmoComponent.InventoryCategory.ToString(),
+                    modAmmoComponent.PickUpAudio,
+                    modAmmoComponent.PutBackAudio,
+                    modAmmoComponent.StowAudio,
+                    modAmmoComponent.WornOutAudio,
+                    modAmmoComponent.InspectOnPickup,
+                    modAmmoComponent.InspectDistance,
+                    InspectAngles = new float[] { modAmmoComponent.InspectAngles.x, modAmmoComponent.InspectAngles.y, modAmmoComponent.InspectAngles.z },
+                    InspectOffset = new float[] { modAmmoComponent.InspectOffset.x, modAmmoComponent.InspectOffset.y, modAmmoComponent.InspectOffset.z },
+                    InspectScale = new float[] { modAmmoComponent.InspectScale.x, modAmmoComponent.InspectScale.y, modAmmoComponent.InspectScale.z },
+                    modAmmoComponent.NormalModel,
+                    modAmmoComponent.InspectModel,
+
+                    AmmoForGunType = modAmmoComponent.AmmoForGunType.ToString()
+                },
+                ModBedComponent modBedComponent => new
+                {
+                    modBedComponent.DisplayNameLocalizationId,
+                    modBedComponent.DescriptionLocalizatonId,
+                    modBedComponent.InventoryActionLocalizationId,
+                    modBedComponent.WeightKG,
+                    modBedComponent.DaysToDecay,
+                    modBedComponent.MaxHP,
+                    InitialCondition = modBedComponent.InitialCondition.ToString(),
+                    InventoryCategory = modBedComponent.InventoryCategory.ToString(),
+                    modBedComponent.PickUpAudio,
+                    modBedComponent.PutBackAudio,
+                    modBedComponent.StowAudio,
+                    modBedComponent.WornOutAudio,
+                    modBedComponent.InspectOnPickup,
+                    modBedComponent.InspectDistance,
+                    InspectAngles = new float[] { modBedComponent.InspectAngles.x, modBedComponent.InspectAngles.y, modBedComponent.InspectAngles.z },
+                    InspectOffset = new float[] { modBedComponent.InspectOffset.x, modBedComponent.InspectOffset.y, modBedComponent.InspectOffset.z },
+                    InspectScale = new float[] { modBedComponent.InspectScale.x, modBedComponent.InspectScale.y, modBedComponent.InspectScale.z },
+                    modBedComponent.NormalModel,
+                    modBedComponent.InspectModel,
+
+                    modBedComponent.ConditionGainPerHour,
+                    modBedComponent.AdditionalConditionGainPerHour,
+                    modBedComponent.WarmthBonusCelsius,
+                    modBedComponent.DegradePerHour,
+                    modBedComponent.BearAttackModifier,
+                    modBedComponent.WolfAttackModifier,
+                    modBedComponent.OpenAudio,
+                    modBedComponent.CloseAudio,
+                    modBedComponent.PackedMesh,
+                    modBedComponent.UsableMesh
+                },
                 ModGenericComponent modGenericComponent => new
                 {
                     modGenericComponent.DisplayNameLocalizationId,

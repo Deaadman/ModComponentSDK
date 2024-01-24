@@ -7,51 +7,66 @@ namespace ModComponent.Editor.SDK
 {
     internal class AutoUpdaterEditor : EditorWindow
     {
-        private static string currentVersion;
-        private static string latestVersion;
-        private static string latestVersionChanges;
-        private Vector2 scrollPosition;
+        private static string _currentVersion;
+        private static string _latestVersion;
+        private static string _latestVersionChanges;
+        private Vector2 _scrollPosition;
 
         [MenuItem("ModComponent SDK/Check For Update", false, 20)]
         private static void CheckForUpdate()
         {
-            AutoUpdater.Initialize();
+            _ = AutoUpdater.InitializeAsync();
         }
 
         internal static void Init(string currentVer, string latestVer, string changes)
         {
-            currentVersion = currentVer;
-            latestVersion = latestVer;
-            latestVersionChanges = ConvertMarkdownToRichText(changes);
+            _currentVersion = currentVer;
+            _latestVersion = latestVer;
+            _latestVersionChanges = MarkdownToRichText(changes);
             var window = GetWindow<AutoUpdaterEditor>("Auto Updater");
             window.minSize = new Vector2(350, 400);
             window.Show();
         }
 
-        void OnGUI()
+        private void OnGUI()
         {
-            GUIStyle richTextStyle = new(GUI.skin.textArea)
-            {
-                richText = true
-            };
+            var richTextStyle = new GUIStyle(GUI.skin.textArea) { richText = true };
 
             GUILayout.BeginVertical(ModComponentEditorStyles.BackgroundBox);
+            DisplayHeader();
+            DisplayVersionInfo();
+            DisplayChangelog(richTextStyle);
+            DisplayActionButtons();
+            GUILayout.EndVertical();
+        }
+
+        private void DisplayHeader()
+        {
             GUILayout.Label("ModComponent SDK Auto Updater", ModComponentEditorStyles.CenteredLabelBold);
             GUILayout.Label("A newer version is available for the ModComponent SDK.", EditorStyles.centeredGreyMiniLabel);
             GUILayout.Space(10);
-            GUILayout.Label($"Current Version: {currentVersion}", ModComponentEditorStyles.CenteredLabel);
+        }
+
+        private void DisplayVersionInfo()
+        {
+            GUILayout.Label($"Current Version: {_currentVersion}", ModComponentEditorStyles.CenteredLabel);
             GUILayout.Space(5);
-            GUILayout.Label($"Latest Version: {latestVersion}", ModComponentEditorStyles.CenteredLabelBold);
+            GUILayout.Label($"Latest Version: {_latestVersion}", ModComponentEditorStyles.CenteredLabelBold);
             GUILayout.Space(10);
+        }
 
-            scrollPosition = GUILayout.BeginScrollView(scrollPosition, GUILayout.ExpandHeight(true));
+        private void DisplayChangelog(GUIStyle richTextStyle)
+        {
+            _scrollPosition = GUILayout.BeginScrollView(_scrollPosition, GUILayout.ExpandHeight(true));
             GUILayout.Label("What's New:", EditorStyles.boldLabel);
-            GUILayout.TextArea(latestVersionChanges, richTextStyle, GUILayout.ExpandHeight(true));
+            GUILayout.TextArea(_latestVersionChanges, richTextStyle, GUILayout.ExpandHeight(true));
             GUILayout.EndScrollView();
-
             GUILayout.Space(10);
             GUILayout.Box("", GUILayout.ExpandWidth(true), GUILayout.Height(1));
+        }
 
+        private void DisplayActionButtons()
+        {
             GUILayout.BeginHorizontal();
             GUILayout.FlexibleSpace();
 
@@ -64,31 +79,25 @@ namespace ModComponent.Editor.SDK
 
             if (GUILayout.Button("Update Now", GUILayout.Width(120)))
             {
-                AutoUpdater.UpdatePackage(latestVersion);
+                AutoUpdater.UpdatePackage(_latestVersion);
                 Close();
             }
 
             GUILayout.FlexibleSpace();
             GUILayout.EndHorizontal();
-            GUILayout.EndVertical();
         }
 
-        private static string ConvertMarkdownToRichText(string markdown)
+        private static string MarkdownToRichText(string markdown)
         {
             var lines = markdown.Split('\n');
             for (int i = 0; i < lines.Length; i++)
             {
-                if (lines[i].StartsWith("##"))
-                {
-                    lines[i] = "<size=15>" + lines[i][2..].Trim() + "</size>";
-                }
+                lines[i] = lines[i].StartsWith("##") ? $"<size=15>{lines[i][2..].Trim()}</size>" : lines[i];
             }
+
             markdown = string.Join("\n", lines);
-
             markdown = System.Text.RegularExpressions.Regex.Replace(markdown, @"\*\*(.*?)\*\*", "<b>$1</b>");
-            markdown = markdown.Replace("`", "");
-
-            return markdown;
+            return markdown.Replace("`", "");
         }
     }
 }

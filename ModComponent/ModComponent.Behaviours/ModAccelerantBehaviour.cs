@@ -3,7 +3,7 @@ using UnityEngine;
 namespace ModComponent.Behaviours
 {
     [HelpURL("https://github.com/dommrogers/ModComponent/blob/master/docs/Accelerant-Behaviour-Documentation.md")]
-    public class ModAccelerantBehaviour : MonoBehaviour
+    public class ModAccelerantBehaviour : ModBaseBehaviour
     {
         [Tooltip("Is the item destroyed immediately after use?")]
         public bool DestroyedOnUse;

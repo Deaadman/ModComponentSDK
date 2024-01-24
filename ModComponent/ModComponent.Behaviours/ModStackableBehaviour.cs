@@ -3,7 +3,7 @@ using UnityEngine;
 namespace ModComponent.Behaviours
 {
     [HelpURL("https://github.com/dommrogers/ModComponent/blob/master/docs/Stackable-Behaviour-Documentation.md")]
-    public class ModStackableBehaviour : MonoBehaviour
+    public class ModStackableBehaviour : ModBaseBehaviour
     {
         [Tooltip("Localization key to be used for stacks with only one item. E.g. '2 arrows'.")]
         public string SingleUnitTextId;
