@@ -24,10 +24,89 @@ namespace ModComponent.Editor.API
                 { "WeightKG", "KG" },
                 { "DaysToDecay", "DAYS" },
                 { "MaxHP", "HP" },
+
                 { "ConditionGainPerHour", "% / HR" },
                 { "AdditionalConditionGainPerHour", "% / HR" },
                 { "WarmthBonusCelsius", "°C" },
-                { "DegradePerHour", "% / HR" }
+                { "DegradePerHour", "% / HR" },
+
+                { "GutWeightKgPerUnit", "KG" },
+                { "HideWeightKgPerUnit", "KG" },
+                { "MeatAvailableMinKG", "KG" },
+                { "MeatAvailableMaxKG", "KG" },
+
+                { "SurveyGameMinutes", "MINS" },
+                { "SurveyRealSeconds", "SECS" },
+                { "SurveySkillExtendedHours", "HRS" },
+
+                { "DaysToDecayWornOutside", "DAYS" },
+                { "DaysToDecayWornInside", "DAYS" },
+                { "Warmth", "°C" },
+                { "WarmthWhenWet", "°C" },
+                { "Windproof", "°C" },
+                { "Waterproofness", "%" },
+                { "Toughness", "%" },
+                { "SprintBarReduction", "%" },
+                { "DecreaseAttackChance", "%" },
+                { "IncreaseFleeChance", "%" },
+                { "HoursToDryNearFire", "HRS" },
+                { "HoursToDryWithoutFire", "HRS" },
+                { "HoursToFreeze", "HRS" },
+
+                { "CookingMinutes", "MINS" },
+                { "CookingUnitsRequired", "UNITS" },
+                { "CookingWaterRequired", "L" },
+                { "BurntMinutes", "MINS" },
+
+                { "Capacity", "L" },
+
+                { "InstantHealing", "%" },
+                { "TimeToUseSeconds", "SECS" },
+                { "UnitsPerUse", "UNITS" },
+
+                { "DaysToDecayOutdoors", "DAYS" },
+                { "DaysToDecayIndoors", "DAYS" },
+                { "EatingTime", "SECS" },
+                { "ThirstEffect", "%" },
+                { "FoodPoisoning", "%" },
+                { "FoodPoisoningLowCondition", "%" },
+                { "ParasiteRiskIncrements", "%" },
+                { "ConditionRestBonus", "% / HR" },
+                { "ConditionRestMinutes", "MINS" },
+                { "InstantRestChange", "%" },
+                { "RestFactorMinutes", "MINS" },
+                { "InstantColdChange", "%" },
+                { "ColdFactorMinutes", "MINS" },
+                { "AlcoholPercentage", "%" },
+                { "AlcoholUptakeMinutes", "MINS" },
+
+                { "LiquidCapacityLiters", "L" },
+                { "LiquidLiters", "L" },
+
+                { "CapacityKG", "KG" },
+                { "ChanceFull", "%" },
+
+                { "LitersPurify", "L" },
+                { "ProgressBarDurationSeconds", "SECS" },
+
+                { "TimeRequirementHours", "HRS" },
+
+                { "DegradeOnUse", "%" },
+                { "CraftingTimeMultiplier", "%" },
+                { "DegradePerHourCrafting", "% / HR" },
+                { "BreakDownTimeMultiplier", "%" },
+                { "ForceLocks", "" },
+                { "IceFishingHoleDegradeOnUse", "%" },
+                { "IceFishingHoleMinutes", "MINS" },
+                { "MinutesPerKgMeat", "MINS" },
+                { "MinutesPerKgFrozenMeat", "MINS" },
+                { "MinutesPerHide", "MINS" },
+                { "MinutesPerGut", "MINS" },
+                { "DegradePerHourHarvesting", "% / HR" },
+                { "DamageMultiplier", "%" },
+                { "FleeChanceMultiplier", "%" },
+                { "TapMultiplier", "%" },
+                { "BleedoutMultiplier", "%" }
             };
 
             propertyDisplayNames = new Dictionary<string, string>()
@@ -38,10 +117,70 @@ namespace ModComponent.Editor.API
                 { "WeightKG", "Weight" },
                 { "DaysToDecay", "Decay" },
                 { "MaxHP", "Max Health" },
+
                 { "ConditionGainPerHour", "Condition Gain" },
                 { "AdditionalConditionGainPerHour", "Additional Condition Gain" },
                 { "WarmthBonusCelsius", "Warmth Bonus" },
-                { "DegradePerHour", "Degrade" }
+                { "DegradePerHour", "Degrade" },
+
+                { "GutWeightKgPerUnit", "Gut Weight Unit" },
+                { "HideWeightKgPerUnit", "Hide Weight Unit" },
+                { "MeatAvailableMinKG", "Meat Available Minimum" },
+                { "MeatAvailableMaxKG", "Meat Available Maximum" },
+
+                //{ "SurveyGameMinutes", "Survey Time" },
+                //{ "SurveyRealSeconds", "Survey Real Time" },
+                //{ "SurveySkillExtendedHours", "Survey Skill Extended" },
+
+                { "MinLayer", "Minimum Layer" },
+                { "MaxLayer", "Maximum Layer" },
+                { "DaysToDecayWornOutside", "Decay Worn Outside" },
+                { "DaysToDecayWornInside", "Decay Worn Inside" },
+                { "HoursToDryNearFire", "Dry Near Fire" },
+                { "HoursToDryWithoutFire", "Dry Without Fire" },
+                { "HoursToFreeze", "Freeze" },
+
+                { "HudMessageLocalizationId", "HUD Message Localization Key"},
+                { "NarrativeTextLocalizationId", "Narrative Text Localization Key"},
+
+                { "Cooking", "Can Be Cooked" },
+                { "CookingMinutes", "Cooking Time" },
+                { "CookingUnitsRequired", "Amount Required" },
+                { "CookingWaterRequired", "Water Amount Required" },
+                { "CookingResult", "Result" },
+                { "BurntMinutes", "Time Until Burnt" },
+
+                { "ProgressBarMessage", "Progress Bar Localization Key" },
+                { "RemedyText", "Remedy Localization Key" },
+                { "InstantHealing", "Restored Condition" },
+                { "TimeToUseSeconds", "Use Time" },
+                { "UnitsPerUse", "Amount Per Use" },
+
+                { "DaysToDecayOutdoors", "Decay Indoors" },
+                { "DaysToDecayIndoors", "Decay Outdoors" },
+                { "ConditionRestMinutes", "Condition Rest" },
+                { "RestFactorMinutes", "Rest Factor" },
+                { "ColdFactorMinutes", "Cold Factor" },
+                { "AlcoholUptakeMinutes", "Alcohol Uptake" },
+
+                { "LiquidCapacityLiters", "Liquid Capacity" },
+                { "LiquidLiters", "Initial Amount" },
+
+                { "CapacityKG", "Capacity" },
+
+                { "LitersPurify", "Purify" },
+                { "ProgressBarDurationSeconds", "Progress Bar Duration" },
+                { "ProgressBarLocalizationID", "Progress Bar Localization Key" },
+
+                { "TimeRequirementHours", "Time Requirement" },
+
+                { "DegradePerHourCrafting", "Degrade Crafting" },
+                { "IceFishingHoleMinutes", "Ice Fishing Hole Time" },
+                { "MinutesPerKgMeat", "Per Kilogram Meat" },
+                { "MinutesPerKgFrozenMeat", "Per Kilogram Frozen Meat" },
+                { "MinutesPerHide", "Per Hide" },
+                { "MinutesPerGut", "Per Gut" },
+                { "DegradePerHourHarvesting", "Degrade Harvesting" }
             };
 
             tabDrawMethods = new Dictionary<Tab, Action>
@@ -111,6 +250,263 @@ namespace ModComponent.Editor.API
                     "DegradePerHour",
                     "BearAttackModifier",
                     "WolfAttackModifier"
+                });
+            }
+
+            if (target.GetType() == typeof(ModBodyHarvestComponent) || target.GetType().IsSubclassOf(typeof(ModBodyHarvestComponent)))
+            {
+                DrawCustomHeading("Body Harvest Component Properties");
+                DrawFields(new string[] {
+                    "CanCarry",
+                    "HarvestAudio",
+                    "GutPrefab",
+                    "GutQuantity",
+                    "GutWeightKgPerUnit",
+                    "HidePrefab",
+                    "HideQuantity",
+                    "HideWeightKgPerUnit",
+                    "MeatPrefab",
+                    "MeatAvailableMinKG",
+                    "MeatAvailableMaxKG"
+                });
+            }
+
+            if (target.GetType() == typeof(ModCharcoalComponent) || target.GetType().IsSubclassOf(typeof(ModCharcoalComponent)))
+            {
+                DrawCustomHeading("Charcoal Component Properties");
+                DrawFields(new string[] {
+                    "SurveyGameMinutes",
+                    "SurveyRealSeconds",
+                    "SurveySkillExtendedHours",
+                    "SurveyLoopAudio"
+                });
+            }
+
+            if (target.GetType() == typeof(ModClothingComponent) || target.GetType().IsSubclassOf(typeof(ModClothingComponent)))
+            {
+                DrawCustomHeading("Clothing Component Properties");
+                DrawFields(new string[] {
+                    "Region",
+                    "MinLayer",
+                    "MaxLayer",
+                    "MovementSound",
+                    "Footwear",
+                    "DaysToDecayWornOutside",
+                    "DaysToDecayWornInside",
+                    "Warmth",
+                    "WarmthWhenWet",
+                    "Windproof",
+                    "Waterproofness",
+                    "Toughness",
+                    "SprintBarReduction",
+                    "DecreaseAttackChance",
+                    "IncreaseFleeChance",
+                    "HoursToDryNearFire",
+                    "HoursToDryWithoutFire",
+                    "HoursToFreeze",
+                    "MainTexture",
+                    "BlendTexture",
+                    "DrawLayer",
+                    "ImplementationType"
+                });
+            }
+
+            if (target.GetType() == typeof(ModCollectibleComponent) || target.GetType().IsSubclassOf(typeof(ModCollectibleComponent)))
+            {
+                DrawCustomHeading("Collectible Component Properties");
+                DrawFields(new string[] {
+                    "HudMessageLocalizationId",
+                    "NarrativeTextLocalizationId",
+                    "TextAlignment"
+                });
+            }
+
+            if (target.GetType() == typeof(ModCookableComponent) || target.GetType().IsSubclassOf(typeof(ModCookableComponent)))
+            {
+                DrawCustomHeading("Cookable Component Properties");
+                DrawFields(new string[] {
+                    "Cooking",
+                    "CookingMinutes",
+                    "CookingUnitsRequired",
+                    "CookingWaterRequired",
+                    "CookingResult",
+                    "BurntMinutes",
+                    "Type",
+                    "CookingAudio",
+                    "StartCookingAudio"
+                });
+            }
+
+            if (target.GetType() == typeof(ModCookingPotComponent) || target.GetType().IsSubclassOf(typeof(ModCookingPotComponent)))
+            {
+                DrawCustomHeading("Cooking Pot Component Properties");
+                DrawFields(new string[] {
+                    "CanCookLiquid",
+                    "CanCookGrub",
+                    "CanCookMeat",
+                    "Capacity",
+                    "Template"
+                });
+            }
+
+            if (target.GetType() == typeof(ModFirstAidComponent) || target.GetType().IsSubclassOf(typeof(ModFirstAidComponent)))
+            {
+                DrawCustomHeading("First Aid Component Properties");
+                DrawFields(new string[] {
+                    "ProgressBarMessage",
+                    "RemedyText",
+                    "InstantHealing",
+                    "FirstAidType",
+                    "TimeToUseSeconds",
+                    "UnitsPerUse",
+                    "UseAudio"
+                });
+            }
+
+            if (target.GetType() == typeof(ModFoodComponent) || target.GetType().IsSubclassOf(typeof(ModFoodComponent)))
+            {
+                DrawCustomHeading("Food Component Properties");
+                DrawFields(new string[] {
+                    "DaysToDecayOutdoors",
+                    "DaysToDecayIndoors",
+                    "Calories",
+                    "Servings",
+                    "EatingTime",
+                    "EatingAudio",
+                    "EatingPackagedAudio",
+                    "ThirstEffect",
+                    "FoodPoisoning",
+                    "FoodPoisoningLowCondition",
+                    "ParasiteRiskIncrements",
+                    "Natural",
+                    "Raw",
+                    "Drink",
+                    "Meat",
+                    "Fish",
+                    "Canned",
+                    "Opening",
+                    "OpeningWithCanOpener",
+                    "OpeningWithKnife",
+                    "OpeningWithHatchet",
+                    "OpeningWithSmashing",
+                    "AffectCondition",
+                    "ConditionRestBonus",
+                    "ConditionRestMinutes",
+                    "AffectRest",
+                    "InstantRestChange",
+                    "RestFactorMinutes",
+                    "AffectCold",
+                    "InstantColdChange",
+                    "ColdFactorMinutes",
+                    "ContainsAlcohol",
+                    "AlcoholPercentage",
+                    "AlcoholUptakeMinutes",
+                    "VitaminC"
+                });
+            }
+
+            if (target.GetType() == typeof(ModGenericEquippableComponent) || target.GetType().IsSubclassOf(typeof(ModGenericEquippableComponent)))
+            {
+                DrawCustomHeading("Equippable Component Properties");
+                DrawFields(new string[] {
+                    "EquippedModelPrefab",
+                    "ImplementationType",
+                    "EquippingAudio"
+                });
+            }
+
+            if (target.GetType() == typeof(ModLiquidComponent) || target.GetType().IsSubclassOf(typeof(ModLiquidComponent)))
+            {
+                DrawCustomHeading("Liquid Component Properties");
+                DrawFields(new string[] {
+                    "LiquidType",
+                    "LiquidCapacityLiters",
+                    "RandomizedQuantity",
+                    "LiquidLiters"
+                });
+            }
+
+            if (target.GetType() == typeof(ModPowderComponent) || target.GetType().IsSubclassOf(typeof(ModPowderComponent)))
+            {
+                DrawCustomHeading("Powder Component Properties");
+                DrawFields(new string[] {
+                    "PowderType",
+                    "CapacityKG",
+                    "ChanceFull"
+                });
+            }
+
+            if (target.GetType() == typeof(ModPurificationComponent) || target.GetType().IsSubclassOf(typeof(ModPurificationComponent)))
+            {
+                DrawCustomHeading("Purification Component Properties");
+                DrawFields(new string[] {
+                    "LitersPurify",
+                    "ProgressBarDurationSeconds",
+                    "ProgressBarLocalizationID",
+                    "PurifyAudio"
+                });
+            }
+
+            if (target.GetType() == typeof(ModRandomItemComponent) || target.GetType().IsSubclassOf(typeof(ModRandomItemComponent)))
+            {
+                DrawCustomHeading("Random Item Component Properties");
+                DrawFields(new string[] {
+                    "ItemNames"
+                });
+            }
+
+            if (target.GetType() == typeof(ModRandomWeightedItemComponent) || target.GetType().IsSubclassOf(typeof(ModRandomWeightedItemComponent)))
+            {
+                DrawCustomHeading("Random Weighted Item Component Properties");
+                DrawFields(new string[] {
+                    "ItemNames",
+                    "ItemWeights"
+                });
+            }
+
+            if (target.GetType() == typeof(ModResearchComponent) || target.GetType().IsSubclassOf(typeof(ModResearchComponent)))
+            {
+                DrawCustomHeading("Research Component Properties");
+                DrawFields(new string[] {
+                    "SkillType",
+                    "TimeRequirementHours",
+                    "SkillPoints",
+                    "NoBenefitAtSkillLevel",
+                    "ReadAudio"
+                });
+            }
+
+            if (target.GetType() == typeof(ModToolComponent) || target.GetType().IsSubclassOf(typeof(ModToolComponent)))
+            {
+                DrawCustomHeading("Tool Component Properties");
+                DrawFields(new string[] {
+                    "ToolType",
+                    "ToolKind",
+                    "DegradeOnUse",
+                    "Usage",
+                    "SkillBonus",
+                    "CraftingTimeMultiplier",
+                    "DegradePerHourCrafting",
+                    "BreakDown",
+                    "BreakDownTimeMultiplier",
+                    "ForceLocks",
+                    "ForceLockAudio",
+                    "IceFishingHole",
+                    "IceFishingHoleDegradeOnUse",
+                    "IceFishingHoleMinutes",
+                    "IceFishingHoleAudio",
+                    "CarcassHarvesting",
+                    "MinutesPerKgMeat",
+                    "MinutesPerKgFrozenMeat",
+                    "MinutesPerHide",
+                    "MinutesPerGut",
+                    "DegradePerHourHarvesting",
+                    "StruggleBonus",
+                    "DamageMultiplier",
+                    "FleeChanceMultiplier",
+                    "TapMultiplier",
+                    "CanPuncture",
+                    "BleedoutMultiplier",
                 });
             }
 
