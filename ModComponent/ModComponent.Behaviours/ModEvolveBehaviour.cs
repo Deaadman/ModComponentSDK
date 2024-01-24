@@ -1,0 +1,17 @@
+using UnityEngine;
+
+namespace ModComponent.Behaviours
+{
+    [HelpURL("https://github.com/dommrogers/ModComponent/blob/master/docs/Evolve-Behaviour-Documentation.md")]
+    public class ModEvolveBehaviour : MonoBehaviour
+    {
+        [Tooltip("Name of the item into which this item will evolve. E.g. 'GEAR_GutDried'")]
+        public string TargetItemName;
+
+        [Tooltip("How many in-game hours does this item take to evolve from 0% to 100%?")]
+        public int EvolveHours;
+
+        [Tooltip("Does this item only evolve when it is stored indoors?")]
+        public bool IndoorsOnly;
+    }
+}

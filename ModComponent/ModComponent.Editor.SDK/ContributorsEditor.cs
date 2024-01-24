@@ -11,8 +11,8 @@ namespace ModComponent.Editor.SDK
 
         internal static void ShowWindow()
         {
-            var contributiorsEditor = GetWindow<ContributorsEditor>("MC Contributors");
-            contributiorsEditor.Show();
+            var contributorsEditor = GetWindow<ContributorsEditor>("MC Contributors");
+            contributorsEditor.Show();
         }
 
         private void OnGUI()

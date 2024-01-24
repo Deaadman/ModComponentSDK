@@ -233,14 +233,14 @@ namespace ModComponent.ModManager
             {
                 var componentData = new Dictionary<string, object>();
 
-                if (prefab.TryGetComponent<ModGenericComponent>(out var modGenericComponent))
+                foreach (var component in prefab.GetComponents<MonoBehaviour>())
                 {
-                    componentData.Add("ModGenericComponent", SerializeUtility.SerializeComponent(modGenericComponent));
-                }
-
-                if (prefab.TryGetComponent<ModStackableBehaviour>(out var modStackableBehaviour))
-                {
-                    componentData.Add("ModStackableBehaviour", SerializeUtility.SerializeComponent(modStackableBehaviour));
+                    var serializedComponent = SerializeUtility.SerializeComponent(component);
+                    if (serializedComponent != null)
+                    {
+                        string componentTypeName = component.GetType().Name;
+                        componentData[componentTypeName] = serializedComponent;
+                    }
                 }
 
                 string json = JsonConvert.SerializeObject(componentData, Formatting.Indented);

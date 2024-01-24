@@ -7,9 +7,9 @@ namespace ModComponent.Utilities
     {
         internal static object SerializeComponent(object component)
         {
-            if (component is ModGenericComponent modGenericComponent)
+            return component switch
             {
-                return new
+                ModGenericComponent modGenericComponent => new
                 {
                     modGenericComponent.DisplayNameLocalizationId,
                     modGenericComponent.DescriptionLocalizatonId,
@@ -17,8 +17,8 @@ namespace ModComponent.Utilities
                     modGenericComponent.WeightKG,
                     modGenericComponent.DaysToDecay,
                     modGenericComponent.MaxHP,
-                    InitialCondition = modGenericComponent.initialCondition.ToString(),
-                    InventoryCategory = modGenericComponent.inventoryCategory.ToString(),
+                    InitialCondition = modGenericComponent.InitialCondition.ToString(),
+                    InventoryCategory = modGenericComponent.InventoryCategory.ToString(),
                     modGenericComponent.PickUpAudio,
                     modGenericComponent.PutBackAudio,
                     modGenericComponent.StowAudio,
@@ -30,25 +30,101 @@ namespace ModComponent.Utilities
                     InspectScale = new float[] { modGenericComponent.InspectScale.x, modGenericComponent.InspectScale.y, modGenericComponent.InspectScale.z },
                     modGenericComponent.NormalModel,
                     modGenericComponent.InspectModel
-                };
-            }
-
-            if (component is ModStackableBehaviour mmodStackableBehaviour)
-            {
-                return new
+                },
+                ModAccelerantBehaviour modAccelerantBehaviour => new
                 {
-                    mmodStackableBehaviour.SingleUnitTextId,
-                    mmodStackableBehaviour.MultipleUnitTextId,
-                    mmodStackableBehaviour.StackSprite,
-                    mmodStackableBehaviour.UnitsPerItem,
-                    mmodStackableBehaviour.ChanceFull,
-                    mmodStackableBehaviour.ShareStackWithGear,
-                    mmodStackableBehaviour.InstantiateStackItem,
-                    mmodStackableBehaviour.StackConditionDifferenceConstraint,
-                };
-            }
-
-            return null;
+                    modAccelerantBehaviour.DestroyedOnUse,
+                    modAccelerantBehaviour.DurationOffset,
+                    modAccelerantBehaviour.SuccessModifier
+                },
+                ModBurnableBehaviour modBurnableBehaviour => new
+                {
+                    modBurnableBehaviour.BurningMinutes,
+                    modBurnableBehaviour.BurningMinutesBeforeAllowedToAdd,
+                    modBurnableBehaviour.SuccessModifier,
+                    modBurnableBehaviour.TempIncrease,
+                    modBurnableBehaviour.DurationOffset
+                },
+                ModCarryingCapacityBehaviour modCarryingCapacityBehaviour => new
+                {
+                    modCarryingCapacityBehaviour.MaxCarryCapacityKGBuff
+                },
+                ModEvolveBehaviour modEvolveBehaviour => new
+                {
+                    modEvolveBehaviour.TargetItemName,
+                    modEvolveBehaviour.EvolveHours,
+                    modEvolveBehaviour.IndoorsOnly
+                },
+                ModFireStarterBehaviour modFireStarterBehaviour => new
+                {
+                    modFireStarterBehaviour.DestroyedOnUse,
+                    modFireStarterBehaviour.NumberOfUses,
+                    modFireStarterBehaviour.OnUseSoundEvent,
+                    modFireStarterBehaviour.RequiresSunLight,
+                    modFireStarterBehaviour.RuinedAfterUse,
+                    modFireStarterBehaviour.SecondsToIgniteTinder,
+                    modFireStarterBehaviour.SecondsToIgniteTorch,
+                    modFireStarterBehaviour.SuccessModifier
+                },
+                ModHarvestableBehaviour modHarvestableBehaviour => new
+                {
+                    modHarvestableBehaviour.Audio,
+                    modHarvestableBehaviour.Minutes,
+                    modHarvestableBehaviour.YieldCounts,
+                    modHarvestableBehaviour.YieldNames,
+                    modHarvestableBehaviour.RequiredToolNames
+                },
+                ModMillableBehaviour modMillableBehaviour => new
+                {
+                    modMillableBehaviour.RepairDurationMinutes,
+                    modMillableBehaviour.RepairRequiredGear,
+                    modMillableBehaviour.RepairRequiredGearUnits,
+                    modMillableBehaviour.CanRestoreFromWornOut,
+                    modMillableBehaviour.RecoveryDurationMinutes,
+                    modMillableBehaviour.RestoreRequiredGear,
+                    modMillableBehaviour.RestoreRequiredGearUnits,
+                    modMillableBehaviour.Skill
+                },
+                ModRepairableBehaviour modRepairableBehaviour => new
+                {
+                    modRepairableBehaviour.Audio,
+                    modRepairableBehaviour.Minutes,
+                    modRepairableBehaviour.Condition,
+                    modRepairableBehaviour.RequiredTools,
+                    modRepairableBehaviour.MaterialNames,
+                    modRepairableBehaviour.MaterialCounts
+                },
+                ModScentBehaviour modScentBehaviour => new
+                {
+                    ScentCategory = modScentBehaviour.ScentCategory.ToString()
+                },
+                ModSharpenableBehaviour modSharpenableBehaviour => new
+                {
+                    modSharpenableBehaviour.Audio,
+                    modSharpenableBehaviour.MinutesMin,
+                    modSharpenableBehaviour.MinutesMax,
+                    modSharpenableBehaviour.ConditionMin,
+                    modSharpenableBehaviour.ConditionMax,
+                    modSharpenableBehaviour.Tools
+                },
+                ModStackableBehaviour modStackableBehaviour => new
+                {
+                    modStackableBehaviour.SingleUnitTextId,
+                    modStackableBehaviour.MultipleUnitTextId,
+                    modStackableBehaviour.StackSprite,
+                    modStackableBehaviour.UnitsPerItem,
+                    modStackableBehaviour.ChanceFull,
+                    modStackableBehaviour.ShareStackWithGear,
+                    modStackableBehaviour.InstantiateStackItem,
+                    modStackableBehaviour.StackConditionDifferenceConstraint
+                },
+                ModTinderBehaviour modTinderBehaviour => new
+                {
+                    modTinderBehaviour.DurationOffset,
+                    modTinderBehaviour.SuccessModifier
+                },
+                _ => component
+            };
         }
     }
 }

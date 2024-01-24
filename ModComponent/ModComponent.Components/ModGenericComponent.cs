@@ -25,10 +25,10 @@ namespace ModComponent.Components
         public float MaxHP = 100;
 
         [Tooltip("The initial condition of the item when found or crafted.")]
-        public InitialCondition initialCondition = InitialCondition.Random;
+        public InitialCondition InitialCondition = InitialCondition.Random;
 
         [Tooltip("The inventory category to be used for this item. Leave at Auto for a sensible default.")]
-        public InventoryCategory inventoryCategory = InventoryCategory.Auto;
+        public InventoryCategory InventoryCategory = InventoryCategory.Auto;
 
         [Tooltip("Sound to play when the item is picked up.")]
         public string PickUpAudio;

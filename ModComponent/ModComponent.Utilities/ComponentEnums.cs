@@ -1,5 +1,12 @@
 namespace ModComponent.Utilities
 {
+    public enum AmmoForGunType
+    {
+        Rifle,
+        Revolver,
+        FlareGun
+    }
+
     public enum InitialCondition
     {
         Random,
@@ -18,5 +25,15 @@ namespace ModComponent.Utilities
         Food,
         Material,
         Tool
+    }
+
+    public enum ScentCategory
+    {
+        RAW_MEAT,
+        RAW_FISH,
+        COOKED_MEAT,
+        COOKED_FISH,
+        GUTS,
+        QUARTER
     }
 }
