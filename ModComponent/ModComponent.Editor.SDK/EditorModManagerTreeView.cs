@@ -2,6 +2,7 @@
 using ModComponent.SDK.Components;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEditor.IMGUI.Controls;
 using UnityEngine;
@@ -12,6 +13,7 @@ namespace ModComponent.Editor.SDK
     {
         private Dictionary<int, ModDefinition> idToMod;
         private Dictionary<int, string> idToDisplayName;
+        private Dictionary<int, Texture2D> idToPreview;
         private int currentID = 1;
 
         internal delegate void ItemSelectedAction(ModDefinition modDefinition);
@@ -22,6 +24,7 @@ namespace ModComponent.Editor.SDK
         {
             idToMod = new Dictionary<int, ModDefinition>();
             idToDisplayName = new Dictionary<int, string>();
+            idToPreview = new Dictionary<int, Texture2D>();
             BuildTree(modDefinitions);
             Reload();
         }
@@ -33,6 +36,11 @@ namespace ModComponent.Editor.SDK
                 int modId = currentID++;
                 idToMod.Add(modId, modDefinition);
                 idToDisplayName.Add(modId, modDefinition.Name);
+                idToPreview.Add(modId, AssetPreview.GetAssetPreview(modDefinition));
+
+                int prefabsId = currentID++;
+                idToMod.Add(prefabsId, modDefinition);
+                idToDisplayName.Add(prefabsId, "Prefabs");
 
                 if (modDefinition.Items != null)
                 {
@@ -41,8 +49,13 @@ namespace ModComponent.Editor.SDK
                         int prefabId = currentID++;
                         idToMod.Add(prefabId, modDefinition);
                         idToDisplayName.Add(prefabId, prefab.name);
+                        idToPreview.Add(prefabId, AssetPreview.GetAssetPreview(prefab));
                     }
                 }
+
+                int texturesId = currentID++;
+                idToMod.Add(texturesId, modDefinition);
+                idToDisplayName.Add(texturesId, "Textures");
 
                 if (modDefinition.Icons != null)
                 {
@@ -51,6 +64,7 @@ namespace ModComponent.Editor.SDK
                         int textureId = currentID++;
                         idToMod.Add(textureId, modDefinition);
                         idToDisplayName.Add(textureId, texture.name);
+                        idToPreview.Add(textureId, texture);
                     }
                 }
             }
@@ -63,9 +77,10 @@ namespace ModComponent.Editor.SDK
 
             foreach (var kvp in idToMod)
             {
-                bool isModItem = kvp.Value.Name == idToDisplayName[kvp.Key];
-                int depth = isModItem ? 0 : 1;
                 string displayName = idToDisplayName[kvp.Key];
+                bool isModItem = kvp.Value.Name == displayName;
+                bool isPrefabOrTextureGroup = displayName == "Prefabs" || displayName == "Textures";
+                int depth = isModItem ? 0 : isPrefabOrTextureGroup ? 1 : 2;
                 allItems.Add(new TreeViewItem { id = kvp.Key, depth = depth, displayName = displayName });
             }
 
@@ -88,7 +103,7 @@ namespace ModComponent.Editor.SDK
                 }
                 else if (modDefinition.Items != null)
                 {
-                    GameObject selectedPrefab = Array.Find(modDefinition.Items, item => item.name == displayName);
+                    GameObject selectedPrefab = modDefinition.Items.FirstOrDefault(item => item.name == displayName);
                     if (selectedPrefab != null)
                     {
                         Selection.activeGameObject = selectedPrefab;
@@ -96,7 +111,7 @@ namespace ModComponent.Editor.SDK
                 }
                 else if (modDefinition.Icons != null)
                 {
-                    Texture2D selectedTexture = Array.Find(modDefinition.Icons, item => item.name == displayName);
+                    Texture2D selectedTexture = modDefinition.Icons.FirstOrDefault(item => item.name == displayName);
                     if (selectedTexture != null)
                     {
                         Selection.activeObject = selectedTexture;
@@ -119,13 +134,17 @@ namespace ModComponent.Editor.SDK
                 {
                     icon = EditorGUIUtility.ObjectContent(modDefinition, typeof(ModDefinition)).image as Texture2D;
                 }
-                else if (modDefinition.Items != null && Array.Find(modDefinition.Items, item => item.name == displayName) != null)
+                else if (displayName == "Prefabs")
                 {
                     icon = EditorGUIUtility.IconContent("Prefab Icon").image as Texture2D;
                 }
-                else if (modDefinition.Icons != null && Array.Find(modDefinition.Icons, item => item.name == displayName) != null)
+                else if (displayName == "Textures")
                 {
                     icon = EditorGUIUtility.IconContent("Texture Icon").image as Texture2D;
+                }
+                else if (idToPreview.TryGetValue(args.item.id, out Texture2D preview))
+                {
+                    icon = preview;
                 }
 
                 if (icon != null)
@@ -138,6 +157,39 @@ namespace ModComponent.Editor.SDK
 
                 EditorGUI.LabelField(labelRect, displayName);
             }
+        }
+
+        public new void OnGUI(Rect rect)
+        {
+            base.OnGUI(rect);
+
+            float labelAreaHeight = 20;
+            float labelAreaPaddingLeft = 10;
+            Rect labelAreaRect = new(rect.x + labelAreaPaddingLeft, rect.yMax - labelAreaHeight, rect.width - labelAreaPaddingLeft, labelAreaHeight);
+
+            GUILayout.BeginArea(labelAreaRect);
+            GUILayout.BeginVertical();
+            //GUILayout.Label("Mod Manager Toolbox", EditorStyles.boldLabel);
+            GUILayout.EndVertical();
+            GUILayout.EndArea();
+
+            GUILayout.BeginArea(new Rect(rect.x, rect.yMax, rect.width, 30));
+            GUILayout.BeginHorizontal();
+            GUILayout.FlexibleSpace();
+
+            if (GUILayout.Button("Expand All", GUILayout.Width(120)))
+            {
+                ExpandAll();
+            }
+
+            if (GUILayout.Button("Collapse All", GUILayout.Width(120)))
+            {
+                CollapseAll();
+            }
+
+            GUILayout.FlexibleSpace();
+            GUILayout.EndHorizontal();
+            GUILayout.EndArea();
         }
     }
 }

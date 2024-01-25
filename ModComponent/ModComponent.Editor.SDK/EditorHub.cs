@@ -45,8 +45,7 @@ namespace ModComponent.Editor
 
         private static void DrawCommunitySection()
         {
-            DrawSectionWithLinks("For the latest updates and to connect with the modding community, \n"
-                + "check out these links:", new Dictionary<string, string>
+            DrawSectionWithLinks("For the latest updates and to connect with the modding community, \ncheck out these links:", new Dictionary<string, string>
             {
                 { "Changelog", "https://github.com/Deaadman/ModComponentSDK/releases" },
                 { "Discord Server", "https://discord.gg/2mnXAZfGXQ" }
@@ -56,8 +55,7 @@ namespace ModComponent.Editor
 
         private static void DrawDonationSection()
         {
-            GUILayout.Label("Enjoying the SDK? Consider supporting us modders with a donation. \n"
-                + "Thank you!", EditorStyles.centeredGreyMiniLabel);
+            GUILayout.Label("Enjoying the SDK? Consider supporting us modders with a donation. \nThank you!", EditorStyles.centeredGreyMiniLabel);
             if (GUILayout.Button("Contributors & Donations"))
             {
                 ContributorsEditor.ShowWindow();
@@ -79,6 +77,24 @@ namespace ModComponent.Editor
             {
                 DrawButtonWithLink(link.Key, link.Value);
             }
+        }
+    }
+
+    internal class EditorHubWindow : EditorWindow
+    {
+        [MenuItem("ModComponent SDK/About", false, 110)]
+        internal static void Init()
+        {
+            var window = GetWindow<EditorHubWindow>("About Page");
+            window.minSize = new Vector2(400, 310);
+            window.Show();
+        }
+
+        private void OnGUI()
+        {
+            GUILayout.BeginVertical();
+            EditorHub.DrawMainContent();
+            GUILayout.EndVertical();
         }
     }
 }

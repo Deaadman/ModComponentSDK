@@ -1,3 +1,4 @@
+using ModComponent.SDK.Components;
 using UnityEngine;
 
 namespace ModComponent.Components
@@ -18,6 +19,6 @@ namespace ModComponent.Components
         public float Capacity;
 
         [Tooltip("Template item to be used in the mapping process.")]
-        public string Template = "";
+        public GearAsset Template;
     }
 }

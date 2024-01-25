@@ -1,3 +1,4 @@
+using ModComponent.SDK.Components;
 using UnityEngine;
 
 namespace ModComponent.Behaviours
@@ -15,9 +16,9 @@ namespace ModComponent.Behaviours
         public int[] YieldCounts;
 
         [Tooltip("The names of the Gear Items that harvesting will yield.")]
-        public string[] YieldNames;
+        public GearAsset[] YieldNames;
 
         [Tooltip("The names of the ToolItems that can be used to harvest. Leave empty for harvesting by hand.")]
-        public string[] RequiredToolNames;
+        public GearAsset[] RequiredToolNames;
     }
 }

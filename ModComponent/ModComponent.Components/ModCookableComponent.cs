@@ -1,3 +1,4 @@
+using ModComponent.SDK.Components;
 using ModComponent.Utilities;
 using UnityEngine;
 
@@ -19,7 +20,7 @@ namespace ModComponent.Components
         public float CookingWaterRequired;
 
         [Tooltip("Convert the item into this item when cooking completes. Leave empty to only heat the item without converting it.")]
-        public string CookingResult;
+        public GearAsset CookingResult;
 
         [Tooltip("How many in-game minutes until this item becomes burnt after being 'cooked'?")]
         public int BurntMinutes;

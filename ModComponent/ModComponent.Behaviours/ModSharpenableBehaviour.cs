@@ -1,3 +1,4 @@
+using ModComponent.SDK.Components;
 using UnityEngine;
 
 namespace ModComponent.Behaviours
@@ -21,6 +22,6 @@ namespace ModComponent.Behaviours
         public float ConditionMax;
 
         [Tooltip("Which tools can be used to sharpen this item, e.g., 'GEAR_SharpeningStone'. Leave empty to make this sharpenable without tools.")]
-        public string[] Tools;
+        public GearAsset[] Tools;
     }
 }

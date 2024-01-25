@@ -1,10 +1,34 @@
 using ModComponent.Behaviours;
 using ModComponent.Components;
+using System.Linq;
 
 namespace ModComponent.SDK
 {
     internal class DataSerializer
     {
+        internal static object SerializeBlueprint(object blueprint) => blueprint switch
+        {
+            ModBlueprint modBlueprint => new
+            {
+                modBlueprint.Name,
+                RequiredGear = modBlueprint.RequiredGear?.Zip(modBlueprint.RequiredGearUnits,
+                    (gear, count) => new { Item = gear.Name, Count = count }).ToArray(),
+                modBlueprint.KeroseneLitersRequired,
+                modBlueprint.GunpowderKGRequired,
+                RequiredTool = modBlueprint.RequiredTool?.Name ?? "",
+                RequiredCraftingLocation = modBlueprint.RequiredCraftingLocation.ToString(),
+                modBlueprint.RequiresLitFire,
+                modBlueprint.RequiresLight,
+                modBlueprint.CraftedResult,
+                modBlueprint.CraftedResultCount,
+                modBlueprint.DurationMinutes,
+                modBlueprint.CraftingAudio,
+                AppliedSkill = modBlueprint.AppliedSkill.ToString(),
+                ImprovedSkill = modBlueprint.ImprovedSkill.ToString()
+            },
+            _ => blueprint
+        };
+
         internal static object SerializeComponent(object component)
         {
             return component switch
@@ -90,13 +114,13 @@ namespace ModComponent.SDK
 
                     modBodyHarvestComponent.CanCarry,
                     modBodyHarvestComponent.HarvestAudio,
-                    modBodyHarvestComponent.GutPrefab,
+                    GutPrefab = modBodyHarvestComponent.GutPrefab?.Name,
                     modBodyHarvestComponent.GutQuantity,
                     modBodyHarvestComponent.GutWeightKgPerUnit,
-                    modBodyHarvestComponent.HidePrefab,
+                    HidePrefab = modBodyHarvestComponent.HidePrefab?.Name,
                     modBodyHarvestComponent.HideQuantity,
                     modBodyHarvestComponent.HideWeightKgPerUnit,
-                    modBodyHarvestComponent.MeatPrefab,
+                    MeatPrefab = modBodyHarvestComponent.MeatPrefab?.Name,
                     modBodyHarvestComponent.MeatAvailableMinKG,
                     modBodyHarvestComponent.MeatAvailableMaxKG
                 },
@@ -285,7 +309,7 @@ namespace ModComponent.SDK
                     modCookableComponent.CookingMinutes,
                     modCookableComponent.CookingUnitsRequired,
                     modCookableComponent.CookingWaterRequired,
-                    modCookableComponent.CookingResult,
+                    CookingResult = modCookableComponent.CookingResult?.Name,
                     modCookableComponent.BurntMinutes,
                     Type = modCookableComponent.Type.ToString(),
                     modCookableComponent.CookingAudio,
@@ -315,7 +339,7 @@ namespace ModComponent.SDK
                     modCookingPotComponent.CanCookGrub,
                     modCookingPotComponent.CanCookMeat,
                     modCookingPotComponent.Capacity,
-                    modCookingPotComponent.Template
+                    Template = modCookingPotComponent.Template?.Name
                 },
                 ModFirstAidComponent modFirstAidComponent => new
                 {
@@ -417,7 +441,7 @@ namespace ModComponent.SDK
                     InspectOffset = new float[] { modGenericEquippableComponent.InspectOffset.x, modGenericEquippableComponent.InspectOffset.y, modGenericEquippableComponent.InspectOffset.z },
                     InspectScale = new float[] { modGenericEquippableComponent.InspectScale.x, modGenericEquippableComponent.InspectScale.y, modGenericEquippableComponent.InspectScale.z },
 
-                    EquippedModelPrefab = modGenericEquippableComponent.EquippedModelPrefab != null ? modGenericEquippableComponent.EquippedModelPrefab.name : "",
+                    EquippedModelPrefab = modGenericEquippableComponent.EquippedModelPrefab?.Name,
                     modGenericEquippableComponent.ImplementationType,
                     modGenericEquippableComponent.EquippingAudio
                 },
@@ -515,7 +539,7 @@ namespace ModComponent.SDK
                     InspectOffset = new float[] { modRandomItemComponent.InspectOffset.x, modRandomItemComponent.InspectOffset.y, modRandomItemComponent.InspectOffset.z },
                     InspectScale = new float[] { modRandomItemComponent.InspectScale.x, modRandomItemComponent.InspectScale.y, modRandomItemComponent.InspectScale.z },
 
-                    modRandomItemComponent.ItemNames
+                    ItemNames = modRandomItemComponent.ItemNames?.Select(gear => gear.Name).ToArray(),
                 },
                 ModRandomWeightedItemComponent modRandomWeightedItemComponent => new
                 {
@@ -537,7 +561,7 @@ namespace ModComponent.SDK
                     InspectOffset = new float[] { modRandomWeightedItemComponent.InspectOffset.x, modRandomWeightedItemComponent.InspectOffset.y, modRandomWeightedItemComponent.InspectOffset.z },
                     InspectScale = new float[] { modRandomWeightedItemComponent.InspectScale.x, modRandomWeightedItemComponent.InspectScale.y, modRandomWeightedItemComponent.InspectScale.z },
 
-                    modRandomWeightedItemComponent.ItemNames,
+                    ItemNames = modRandomWeightedItemComponent.ItemNames?.Select(gear => gear.Name).ToArray(),
                     modRandomWeightedItemComponent.ItemWeights
                 },
                 ModResearchComponent modResearchComponent => new
@@ -608,7 +632,7 @@ namespace ModComponent.SDK
                 },
                 ModEvolveBehaviour modEvolveBehaviour => new
                 {
-                    modEvolveBehaviour.TargetItemName,
+                    TargetItemName = modEvolveBehaviour.TargetItemName?.Name,
                     modEvolveBehaviour.EvolveHours,
                     modEvolveBehaviour.IndoorsOnly
                 },
@@ -628,17 +652,17 @@ namespace ModComponent.SDK
                     modHarvestableBehaviour.Audio,
                     modHarvestableBehaviour.Minutes,
                     modHarvestableBehaviour.YieldCounts,
-                    modHarvestableBehaviour.YieldNames,
-                    modHarvestableBehaviour.RequiredToolNames
+                    YieldNames = modHarvestableBehaviour.YieldNames?.Select(gear => gear.Name).ToArray(),
+                    RequiredToolNames = modHarvestableBehaviour.RequiredToolNames?.Select(tools => tools.Name).ToArray(),
                 },
                 ModMillableBehaviour modMillableBehaviour => new
                 {
                     modMillableBehaviour.RepairDurationMinutes,
-                    modMillableBehaviour.RepairRequiredGear,
+                    RepairRequiredGear = modMillableBehaviour.RepairRequiredGear?.Select(requiredGear => requiredGear.Name).ToArray(),
                     modMillableBehaviour.RepairRequiredGearUnits,
                     modMillableBehaviour.CanRestoreFromWornOut,
                     modMillableBehaviour.RecoveryDurationMinutes,
-                    modMillableBehaviour.RestoreRequiredGear,
+                    RestoreRequiredGear = modMillableBehaviour.RestoreRequiredGear?.Select(restoreRequiredGear => restoreRequiredGear.Name).ToArray(),
                     modMillableBehaviour.RestoreRequiredGearUnits,
                     modMillableBehaviour.Skill
                 },
@@ -647,8 +671,8 @@ namespace ModComponent.SDK
                     modRepairableBehaviour.Audio,
                     modRepairableBehaviour.Minutes,
                     modRepairableBehaviour.Condition,
-                    modRepairableBehaviour.RequiredTools,
-                    modRepairableBehaviour.MaterialNames,
+                    RequiredTools = modRepairableBehaviour.RequiredTools?.Select(requiredTools => requiredTools.Name).ToArray(),
+                    MaterialNames = modRepairableBehaviour.MaterialNames?.Select(gear => gear.Name).ToArray(),
                     modRepairableBehaviour.MaterialCounts
                 },
                 ModScentBehaviour modScentBehaviour => new
@@ -662,7 +686,7 @@ namespace ModComponent.SDK
                     modSharpenableBehaviour.MinutesMax,
                     modSharpenableBehaviour.ConditionMin,
                     modSharpenableBehaviour.ConditionMax,
-                    modSharpenableBehaviour.Tools
+                    Tools = modSharpenableBehaviour.Tools?.Select(tools => tools.Name).ToArray(),
                 },
                 ModStackableBehaviour modStackableBehaviour => new
                 {
@@ -671,8 +695,8 @@ namespace ModComponent.SDK
                     modStackableBehaviour.StackSprite,
                     modStackableBehaviour.UnitsPerItem,
                     modStackableBehaviour.ChanceFull,
-                    modStackableBehaviour.ShareStackWithGear,
-                    modStackableBehaviour.InstantiateStackItem,
+                    ShareStackWithGear = modStackableBehaviour.ShareStackWithGear?.Select(gearStack => gearStack.Name).ToArray(),
+                    InstantiateStackItem = modStackableBehaviour.InstantiateStackItem?.Name,
                     modStackableBehaviour.StackConditionDifferenceConstraint
                 },
                 ModTinderBehaviour modTinderBehaviour => new

@@ -1,3 +1,4 @@
+using ModComponent.SDK.Components;
 using UnityEngine;
 
 namespace ModComponent.Behaviours
@@ -15,10 +16,10 @@ namespace ModComponent.Behaviours
         public int Condition;
 
         [Tooltip("The name of the tools suitable for repair. At least one of those will be required for repairing. Leave empty if this item should be repairable without tools.")]
-        public string[] RequiredTools;
+        public GearAsset[] RequiredTools;
 
         [Tooltip("The names of the materials required for repair.")]
-        public string[] MaterialNames;
+        public GearAsset[] MaterialNames;
 
         [Tooltip("The number of materials required for repair.")]
         public int[] MaterialCounts;

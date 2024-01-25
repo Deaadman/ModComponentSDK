@@ -1,4 +1,5 @@
 #if UNITY_EDITOR
+using ModComponent.Components;
 using ModComponent.Utilities;
 using Newtonsoft.Json;
 using System;
@@ -187,6 +188,25 @@ namespace ModComponent.SDK.Components
             File.WriteAllText(Path.Combine(localizationFolderPath, "Localization.json"), json);
         }
 
+        internal static void SerializeBlueprints(ModDefinition modDefinition, string modFolderPath)
+        {
+            string blueprintsFolderPath = Path.Combine(modFolderPath, "blueprints");
+            Directory.CreateDirectory(blueprintsFolderPath);
+
+            foreach (var prefab in modDefinition.Items)
+            {
+                foreach (var blueprint in prefab.GetComponents<ModBlueprint>())
+                {
+                    var serializedBlueprint = DataSerializer.SerializeBlueprint(blueprint);
+                    string json = JsonConvert.SerializeObject(serializedBlueprint, Formatting.Indented);
+                    string jsonFileName = prefab.name.StartsWith("GEAR_") ? prefab.name[5..] : prefab.name;
+                    string jsonFilePath = Path.Combine(blueprintsFolderPath, jsonFileName + ".json");
+
+                    File.WriteAllText(jsonFilePath, json);
+                }
+            }
+        }
+
         internal static void SerializeModComponentToJson(ModDefinition modDefinition, string modFolderPath)
         {
             string autoMappedFolderPath = Path.Combine(modFolderPath, "auto-mapped");
@@ -196,6 +216,8 @@ namespace ModComponent.SDK.Components
             {
                 SerializePrefab(prefab, autoMappedFolderPath);
             }
+
+            SerializeBlueprints(modDefinition, modFolderPath);
         }
 
         internal static void SerializePrefab(GameObject prefab, string folderPath)
@@ -204,6 +226,8 @@ namespace ModComponent.SDK.Components
 
             foreach (var component in prefab.GetComponents<MonoBehaviour>())
             {
+                if (component is ModBlueprint) continue;
+
                 var serializedComponent = DataSerializer.SerializeComponent(component);
                 if (serializedComponent != null)
                 {

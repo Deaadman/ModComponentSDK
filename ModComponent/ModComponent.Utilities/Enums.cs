@@ -137,4 +137,12 @@ namespace ModComponent.Utilities
         CraftOnly,
         RepairOnly
     }
+
+    public enum WorkbenchType
+    {
+        Anywhere,
+        Workbench,
+        Forge,
+        AmmoWorkbench
+    }
 }

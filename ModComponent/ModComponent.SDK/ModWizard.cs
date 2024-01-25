@@ -1,4 +1,5 @@
 #if UNITY_EDITOR
+using ModComponent.Editor.SDK;
 using ModComponent.SDK.Components;
 using ModComponent.Utilities;
 using System.IO;
@@ -9,17 +10,17 @@ namespace ModComponent.SDK
 {
     internal class ModWizard : ScriptableWizard
     {
-        [Tooltip("The name of this ModComponent.")]
+        [Tooltip("The name of this Mod Definition.")]
         public string modName = "My Mod";
 
-        [Tooltip("The author of this ModComponent.")]
+        [Tooltip("The author of this Mod Definition.")]
         public string modAuthor = "Author";
         public static readonly string modFolderName = "_ModComponent";
 
-        [MenuItem("ModComponent SDK/Create New Mod", false, 100)]
+        [MenuItem("ModComponent SDK/New Mod Definition", false, 20)]
         private static void CreateWizard()
         {
-            DisplayWizard<ModWizard>("Create New Mod", "Create");
+            DisplayWizard<ModWizard>("New Mod Definition", "Create");
         }
 
         void OnWizardCreate()
@@ -53,7 +54,7 @@ namespace ModComponent.SDK
 
         void OnWizardUpdate()
         {
-            helpString = "Fill out the below details to create a new Mod asset.\nThis lays down the groundwork for creating a custom ModComponent.";
+            helpString = "Fill out the below details to create a new Mod Definition asset.\nThis lays down the groundwork for creating a custom ModComponent.";
 
             errorString = "";
             if (string.IsNullOrEmpty(modName))

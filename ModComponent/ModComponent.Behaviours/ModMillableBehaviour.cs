@@ -1,3 +1,4 @@
+using ModComponent.SDK.Components;
 using UnityEngine;
 
 namespace ModComponent.Behaviours
@@ -9,7 +10,7 @@ namespace ModComponent.Behaviours
         public int RepairDurationMinutes;
 
         [Tooltip("The Gear Items required for repairing the item.")]
-        public string[] RepairRequiredGear;
+        public GearAsset[] RepairRequiredGear;
 
         [Tooltip("The numbers of each Gear Item required for repairing the item.")]
         public int[] RepairRequiredGearUnits;
@@ -21,7 +22,7 @@ namespace ModComponent.Behaviours
         public int RecoveryDurationMinutes;
 
         [Tooltip("The Gear Items required for restoring the item.")]
-        public string[] RestoreRequiredGear;
+        public GearAsset[] RestoreRequiredGear;
 
         [Tooltip("The numbers of each Gear Item required for restoring the item.")]
         public int[] RestoreRequiredGearUnits;

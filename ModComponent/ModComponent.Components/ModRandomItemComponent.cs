@@ -1,3 +1,4 @@
+using ModComponent.SDK.Components;
 using UnityEngine;
 
 namespace ModComponent.Components
@@ -6,6 +7,6 @@ namespace ModComponent.Components
     public class ModRandomItemComponent : ModGenericComponent
     {
         [Tooltip("The names of the gear items that this could spawn.")]
-        public string[] ItemNames;
+        public GearAsset[] ItemNames;
     }
 }

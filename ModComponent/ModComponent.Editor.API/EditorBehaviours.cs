@@ -39,8 +39,8 @@ namespace ModComponent.Editor.API
 
                 { "Minutes", "MINS" },
 
-                { "RepairDurationMinutes", "Repair Duration" },
-                { "RecoveryDurationMinutes", "Recovery Duration" },
+                { "RepairDurationMinutes", "MINS" },
+                { "RecoveryDurationMinutes", "MINS" },
 
                 { "Condition", "%" },
 

@@ -1,3 +1,4 @@
+using ModComponent.SDK.Components;
 using UnityEngine;
 
 namespace ModComponent.Components
@@ -12,7 +13,7 @@ namespace ModComponent.Components
         public string HarvestAudio;
 
         [Tooltip("The name of the object prefab for the guts.")]
-        public string GutPrefab;
+        public GearAsset GutPrefab;
 
         [Tooltip("The number of guts in each harvest.")]
         public int GutQuantity;
@@ -21,7 +22,7 @@ namespace ModComponent.Components
         public float GutWeightKgPerUnit;
 
         [Tooltip("The name of the object prefab for the hide.")]
-        public string HidePrefab;
+        public GearAsset HidePrefab;
 
         [Tooltip("The number of hides in each harvest.")]
         public int HideQuantity;
@@ -30,7 +31,7 @@ namespace ModComponent.Components
         public float HideWeightKgPerUnit;
 
         [Tooltip("The name of the object prefab for the raw meat.")]
-        public string MeatPrefab;
+        public GearAsset MeatPrefab;
 
         [Tooltip("The minimum amount of meat in each harvest.")]
         public float MeatAvailableMinKG;

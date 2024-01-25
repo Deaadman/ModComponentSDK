@@ -29,14 +29,20 @@ namespace ModComponent.Editor.SDK
         {
             EditorGUILayout.BeginHorizontal();
 
-            if (GUILayout.Button("Refresh"))
+            if (GUILayout.Button(new GUIContent("Refresh", "Reload the Mod Manager")))
             {
                 RefreshModTreeView();
             }
 
+            if (GUILayout.Button(new GUIContent("Docs", "Open the ModComponent SDK Documentation in your default web browser.")))
+            {
+                Application.OpenURL("https://github.com/Deaadman/ModComponentSDK/wiki");
+            }
+
             string exportButtonLabel = selectedMod != null ? $"Export {selectedMod.Name}" : "Select a Mod to Export";
             EditorGUI.BeginDisabledGroup(selectedMod == null);
-            if (GUILayout.Button(exportButtonLabel))
+
+            if (GUILayout.Button(new GUIContent(exportButtonLabel, "Export the selected Mod Definition into a .modcomponent")))
             {
                 string path = EditorUtility.SaveFilePanel("Save Mod Component", "", selectedMod.Name, "modcomponent");
                 if (!string.IsNullOrEmpty(path))
@@ -44,8 +50,8 @@ namespace ModComponent.Editor.SDK
                     ModManager.ExportModAsModComponent(selectedMod, path);
                 }
             }
-            EditorGUI.EndDisabledGroup();
 
+            EditorGUI.EndDisabledGroup();
             EditorGUILayout.EndHorizontal();
 
             modTreeView?.OnGUI(new Rect(0, 25, position.width, position.height - 50));

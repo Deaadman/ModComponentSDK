@@ -12,7 +12,7 @@ namespace ModComponent.Editor.SDK
         private static string _latestVersionChanges;
         private Vector2 _scrollPosition;
 
-        [MenuItem("ModComponent SDK/Check For Update", false, 20)]
+        [MenuItem("ModComponent SDK/Check For Updates", false, 100)]
         private static void CheckForUpdate()
         {
             _ = AutoUpdater.InitializeAsync();

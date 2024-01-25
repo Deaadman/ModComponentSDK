@@ -1,3 +1,4 @@
+using ModComponent.SDK.Components;
 using UnityEngine;
 
 namespace ModComponent.Components
@@ -6,7 +7,7 @@ namespace ModComponent.Components
     public class ModRandomWeightedItemComponent : ModGenericComponent
     {
         [Tooltip("The names of the gear items that this could spawn. Must be the same length as ItemWeights")]
-        public string[] ItemNames;
+        public GearAsset[] ItemNames;
 
         [Tooltip("The integer weights of the gear items that this could spawn. Must be the same length as ItemNames")]
         public int[] ItemWeights;
