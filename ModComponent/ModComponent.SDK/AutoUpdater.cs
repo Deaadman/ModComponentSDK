@@ -12,7 +12,7 @@ namespace ModComponent.SDK
 {
     internal class AutoUpdater
     {
-        private static readonly string CurrentVersion = Information.SDK_VERSION;
+        private static readonly string CurrentVersion = ModComponentSDK.SDK_VERSION;
         private static string _latestVersion;
         private static string _latestVersionChanges;
 
@@ -38,7 +38,7 @@ namespace ModComponent.SDK
         private static void OpenUpdateWindow()
         {
             EditorApplication.update -= OpenUpdateWindow;
-            AutoUpdaterEditor.Init(CurrentVersion, _latestVersion, _latestVersionChanges);
+            EditorAutoUpdater.Init(CurrentVersion, _latestVersion, _latestVersionChanges);
         }
 
         internal static void UpdatePackage(string latestVersion)

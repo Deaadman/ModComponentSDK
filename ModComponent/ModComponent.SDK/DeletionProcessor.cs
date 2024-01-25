@@ -1,5 +1,5 @@
 #if UNITY_EDITOR
-using ModComponent.ModManager;
+using ModComponent.SDK.Components;
 using System.IO;
 using UnityEditor;
 using UnityEditor.AddressableAssets.Settings;
@@ -14,25 +14,25 @@ namespace ModComponent.SDK
         {
             if (Path.GetExtension(assetPath) == ".asset")
             {
-                Mod mod = AssetDatabase.LoadAssetAtPath<Mod>(assetPath);
-                if (mod != null)
+                ModDefinition modDefinition = AssetDatabase.LoadAssetAtPath<ModDefinition>(assetPath);
+                if (modDefinition != null)
                 {
-                    HandleModDeletion(mod);
+                    HandleModDeletion(modDefinition);
                 }
             }
 
             return AssetDeleteResult.DidNotDelete;
         }
 
-        private static void HandleModDeletion(Mod mod)
+        private static void HandleModDeletion(ModDefinition modDefinition)
         {
-            string modFolderPath = Path.Combine(ModManager.ModManager.ModAssetsPath, mod.Name);
+            string modFolderPath = Path.Combine(ModManager.ModAssetsPath, modDefinition.Name);
             if (Directory.Exists(modFolderPath))
             {
                 Directory.Delete(modFolderPath, true);
             }
 
-            AddressableAssetGroup group = AddressableAssetSettingsDefaultObject.Settings.FindGroup(FileUtility.SanitizeFileName(mod.Name));
+            AddressableAssetGroup group = AddressableAssetSettingsDefaultObject.Settings.FindGroup(FileUtilities.SanitizeFileName(modDefinition.Name));
             if (group != null)
             {
                 AddressableAssetSettingsDefaultObject.Settings.RemoveGroup(group);

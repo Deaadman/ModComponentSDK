@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace ModComponent.Editor.API
 {
-    internal abstract class ModEditorBase : UnityEditor.Editor
+    internal abstract class EditorBase : UnityEditor.Editor
     {
         protected enum Tab { Common, Audio, Inspect, About }
         protected Tab selectedTab = Tab.Common;
@@ -64,7 +64,7 @@ namespace ModComponent.Editor.API
         protected void DrawAboutFields()
         {
             EditorGUILayout.BeginScrollView(Vector2.zero);
-            EditorContentDrawer.DrawWelcomeContent();
+            EditorHub.DrawMainContent();
             EditorGUILayout.EndScrollView();
         }
 

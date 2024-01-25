@@ -1,5 +1,5 @@
 <p align="center">
-    <a href="#"><img src="https://raw.githubusercontent.com/Deaadman/ModComponentSDK/release/ModComponent/Assets/TitleCardGitHub.png"></a>
+    <a href="#"><img src="https://raw.githubusercontent.com/Deaadman/ModComponentSDK/release/ModComponent/Assets/Graphics/GitHub/TitleCardGitHub.png"></a>
 
 ---
 

@@ -4,13 +4,14 @@ using UnityEngine;
 namespace ModComponent.Components
 {
     [HelpURL("https://github.com/dommrogers/ModComponent/blob/master/docs/Generic-Component-Documentation.md")]
+    [DisallowMultipleComponent]
     public class ModGenericComponent : MonoBehaviour
     {
         [Tooltip("Localization key to be used for the in-game name of the item.")]
-        public string DisplayNameLocalizationId;
+        public string DisplayNameLocalizationId = "GAMEPLAY_DisplayNameKey";
 
         [Tooltip("Localization key to be used for the in-game description of the item.")]
-        public string DescriptionLocalizatonId;
+        public string DescriptionLocalizatonId = "GAMEPLAY_DescriptionKey";
 
         [Tooltip("Localization key to be used for the 'Action' (e.g., 'Equip', 'Eat', ...) button in the inventory. The text is purely cosmetic and will not influence the action the button triggers. Leave empty for a sensible default.")]
         public string InventoryActionLocalizationId;
