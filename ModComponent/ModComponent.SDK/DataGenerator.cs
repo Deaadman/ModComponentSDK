@@ -30,7 +30,7 @@ namespace ModComponent.SDK
                 if (!File.Exists(assetPath))
                 {
                     T asset = ScriptableObject.CreateInstance<T>();
-                    setProperties(asset, "Packages/com.deadman.modcomponent.sdk/ModComponent/Assets/Icons/Hinterland/" + item.Value + ".png");
+                    setProperties(asset, "packages/com.deadman.modcomponent.sdk/ModComponent/Assets/Icons/Hinterland/" + item.Value + ".png");
                     AssetDatabase.CreateAsset(asset, assetPath);
                 }
             }
