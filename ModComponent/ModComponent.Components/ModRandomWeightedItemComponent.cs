@@ -7,7 +7,7 @@ namespace ModComponent.Components
     public class ModRandomWeightedItemComponent : ModGenericComponent
     {
         [Tooltip("The names of the gear items that this could spawn. Must be the same length as ItemWeights")]
-        public GearAsset[] ItemNames;
+        public DataGearAsset[] ItemNames;
 
         [Tooltip("The integer weights of the gear items that this could spawn. Must be the same length as ItemNames")]
         public int[] ItemWeights;

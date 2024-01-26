@@ -20,7 +20,7 @@ namespace ModComponent.Components
         public float CookingWaterRequired;
 
         [Tooltip("Convert the item into this item when cooking completes. Leave empty to only heat the item without converting it.")]
-        public GearAsset CookingResult;
+        public DataGearAsset CookingResult;
 
         [Tooltip("How many in-game minutes until this item becomes burnt after being 'cooked'?")]
         public int BurntMinutes;
@@ -29,9 +29,9 @@ namespace ModComponent.Components
         public CookableType Type;
 
         [Tooltip("Sound to use when cooking/heating the item. Leave empty for a sensible default.")]
-        public string CookingAudio;
+        public DataSoundAsset CookingAudio;
 
         [Tooltip("Sound to use when putting the item into a pot or on a stove. Leave empty for a sensible default.")]
-        public string StartCookingAudio;
+        public DataSoundAsset StartCookingAudio;
     }
 }

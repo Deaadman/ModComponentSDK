@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ModComponent.SDK.Components
 {
-    public class Localization : ScriptableObject
+    public class DataLocalization : ScriptableObject
     {
         [Serializable]
         public class LocalizationEntry

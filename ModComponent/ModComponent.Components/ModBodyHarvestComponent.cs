@@ -10,10 +10,10 @@ namespace ModComponent.Components
         public bool CanCarry;
 
         [Tooltip("The id for the sound to be played while harvesting.")]
-        public string HarvestAudio;
+        public DataSoundAsset HarvestAudio;
 
         [Tooltip("The name of the object prefab for the guts.")]
-        public GearAsset GutPrefab;
+        public DataGearAsset GutPrefab;
 
         [Tooltip("The number of guts in each harvest.")]
         public int GutQuantity;
@@ -22,7 +22,7 @@ namespace ModComponent.Components
         public float GutWeightKgPerUnit;
 
         [Tooltip("The name of the object prefab for the hide.")]
-        public GearAsset HidePrefab;
+        public DataGearAsset HidePrefab;
 
         [Tooltip("The number of hides in each harvest.")]
         public int HideQuantity;
@@ -31,7 +31,7 @@ namespace ModComponent.Components
         public float HideWeightKgPerUnit;
 
         [Tooltip("The name of the object prefab for the raw meat.")]
-        public GearAsset MeatPrefab;
+        public DataGearAsset MeatPrefab;
 
         [Tooltip("The minimum amount of meat in each harvest.")]
         public float MeatAvailableMinKG;

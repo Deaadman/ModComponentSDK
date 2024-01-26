@@ -7,6 +7,6 @@ namespace ModComponent.Components
     public class ModRandomItemComponent : ModGenericComponent
     {
         [Tooltip("The names of the gear items that this could spawn.")]
-        public GearAsset[] ItemNames;
+        public DataGearAsset[] ItemNames;
     }
 }

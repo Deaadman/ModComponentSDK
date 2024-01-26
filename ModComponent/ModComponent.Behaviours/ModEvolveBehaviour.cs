@@ -7,7 +7,7 @@ namespace ModComponent.Behaviours
     public class ModEvolveBehaviour : ModBaseBehaviour
     {
         [Tooltip("Name of the item into which this item will evolve. E.g. 'GEAR_GutDried'")]
-        public GearAsset TargetItemName;
+        public DataGearAsset TargetItemName;
 
         [Tooltip("How many in-game hours does this item take to evolve from 0% to 100%?")]
         public int EvolveHours;

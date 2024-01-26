@@ -25,7 +25,7 @@ namespace ModComponent.Editor.SDK
             requiredModsProperty = serializedObject.FindProperty("RequiredMods");
             itemsProperty = serializedObject.FindProperty("Items");
             iconsProperty = serializedObject.FindProperty("Icons");
-            localizationProperty = serializedObject.FindProperty("localization");
+            localizationProperty = serializedObject.FindProperty("dataLocalization");
         }
 
         private void DrawCustomFields()

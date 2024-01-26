@@ -19,6 +19,6 @@ namespace ModComponent.Components
         public float Capacity;
 
         [Tooltip("Template item to be used in the mapping process.")]
-        public GearAsset Template;
+        public DataGearAsset Template;
     }
 }

@@ -22,10 +22,10 @@ namespace ModComponent.Behaviours
         public float ChanceFull;
 
         [Tooltip("The items that can be stacked with this item.")]
-        public GearAsset[] ShareStackWithGear;
+        public DataGearAsset[] ShareStackWithGear;
 
         [Tooltip("The item to instantiate when the stack is split.")]
-        public GearAsset InstantiateStackItem;
+        public DataGearAsset InstantiateStackItem;
 
         [Tooltip("The maximum difference in condition between items in a stack.")]
         public float StackConditionDifferenceConstraint;

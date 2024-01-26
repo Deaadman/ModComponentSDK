@@ -121,7 +121,7 @@ namespace ModComponent.SDK.Components
 
         internal static void ExportLocalization(ModDefinition modDefinition, string modFolderPath)
         {
-            if (modDefinition.localization != null)
+            if (modDefinition.dataLocalization != null)
             {
                 var localizationData = ExtractLocalizationData(modDefinition);
                 string json = JsonConvert.SerializeObject(localizationData, Formatting.Indented);
@@ -246,7 +246,7 @@ namespace ModComponent.SDK.Components
         {
             var localizationData = new Dictionary<string, Dictionary<string, string>>();
 
-            foreach (var entry in modDefinition.localization.localizationEntries)
+            foreach (var entry in modDefinition.dataLocalization.localizationEntries)
             {
                 var translations = new Dictionary<string, string>
                 {

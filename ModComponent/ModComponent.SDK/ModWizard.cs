@@ -43,10 +43,10 @@ namespace ModComponent.SDK
             AssetDatabase.CreateAsset(modDefinition, assetPath);
 
             string localizationAssetPath = Path.Combine(specificFolderPath, FileUtilities.SanitizeFileName(modName) + "Localization.asset");
-            Localization localization = CreateInstance<Localization>();
-            AssetDatabase.CreateAsset(localization, localizationAssetPath);
+            DataLocalization dataLocalization = CreateInstance<DataLocalization>();
+            AssetDatabase.CreateAsset(dataLocalization, localizationAssetPath);
 
-            modDefinition.localization = localization;
+            modDefinition.dataLocalization = dataLocalization;
 
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();

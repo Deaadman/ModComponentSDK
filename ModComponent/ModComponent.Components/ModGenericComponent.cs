@@ -1,3 +1,4 @@
+using ModComponent.SDK.Components;
 using ModComponent.Utilities;
 using UnityEngine;
 
@@ -8,7 +9,7 @@ namespace ModComponent.Components
     public class ModGenericComponent : MonoBehaviour
     {
         [Tooltip("Localization key to be used for the in-game name of the item.")]
-        public string DisplayNameLocalizationId = "GAMEPLAY_DisplayNameKey";
+        public string DisplayNameLocalizationId = "GAMEPLAY_NameKey";
 
         [Tooltip("Localization key to be used for the in-game description of the item.")]
         public string DescriptionLocalizatonId = "GAMEPLAY_DescriptionKey";
@@ -26,28 +27,28 @@ namespace ModComponent.Components
         public float MaxHP = 100;
 
         [Tooltip("The initial condition of the item when found or crafted.")]
-        public InitialCondition InitialCondition = InitialCondition.Random;
+        public InitialCondition InitialCondition;
 
         [Tooltip("The inventory category to be used for this item. Leave at Auto for a sensible default.")]
-        public InventoryCategory InventoryCategory = InventoryCategory.Auto;
+        public InventoryCategory InventoryCategory;
 
         [Tooltip("Sound to play when the item is picked up.")]
-        public string PickUpAudio;
+        public DataSoundAsset PickUpAudio;
 
         [Tooltip("Sound to play when the item is dropped.")]
-        public string PutBackAudio;
+        public DataSoundAsset PutBackAudio;
 
         [Tooltip("Sound to play when the item is holstered.")]
-        public string StowAudio = "Play_InventoryStow";
+        public DataSoundAsset StowAudio;
 
         [Tooltip("Sound to play when the item wore out during an action.")]
-        public string WornOutAudio;
+        public DataSoundAsset WornOutAudio;
 
         [Tooltip("Will the item be inspected when picked up? If not enabled, the item will go straight to the inventory.")]
         public bool InspectOnPickup = true;
 
         [Tooltip("Distance from the camera during inspect.")]
-        public float InspectDistance = 0.4f;
+        public float InspectDistance = 1;
 
         [Tooltip("Rotation angles (in degrees) during inspect. Use [0, 0, 0] for no rotation.")]
         public Vector3 InspectAngles;
@@ -59,9 +60,9 @@ namespace ModComponent.Components
         public Vector3 InspectScale = new(1, 1, 1);
 
         [Tooltip("Model to show when not inspecting the item. Leave empty to have the normal model and inspect model be the same.")]
-        public string NormalModel;
+        public GameObject NormalModel;
 
         [Tooltip("Model to show when inspecting the item. Leave empty to have the normal model and inspect model be the same.")]
-        public string InspectModel;
+        public GameObject InspectModel;
     }
 }

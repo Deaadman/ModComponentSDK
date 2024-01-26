@@ -1,3 +1,4 @@
+using ModComponent.SDK.Components;
 using ModComponent.Utilities;
 using UnityEngine;
 
@@ -37,7 +38,7 @@ namespace ModComponent.Components
         public bool ForceLocks;
 
         [Tooltip("Sound to play while forcing a lock.")]
-        public string ForceLockAudio;
+        public DataSoundAsset ForceLockAudio;
 
         [Tooltip("Can this tool item be used to clear ice fishing holes?")]
         public bool IceFishingHole;
@@ -49,7 +50,7 @@ namespace ModComponent.Components
         public int IceFishingHoleMinutes;
 
         [Tooltip("Sound to play while clearing an ice fishing hole.")]
-        public string IceFishingHoleAudio;
+        public DataSoundAsset IceFishingHoleAudio;
 
         [Tooltip("Can this tool item be used to harvest carcasses?")]
         public bool CarcassHarvesting;

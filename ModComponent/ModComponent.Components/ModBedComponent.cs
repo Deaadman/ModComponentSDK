@@ -1,3 +1,4 @@
+using ModComponent.SDK.Components;
 using UnityEngine;
 
 namespace ModComponent.Components
@@ -24,15 +25,15 @@ namespace ModComponent.Components
         public float WolfAttackModifier;
 
         [Tooltip("Sound to be played when beginning to sleep in this bed. Leave empty for a sensible default.")]
-        public string OpenAudio;
+        public DataSoundAsset OpenAudio;
 
         [Tooltip("Sound to be played when ending to sleep in this bed. Leave empty for a sensible default.")]
-        public string CloseAudio;
+        public DataSoundAsset CloseAudio;
 
         [Tooltip("Optional game object to be used for representing the bed in a 'packed' state.")]
-        public string PackedMesh;
+        public DataSoundAsset PackedMesh;
 
         [Tooltip("Optional game object to be used for representing the bed in a 'usable' state.")]
-        public string UsableMesh;
+        public DataSoundAsset UsableMesh;
     }
 }

@@ -12,7 +12,7 @@ namespace ModComponent.Components
         public string Name;
 
         [Tooltip("The name of each gear needed to craft this item (e.g., GEAR_Line).")]
-        public GearAsset[] RequiredGear;
+        public DataGearAsset[] RequiredGear;
 
         [Tooltip("How many of each item are required? This list has to match the RequiredGear list.")]
         public int[] RequiredGearUnits;
@@ -24,10 +24,10 @@ namespace ModComponent.Components
         public float GunpowderKGRequired;
 
         [Tooltip("Tool required to craft (e.g., GEAR_Knife).")]
-        public GearAsset RequiredTool;
+        public DataGearAsset RequiredTool;
 
         [Tooltip("List of optional tools to speed up the crafting process or to use in place of the required tool.")]
-        public GearAsset[] OptionalTools;
+        public DataGearAsset[] OptionalTools;
 
         [Tooltip("Where to craft? (Anywhere, Workbench, Forge, AmmoWorkbench)")]
         public WorkbenchType RequiredCraftingLocation;
@@ -39,7 +39,7 @@ namespace ModComponent.Components
         public bool RequiresLight;
 
         [Tooltip("The name of the item produced.")]
-        public string CraftedResult;
+        public DataGearAsset CraftedResult;
 
         [Tooltip("Number of the item produced.")]
         public int CraftedResultCount;
@@ -48,7 +48,7 @@ namespace ModComponent.Components
         public int DurationMinutes;
 
         [Tooltip("Audio to be played.")]
-        public string CraftingAudio;
+        public DataSoundAsset CraftingAudio;
 
         [Tooltip("The skill associated with crafting this item (e.g., Gunsmithing, None if not applicable).")]
         public SkillType AppliedSkill;

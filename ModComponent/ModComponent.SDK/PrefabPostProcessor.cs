@@ -20,7 +20,7 @@ public class PrefabPostProcessor : AssetPostprocessor
 
     private static void CreateGearAssetForPrefab(string prefabPath)
     {
-        string gearAssetFolderPath = "Assets/_ModComponent/Assets/GearAssets/CurrentUnityProject";
+        string gearAssetFolderPath = "Assets/_ModComponent/DataAssets/GearItems/CurrentUnityProject";
         if (!Directory.Exists(gearAssetFolderPath))
         {
             Directory.CreateDirectory(gearAssetFolderPath);
@@ -35,7 +35,7 @@ public class PrefabPostProcessor : AssetPostprocessor
         }
 
         Texture2D icon = FindIconForPrefab(prefabName);
-        GearAsset asset = ScriptableObject.CreateInstance<GearAsset>();
+        DataGearAsset asset = ScriptableObject.CreateInstance<DataGearAsset>();
         asset.Name = prefabName;
         asset.Icon = icon;
 

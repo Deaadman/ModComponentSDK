@@ -1,3 +1,4 @@
+using ModComponent.SDK.Components;
 using ModComponent.Utilities;
 using UnityEngine;
 
@@ -25,6 +26,6 @@ namespace ModComponent.Components
         public int UnitsPerUse;
 
         [Tooltip("Sound to play when using the item.")]
-        public string UseAudio;
+        public DataSoundAsset UseAudio;
     }
 }

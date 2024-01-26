@@ -7,7 +7,7 @@ namespace ModComponent.Behaviours
     public class ModSharpenableBehaviour : ModBaseBehaviour
     {
         [Tooltip("The sound to play while sharpening. Leave empty for a sensible default.")]
-        public string Audio;
+        public DataSoundAsset Audio;
 
         [Tooltip("How many in-game minutes does it take to sharpen this item at minimum skill.")]
         public int MinutesMin;
@@ -22,6 +22,6 @@ namespace ModComponent.Behaviours
         public float ConditionMax;
 
         [Tooltip("Which tools can be used to sharpen this item, e.g., 'GEAR_SharpeningStone'. Leave empty to make this sharpenable without tools.")]
-        public GearAsset[] Tools;
+        public DataGearAsset[] Tools;
     }
 }

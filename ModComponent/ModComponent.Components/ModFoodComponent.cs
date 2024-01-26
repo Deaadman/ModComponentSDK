@@ -1,3 +1,4 @@
+using ModComponent.SDK.Components;
 using UnityEngine;
 
 namespace ModComponent.Components
@@ -22,10 +23,10 @@ namespace ModComponent.Components
         public int EatingTime;
 
         [Tooltip("Sound to use when the item is either unpackaged or already open.")]
-        public string EatingAudio;
+        public DataSoundAsset EatingAudio;
 
         [Tooltip("Sound to use when the item is still packaged and unopened. Leave empty for unpackaged food.")]
-        public string EatingPackagedAudio;
+        public DataSoundAsset EatingPackagedAudio;
 
         [Tooltip("How does this affect your thirst? Represents change in percentage points. Negative values increase thirst, positive values reduce thirst.")]
         public int ThirstEffect;

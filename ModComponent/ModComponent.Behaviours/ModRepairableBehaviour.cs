@@ -7,7 +7,7 @@ namespace ModComponent.Behaviours
     public class ModRepairableBehaviour : ModBaseBehaviour
     {
         [Tooltip("The audio to play while repairing.")]
-        public string Audio;
+        public DataSoundAsset Audio;
 
         [Tooltip("How many in-game minutes does it take to repair this item?")]
         public int Minutes;
@@ -16,10 +16,10 @@ namespace ModComponent.Behaviours
         public int Condition;
 
         [Tooltip("The name of the tools suitable for repair. At least one of those will be required for repairing. Leave empty if this item should be repairable without tools.")]
-        public GearAsset[] RequiredTools;
+        public DataGearAsset[] RequiredTools;
 
         [Tooltip("The names of the materials required for repair.")]
-        public GearAsset[] MaterialNames;
+        public DataGearAsset[] MaterialNames;
 
         [Tooltip("The number of materials required for repair.")]
         public int[] MaterialCounts;

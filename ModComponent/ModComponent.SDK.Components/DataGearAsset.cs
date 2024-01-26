@@ -3,7 +3,7 @@ using UnityEngine;
 namespace ModComponent.SDK.Components
 {
     [System.Serializable]
-    public class GearAsset : ScriptableObject
+    public class DataGearAsset : ScriptableObject
     {
         [HideInInspector]
         public string Name;

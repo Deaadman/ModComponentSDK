@@ -1,3 +1,4 @@
+using ModComponent.SDK.Components;
 using ModComponent.Utilities;
 using UnityEngine;
 
@@ -10,6 +11,6 @@ namespace ModComponent.Components
         public int TimeRequirementHours;
         public int SkillPoints;
         public int NoBenefitAtSkillLevel;
-        public string ReadAudio;
+        public DataSoundAsset ReadAudio;
     }
 }

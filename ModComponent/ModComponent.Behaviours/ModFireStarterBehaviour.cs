@@ -1,3 +1,4 @@
+using ModComponent.SDK.Components;
 using UnityEngine;
 
 namespace ModComponent.Behaviours
@@ -12,7 +13,7 @@ namespace ModComponent.Behaviours
         public float NumberOfUses;
 
         [Tooltip("What sound to play during usage.")]
-        public string OnUseSoundEvent;
+        public DataSoundAsset OnUseSoundEvent;
 
         [Tooltip("Does the item require sunlight to work?")]
         public bool RequiresSunLight;

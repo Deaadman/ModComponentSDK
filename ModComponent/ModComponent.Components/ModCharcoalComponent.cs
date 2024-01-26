@@ -1,3 +1,4 @@
+using ModComponent.SDK.Components;
 using UnityEngine;
 
 namespace ModComponent.Components
@@ -8,6 +9,6 @@ namespace ModComponent.Components
         public float SurveyGameMinutes;
         public float SurveyRealSeconds;
         public float SurveySkillExtendedHours;
-        public string SurveyLoopAudio = "Play_MapCharcoalWriting";
+        public DataSoundAsset SurveyLoopAudio;
     }
 }

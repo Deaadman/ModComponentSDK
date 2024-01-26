@@ -7,7 +7,7 @@ namespace ModComponent.Behaviours
     public class ModHarvestableBehaviour : ModBaseBehaviour
     {
         [Tooltip("The audio to play while harvesting.")]
-        public string Audio;
+        public DataSoundAsset Audio;
 
         [Tooltip("How many in-game minutes does it take to harvest this item?")]
         public int Minutes;
@@ -16,9 +16,9 @@ namespace ModComponent.Behaviours
         public int[] YieldCounts;
 
         [Tooltip("The names of the Gear Items that harvesting will yield.")]
-        public GearAsset[] YieldNames;
+        public DataGearAsset[] YieldNames;
 
         [Tooltip("The names of the ToolItems that can be used to harvest. Leave empty for harvesting by hand.")]
-        public GearAsset[] RequiredToolNames;
+        public DataGearAsset[] RequiredToolNames;
     }
 }

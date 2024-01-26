@@ -5,11 +5,11 @@ using UnityEngine;
 
 namespace ModComponent.Editor.SDK
 {
-    [CustomEditor(typeof(GearAsset))]
+    [CustomEditor(typeof(DataGearAsset))]
     [CanEditMultipleObjects]
     public class EditorGearAsset : UnityEditor.Editor
     {
-        private GearAsset Instance => target as GearAsset;
+        private DataGearAsset Instance => target as DataGearAsset;
 
         public override Texture2D RenderStaticPreview(string assetPath, Object[] subAssets, int width, int height)
         {

@@ -61,11 +61,11 @@ namespace ModComponent.Utilities
 
     public enum InitialCondition
     {
-        High,
-        Low,
-        Medium,
+        Random,
         Perfect,
-        Random
+        High,
+        Medium,
+        Low
     }
 
     public enum InventoryCategory

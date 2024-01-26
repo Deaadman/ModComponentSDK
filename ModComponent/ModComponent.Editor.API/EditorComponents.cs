@@ -20,6 +20,14 @@ namespace ModComponent.Editor.API
         {
             base.OnEnable();
 
+            DefinePropertyUnits();
+            DefinePropertyDisplayNames();
+
+            DefineTabDrawMethods();
+        }
+
+        private void DefinePropertyUnits()
+        {
             propertyUnits = new Dictionary<string, string>()
             {
                 { "WeightKG", "KG" },
@@ -67,6 +75,7 @@ namespace ModComponent.Editor.API
 
                 { "DaysToDecayOutdoors", "DAYS" },
                 { "DaysToDecayIndoors", "DAYS" },
+                { "Calories", "CAL" },
                 { "EatingTime", "SECS" },
                 { "ThirstEffect", "%" },
                 { "FoodPoisoning", "%" },
@@ -109,7 +118,10 @@ namespace ModComponent.Editor.API
                 { "TapMultiplier", "%" },
                 { "BleedoutMultiplier", "%" }
             };
+        }
 
+        private void DefinePropertyDisplayNames()
+        {
             propertyDisplayNames = new Dictionary<string, string>()
             {
                 { "DisplayNameLocalizationId", "Display Name Localization Key"},
@@ -183,7 +195,10 @@ namespace ModComponent.Editor.API
                 { "MinutesPerGut", "Per Gut" },
                 { "DegradePerHourHarvesting", "Degrade Harvesting" }
             };
+        }
 
+        private void DefineTabDrawMethods()
+        {
             tabDrawMethods = new Dictionary<Tab, Action>
             {
                 { Tab.Common, () => DrawCommonFields() },
@@ -220,7 +235,7 @@ namespace ModComponent.Editor.API
         private void DrawCommonFields()
         {
             GUILayout.BeginVertical(ModComponentEditorStyles.BackgroundBox);
-            DrawCustomHeading("Default Properties");
+            DrawCustomHeading("Generic Component Properties");
 
             string[] baseClassProperties = new string[]
             {
@@ -259,7 +274,6 @@ namespace ModComponent.Editor.API
                 DrawCustomHeading("Body Harvest Component Properties");
                 DrawFields(new string[] {
                     "CanCarry",
-                    "HarvestAudio",
                     "GutPrefab",
                     "GutQuantity",
                     "GutWeightKgPerUnit",
@@ -278,8 +292,7 @@ namespace ModComponent.Editor.API
                 DrawFields(new string[] {
                     "SurveyGameMinutes",
                     "SurveyRealSeconds",
-                    "SurveySkillExtendedHours",
-                    "SurveyLoopAudio"
+                    "SurveySkillExtendedHours"
                 });
             }
 
@@ -332,9 +345,7 @@ namespace ModComponent.Editor.API
                     "CookingWaterRequired",
                     "CookingResult",
                     "BurntMinutes",
-                    "Type",
-                    "CookingAudio",
-                    "StartCookingAudio"
+                    "Type"
                 });
             }
 
@@ -359,8 +370,7 @@ namespace ModComponent.Editor.API
                     "InstantHealing",
                     "FirstAidType",
                     "TimeToUseSeconds",
-                    "UnitsPerUse",
-                    "UseAudio"
+                    "UnitsPerUse"
                 });
             }
 
@@ -373,8 +383,6 @@ namespace ModComponent.Editor.API
                     "Calories",
                     "Servings",
                     "EatingTime",
-                    "EatingAudio",
-                    "EatingPackagedAudio",
                     "ThirstEffect",
                     "FoodPoisoning",
                     "FoodPoisoningLowCondition",
@@ -411,8 +419,7 @@ namespace ModComponent.Editor.API
                 DrawCustomHeading("Equippable Component Properties");
                 DrawFields(new string[] {
                     "EquippedModelPrefab",
-                    "ImplementationType",
-                    "EquippingAudio"
+                    "ImplementationType"
                 });
             }
 
@@ -443,8 +450,7 @@ namespace ModComponent.Editor.API
                 DrawFields(new string[] {
                     "LitersPurify",
                     "ProgressBarDurationSeconds",
-                    "ProgressBarLocalizationID",
-                    "PurifyAudio"
+                    "ProgressBarLocalizationID"
                 });
             }
 
@@ -472,8 +478,7 @@ namespace ModComponent.Editor.API
                     "SkillType",
                     "TimeRequirementHours",
                     "SkillPoints",
-                    "NoBenefitAtSkillLevel",
-                    "ReadAudio"
+                    "NoBenefitAtSkillLevel"
                 });
             }
 
@@ -491,11 +496,9 @@ namespace ModComponent.Editor.API
                     "BreakDown",
                     "BreakDownTimeMultiplier",
                     "ForceLocks",
-                    "ForceLockAudio",
                     "IceFishingHole",
                     "IceFishingHoleDegradeOnUse",
                     "IceFishingHoleMinutes",
-                    "IceFishingHoleAudio",
                     "CarcassHarvesting",
                     "MinutesPerKgMeat",
                     "MinutesPerKgFrozenMeat",
@@ -517,7 +520,7 @@ namespace ModComponent.Editor.API
         private void DrawAudioFields()
         {
             GUILayout.BeginVertical(ModComponentEditorStyles.BackgroundBox);
-            DrawCustomHeading("Default Audio Properties");
+            DrawCustomHeading("Generic Audio Properties");
 
             string[] baseClassProperties = new string[]
             {
@@ -530,12 +533,87 @@ namespace ModComponent.Editor.API
 
             if (target.GetType() == typeof(ModBedComponent) || target.GetType().IsSubclassOf(typeof(ModBedComponent)))
             {
-                DrawCustomHeading("Bed Component Audio Properties");
+                DrawCustomHeading("Bed Audio Properties");
                 DrawFields(new string[] {
                     "OpenAudio",
                     "CloseAudio",
                     "PackedMesh",
                     "UsableMesh"
+                });
+            }
+
+            if (target.GetType() == typeof(ModBodyHarvestComponent) || target.GetType().IsSubclassOf(typeof(ModBodyHarvestComponent)))
+            {
+                DrawCustomHeading("Body Harvest Audio Properties");
+                DrawFields(new string[] {
+                    "HarvestAudio"
+                });
+            }
+
+            if (target.GetType() == typeof(ModCharcoalComponent) || target.GetType().IsSubclassOf(typeof(ModCharcoalComponent)))
+            {
+                DrawCustomHeading("Charcoal Audio Properties");
+                DrawFields(new string[] {
+                    "SurveyLoopAudio"
+                });
+            }
+
+            if (target.GetType() == typeof(ModCookableComponent) || target.GetType().IsSubclassOf(typeof(ModCookableComponent)))
+            {
+                DrawCustomHeading("Cookable Audio Properties");
+                DrawFields(new string[] {
+                    "CookingAudio",
+                    "StartCookingAudio"
+                });
+            }
+
+            if (target.GetType() == typeof(ModFirstAidComponent) || target.GetType().IsSubclassOf(typeof(ModFirstAidComponent)))
+            {
+                DrawCustomHeading("First Aid Audio Properties");
+                DrawFields(new string[] {
+                    "UseAudio"
+                });
+            }
+
+            if (target.GetType() == typeof(ModFoodComponent) || target.GetType().IsSubclassOf(typeof(ModFoodComponent)))
+            {
+                DrawCustomHeading("Food Audio Properties");
+                DrawFields(new string[] {
+                    "EatingAudio",
+                    "EatingPackagedAudio"
+                });
+            }
+
+            if (target.GetType() == typeof(ModGenericEquippableComponent) || target.GetType().IsSubclassOf(typeof(ModGenericEquippableComponent)))
+            {
+                DrawCustomHeading("Equippable Audio Properties");
+                DrawFields(new string[] {
+                    "EquippingAudio"
+                });
+            }
+
+            if (target.GetType() == typeof(ModPurificationComponent) || target.GetType().IsSubclassOf(typeof(ModPurificationComponent)))
+            {
+                DrawCustomHeading("Purification Audio Properties");
+                DrawFields(new string[] {
+                    "PurifyAudio"
+                });
+            }
+
+            if (target.GetType() == typeof(ModResearchComponent) || target.GetType().IsSubclassOf(typeof(ModResearchComponent)))
+            {
+                DrawCustomHeading("Research Audio Properties");
+                DrawFields(new string[] {
+                    "ReadAudio"
+                });
+            }
+
+            if (target.GetType() == typeof(ModToolComponent) || target.GetType().IsSubclassOf(typeof(ModToolComponent)))
+            {
+                DrawCustomHeading("Tool Audio Properties");
+                DrawFields(new string[] {
+                    "ForceLockAudio",
+                    "IceFishingHoleAudio"
                 });
             }
 
@@ -545,7 +623,7 @@ namespace ModComponent.Editor.API
         private void DrawInspectFields()
         {
             GUILayout.BeginVertical(ModComponentEditorStyles.BackgroundBox);
-            DrawCustomHeading("Default Inspect Properties");
+            DrawCustomHeading("Generic Inspect Properties");
 
             DrawFields(new string[] {
                 "InspectOnPickup",
