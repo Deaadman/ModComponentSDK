@@ -5,6 +5,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.IO;
 using ModComponent.SDK.Components;
+using System;
 
 namespace ModComponent.SDK
 {
@@ -24,13 +25,15 @@ namespace ModComponent.SDK
                 Directory.CreateDirectory(assetFolderPath);
             }
 
+            string packagePath = FindPackagePath("com.deadman.modcomponent.sdk");
+
             foreach (var item in items)
             {
                 string assetPath = assetFolderPath + "/" + item.Key + ".asset";
                 if (!File.Exists(assetPath))
                 {
                     T asset = ScriptableObject.CreateInstance<T>();
-                    setProperties(asset, "packages/com.deadman.modcomponent.sdk/ModComponent/Assets/Icons/Hinterland/" + item.Value + ".png");
+                    setProperties(asset, packagePath + "/ModComponent/Assets/Icons/Hinterland/" + item.Value + ".png");
                     AssetDatabase.CreateAsset(asset, assetPath);
                 }
             }
@@ -38,6 +41,28 @@ namespace ModComponent.SDK
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
         }
+
+        private static string FindPackagePath(string packageName)
+        {
+            var packageInfo = UnityEditor.PackageManager.PackageInfo.FindForAssembly(typeof(DataGenerator).Assembly);
+            if (packageInfo != null && packageInfo.name == packageName)
+            {
+                return packageInfo.assetPath;
+            }
+
+            // Alternative approach if package is not associated with the current assembly
+            //var packages = UnityEditor.PackageManager.PackageInfo.GetAllRegisteredPackages();
+            //foreach (var package in packages)
+            //{
+            //    if (package.name == packageName)
+            //    {
+            //        return package.assetPath;
+            //    }
+            //}
+
+            throw new InvalidOperationException($"Package '{packageName}' not found.");
+        }
+
 
         private static void GenerateAssets<T>(string assetFolderPath, List<string> names, System.Action<T, string> setProperties) where T : ScriptableObject
         {
