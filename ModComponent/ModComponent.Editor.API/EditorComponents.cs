@@ -19,10 +19,8 @@ namespace ModComponent.Editor.API
         protected override void OnEnable()
         {
             base.OnEnable();
-
             DefinePropertyUnits();
             DefinePropertyDisplayNames();
-
             DefineTabDrawMethods();
         }
 
@@ -265,7 +263,9 @@ namespace ModComponent.Editor.API
                     "WarmthBonusCelsius",
                     "DegradePerHour",
                     "BearAttackModifier",
-                    "WolfAttackModifier"
+                    "WolfAttackModifier",
+                    "PackedMesh",
+                    "UsableMesh"
                 });
             }
 
@@ -536,9 +536,7 @@ namespace ModComponent.Editor.API
                 DrawCustomHeading("Bed Audio Properties");
                 DrawFields(new string[] {
                     "OpenAudio",
-                    "CloseAudio",
-                    "PackedMesh",
-                    "UsableMesh"
+                    "CloseAudio"
                 });
             }
 

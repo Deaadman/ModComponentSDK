@@ -16,22 +16,18 @@ namespace ModComponent.SDK
         private static string _latestVersion;
         private static string _latestVersionChanges;
 
-        static AutoUpdater()
-        {
-            _ = InitializeAsync();
-        }
-
-        internal static async Task InitializeAsync()
+        internal static async Task<bool> InitializeUpdateCheck()
         {
             await FetchLatestReleaseInfoAsync();
 
             if (_latestVersion != null && _latestVersion != CurrentVersion)
             {
                 EditorApplication.update += OpenUpdateWindow;
+                return true;
             }
             else
             {
-                Debug.Log("ModComponent SDK is up-to-date.");
+                return false;
             }
         }
 

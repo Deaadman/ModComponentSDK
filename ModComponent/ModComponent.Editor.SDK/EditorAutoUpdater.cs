@@ -12,19 +12,13 @@ namespace ModComponent.Editor.SDK
         private static string _latestVersionChanges;
         private Vector2 _scrollPosition;
 
-        [MenuItem("ModComponent SDK/Check For Updates", false, 100)]
-        private static void CheckForUpdate()
-        {
-            _ = AutoUpdater.InitializeAsync();
-        }
-
         internal static void Init(string currentVer, string latestVer, string changes)
         {
             _currentVersion = currentVer;
             _latestVersion = latestVer;
             _latestVersionChanges = MarkdownToRichText(changes);
             var window = GetWindow<EditorAutoUpdater>("Auto Updater");
-            window.minSize = new Vector2(350, 400);
+            window.minSize = new Vector2(720, 650);
             window.Show();
         }
 

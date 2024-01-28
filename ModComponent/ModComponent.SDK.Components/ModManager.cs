@@ -6,10 +6,12 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
+using System.Text;
 using UnityEditor;
 using UnityEditor.AddressableAssets;
 using UnityEditor.AddressableAssets.Settings;
 using UnityEngine;
+using static ModComponent.SDK.Components.ModGearSpawns;
 using CompressionLevel = System.IO.Compression.CompressionLevel;
 
 namespace ModComponent.SDK.Components
@@ -19,7 +21,7 @@ namespace ModComponent.SDK.Components
         internal const string ModAssetsPath = "Assets/_ModComponent";
         private const string AssetBundlesPath = ".\\AssetBundles\\";
 
-        internal static void AddAssetsToAddressablesGroup(UnityEngine.Object[] assets, AddressableAssetGroup group)
+        private static void AddAssetsToAddressablesGroup(UnityEngine.Object[] assets, AddressableAssetGroup group)
         {
             var settings = AddressableAssetSettingsDefaultObject.Settings;
 
@@ -32,7 +34,7 @@ namespace ModComponent.SDK.Components
             }
         }
 
-        internal static void ClearAssetBundlesDirectory(string directoryPath)
+        private static void ClearAssetBundlesDirectory(string directoryPath)
         {
             if (Directory.Exists(directoryPath))
             {
@@ -44,7 +46,7 @@ namespace ModComponent.SDK.Components
             }
         }
 
-        internal static void ClearDirectory(string directoryPath, string excludeExtension = null)
+        private static void ClearDirectory(string directoryPath, string excludeExtension = null)
         {
             foreach (var file in Directory.GetFiles(directoryPath))
             {
@@ -79,7 +81,7 @@ namespace ModComponent.SDK.Components
             return modDefinitions;
         }
 
-        internal static void ClearModFolder(string folderPath)
+        private static void ClearModFolder(string folderPath)
         {
             if (Directory.Exists(folderPath))
             {
@@ -91,7 +93,7 @@ namespace ModComponent.SDK.Components
             }
         }
 
-        internal static void CopyAssetBundlesToFolder(string bundlesFolderPath)
+        private static void CopyAssetBundlesToFolder(string bundlesFolderPath)
         {
             foreach (var file in Directory.EnumerateFiles(AssetBundlesPath))
             {
@@ -104,7 +106,7 @@ namespace ModComponent.SDK.Components
             }
         }
 
-        internal static void CreateBuildInfoJson(ModDefinition modDefinition, string filePath)
+        private static void CreateBuildInfoJson(ModDefinition modDefinition, string filePath)
         {
             var buildInfo = new ModDefinition.BuildInfo
             {
@@ -119,9 +121,57 @@ namespace ModComponent.SDK.Components
             File.WriteAllText(filePath, json);
         }
 
-        internal static void ExportLocalization(ModDefinition modDefinition, string modFolderPath)
+        private static void ExportGearSpawns(ModDefinition modDefinition, string modFolderPath)
         {
-            if (modDefinition.dataLocalization != null)
+            if (modDefinition.modGearSpawns != null)
+            {
+                string gearSpawnsFolderPath = Path.Combine(modFolderPath, "gear-spawns");
+                if (!Directory.Exists(gearSpawnsFolderPath))
+                {
+                    Directory.CreateDirectory(gearSpawnsFolderPath);
+                }
+
+                StringBuilder sb = new();
+
+                foreach (var sceneSpawnEntry in modDefinition.modGearSpawns.sceneGearSpawnEntries)
+                {
+                    if (sceneSpawnEntry.sceneName != null)
+                    {
+                        sb.AppendLine($"scene={sceneSpawnEntry.sceneName.name}");
+                        foreach (var itemSpawn in sceneSpawnEntry.sceneItemSpawns)
+                        {
+                            sb.Append($"item={itemSpawn.itemName.name} p={FormatVector3(itemSpawn.position)}");
+                            if (itemSpawn.rotation != Vector3.zero)
+                            {
+                                sb.Append($" r={FormatVector3(itemSpawn.rotation)}");
+                            }
+                            sb.Append($" c={itemSpawn.spawnChance}");
+                            sb.AppendLine();
+                        }
+                    }
+                }
+
+                sb.AppendLine();
+
+                foreach (var lootTableSpawnEntry in modDefinition.modGearSpawns.lootTableGearSpawnEntries)
+                {
+                    if (lootTableSpawnEntry.lootTableName != null)
+                    {
+                        sb.AppendLine($"loottable=LootTable{lootTableSpawnEntry.lootTableName.name}");
+                        foreach (var lootTableSpawn in lootTableSpawnEntry.lootTableSpawns)
+                        {
+                            sb.AppendLine($"item={lootTableSpawn.itemName.name} w={lootTableSpawn.weight}");
+                        }
+                    }
+                }
+
+                File.WriteAllText(Path.Combine(gearSpawnsFolderPath, "gearspawns.txt"), sb.ToString());
+            }
+        }
+
+        private static void ExportLocalization(ModDefinition modDefinition, string modFolderPath)
+        {
+            if (modDefinition.modLocalization != null)
             {
                 var localizationData = ExtractLocalizationData(modDefinition);
                 string json = JsonConvert.SerializeObject(localizationData, Formatting.Indented);
@@ -143,13 +193,19 @@ namespace ModComponent.SDK.Components
             string modFolderPath = PrepareModFolder(modDefinition);
             CreateBuildInfoJson(modDefinition, Path.Combine(modFolderPath, "BuildInfo.json"));
             ExportLocalization(modDefinition, modFolderPath);
+            ExportGearSpawns(modDefinition, modFolderPath);
             SerializeModComponentToJson(modDefinition, modFolderPath);
 
             string modComponentPath = outputPath ?? $"{modDefinition.Name}.modcomponent";
             PackageModComponent(modFolderPath, modComponentPath);
         }
 
-        internal static void PackageModComponent(string modFolderPath, string modComponentPath)
+        private static string FormatVector3(Vector3 vector)
+        {
+            return $"{vector.x},{vector.y},{vector.z}";
+        }
+
+        private static void PackageModComponent(string modFolderPath, string modComponentPath)
         {
             if (File.Exists(modComponentPath))
             {
@@ -169,7 +225,7 @@ namespace ModComponent.SDK.Components
             }
         }
 
-        internal static string PrepareModFolder(ModDefinition modDefinition)
+        private static string PrepareModFolder(ModDefinition modDefinition)
         {
             string modFolderPath = Path.Combine(ModAssetsPath, modDefinition.Name);
             ClearModFolder(modFolderPath);
@@ -181,14 +237,14 @@ namespace ModComponent.SDK.Components
             return modFolderPath;
         }
 
-        internal static void SaveLocalizationJson(string modFolderPath, string json)
+        private static void SaveLocalizationJson(string modFolderPath, string json)
         {
             string localizationFolderPath = Path.Combine(modFolderPath, "localizations");
             Directory.CreateDirectory(localizationFolderPath);
             File.WriteAllText(Path.Combine(localizationFolderPath, "Localization.json"), json);
         }
 
-        internal static void SerializeBlueprints(ModDefinition modDefinition, string modFolderPath)
+        private static void SerializeBlueprints(ModDefinition modDefinition, string modFolderPath)
         {
             string blueprintsFolderPath = Path.Combine(modFolderPath, "blueprints");
             Directory.CreateDirectory(blueprintsFolderPath);
@@ -207,7 +263,7 @@ namespace ModComponent.SDK.Components
             }
         }
 
-        internal static void SerializeModComponentToJson(ModDefinition modDefinition, string modFolderPath)
+        private static void SerializeModComponentToJson(ModDefinition modDefinition, string modFolderPath)
         {
             string autoMappedFolderPath = Path.Combine(modFolderPath, "auto-mapped");
             Directory.CreateDirectory(autoMappedFolderPath);
@@ -220,7 +276,7 @@ namespace ModComponent.SDK.Components
             SerializeBlueprints(modDefinition, modFolderPath);
         }
 
-        internal static void SerializePrefab(GameObject prefab, string folderPath)
+        private static void SerializePrefab(GameObject prefab, string folderPath)
         {
             var componentData = new Dictionary<string, object>();
 
@@ -246,7 +302,7 @@ namespace ModComponent.SDK.Components
         {
             var localizationData = new Dictionary<string, Dictionary<string, string>>();
 
-            foreach (var entry in modDefinition.dataLocalization.localizationEntries)
+            foreach (var entry in modDefinition.modLocalization.localizationEntries)
             {
                 var translations = new Dictionary<string, string>
                 {

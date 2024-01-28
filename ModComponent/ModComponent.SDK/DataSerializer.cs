@@ -6,28 +6,52 @@ namespace ModComponent.SDK
 {
     internal class DataSerializer
     {
-        internal static object SerializeBlueprint(object blueprint) => blueprint switch
+        internal static object SerializeBlueprint(object blueprint)
         {
-            ModBlueprint modBlueprint => new
+            return blueprint switch
             {
-                modBlueprint.Name,
-                RequiredGear = modBlueprint.RequiredGear?.Zip(modBlueprint.RequiredGearUnits,
+                //ModRecipe modRecipe => new
+                //{
+                //    modRecipe.RecipeName,
+                //    modRecipe.RecipeDescription,
+                //    RecipeIcon = modRecipe.RecipeIcon?.Icon.name ?? "",
+                //    modRecipe.RequiredSkillLevel,
+                //    AllowedCookingPots = modRecipe.AllowedCookingPots?.Select(pot => pot.name).ToArray() ?? new string[0],
+                //    BlueprintData = new
+                //    {
+                //        modRecipe.Name,
+                //        RequiredGear = modRecipe.RequiredGear?.Zip(modRecipe.RequiredGearUnits,
+                //    (gear, count) => new { Item = gear.name, Count = count }).ToArray(),
+                //        modRecipe.KeroseneLitersRequired,
+                //        modRecipe.GunpowderKGRequired,
+                //        CraftedResult = modRecipe.CraftedResult?.name ?? "",
+                //        modRecipe.CraftedResultCount,
+                //        modRecipe.DurationMinutes,
+                //        CraftingAudio = modRecipe.CraftingAudio?.name ?? ""
+                //    }
+                //},
+                ModBlueprint modBlueprint => new
+                {
+                    modBlueprint.Name,
+                    RequiredGear = modBlueprint.RequiredGear?.Zip(modBlueprint.RequiredGearUnits,
                     (gear, count) => new { Item = gear.name, Count = count }).ToArray(),
-                modBlueprint.KeroseneLitersRequired,
-                modBlueprint.GunpowderKGRequired,
-                RequiredTool = modBlueprint.RequiredTool?.name ?? "",
-                RequiredCraftingLocation = modBlueprint.RequiredCraftingLocation.ToString(),
-                modBlueprint.RequiresLitFire,
-                modBlueprint.RequiresLight,
-                CraftedResult = modBlueprint.CraftedResult?.name ?? "",
-                modBlueprint.CraftedResultCount,
-                modBlueprint.DurationMinutes,
-                CraftingAudio = modBlueprint.CraftingAudio?.name ?? "",
-                AppliedSkill = modBlueprint.AppliedSkill.ToString(),
-                ImprovedSkill = modBlueprint.ImprovedSkill.ToString()
-            },
-            _ => blueprint
-        };
+                    modBlueprint.KeroseneLitersRequired,
+                    modBlueprint.GunpowderKGRequired,
+                    RequiredTool = modBlueprint.RequiredTool?.name ?? "",
+                    OptionalTools = modBlueprint.OptionalTools?.Select(tool => tool.name).ToArray(),
+                    RequiredCraftingLocation = modBlueprint.RequiredCraftingLocation.ToString(),
+                    modBlueprint.RequiresLitFire,
+                    modBlueprint.RequiresLight,
+                    CraftedResult = modBlueprint.CraftedResult?.name ?? "",
+                    modBlueprint.CraftedResultCount,
+                    modBlueprint.DurationMinutes,
+                    CraftingAudio = modBlueprint.CraftingAudio?.name ?? "",
+                    AppliedSkill = modBlueprint.AppliedSkill.ToString(),
+                    ImprovedSkill = modBlueprint.ImprovedSkill.ToString()
+                },
+                _ => blueprint
+            };
+        }
 
         internal static object SerializeComponent(object component)
         {
@@ -87,8 +111,8 @@ namespace ModComponent.SDK
                     modBedComponent.WolfAttackModifier,
                     OpenAudio = modBedComponent.OpenAudio?.name ?? "",
                     CloseAudio = modBedComponent.CloseAudio?.name ?? "",
-                    PackedMesh = modBedComponent.PackedMesh?.name ?? "",
-                    UsableMesh = modBedComponent.UsableMesh?.name ?? ""
+                    PackedMesh = modBedComponent.PackedMesh != null ? modBedComponent.NormalModel.name : "",
+                    UsableMesh = modBedComponent.UsableMesh != null ? modBedComponent.NormalModel.name : "",
                 },
                 ModBodyHarvestComponent modBodyHarvestComponent => new
                 {
@@ -609,8 +633,8 @@ namespace ModComponent.SDK
                     InspectAngles = new float[] { modGenericComponent.InspectAngles.x, modGenericComponent.InspectAngles.y, modGenericComponent.InspectAngles.z },
                     InspectOffset = new float[] { modGenericComponent.InspectOffset.x, modGenericComponent.InspectOffset.y, modGenericComponent.InspectOffset.z },
                     InspectScale = new float[] { modGenericComponent.InspectScale.x, modGenericComponent.InspectScale.y, modGenericComponent.InspectScale.z },
-                    NormalModel = modGenericComponent.NormalModel?.name ?? "",
-                    InspectModel = modGenericComponent.InspectModel?.name ?? ""
+                    NormalModel = modGenericComponent.NormalModel != null ? modGenericComponent.NormalModel.name : "",
+                    InspectModel = modGenericComponent.InspectModel != null ? modGenericComponent.InspectModel.name : ""
                 },
                 ModAccelerantBehaviour modAccelerantBehaviour => new
                 {

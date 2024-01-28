@@ -1,8 +1,8 @@
 {
   "name": "com.deadman.modcomponent.sdk",
-  "version": "1.0.0-Beta.2",
+  "version": "1.0.0-Beta.3",
   "displayName": "ModComponent SDK",
-  "description": "\"\"",
+  "description": "An SDK built on top of the infrastructure of ModComponent, enhancing and simplifying the process of creating ModComponent's.",
   "unity": "2021.3",
   "unityRelease": "16f1",
   "documentationUrl": "https://github.com/Deaadman/ModComponentSDK/wiki",

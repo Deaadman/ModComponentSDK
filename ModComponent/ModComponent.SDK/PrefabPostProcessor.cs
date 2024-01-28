@@ -20,7 +20,7 @@ public class PrefabPostProcessor : AssetPostprocessor
 
     private static void CreateGearAssetForPrefab(string prefabPath)
     {
-        string gearAssetFolderPath = "Assets/_ModComponent/DataAssets/GearItems/CurrentUnityProject";
+        string gearAssetFolderPath = "Assets/_ModComponent/DataAssets/CurrentUnityProject";
         if (!Directory.Exists(gearAssetFolderPath))
         {
             Directory.CreateDirectory(gearAssetFolderPath);

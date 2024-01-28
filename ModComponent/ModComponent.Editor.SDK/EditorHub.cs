@@ -32,6 +32,7 @@ namespace ModComponent.Editor
             GUILayout.Label("Supported Versions:", ModComponentEditorStyles.CenteredLabel);
             GUILayout.Label($"ModComponent Version: v{ModComponentSDK.MODCOMPONENT_VERSION}", EditorStyles.centeredGreyMiniLabel);
             GUILayout.Label($"The Long Dark Version: v{ModComponentSDK.TLD_VERSION}", EditorStyles.centeredGreyMiniLabel);
+            GUILayout.Label($"Modders Toolbox Version: v{ModComponentSDK.MODDERSTOOLBOX_VERSION}", EditorStyles.centeredGreyMiniLabel);
         }
 
         private static void DrawGettingStartedSection()
@@ -86,7 +87,7 @@ namespace ModComponent.Editor
         internal static void Init()
         {
             var window = GetWindow<EditorHubWindow>("About Page");
-            window.minSize = new Vector2(400, 310);
+            window.minSize = new Vector2(400, 320);
             window.Show();
         }
 

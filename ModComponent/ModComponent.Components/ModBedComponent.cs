@@ -31,9 +31,9 @@ namespace ModComponent.Components
         public DataSoundAsset CloseAudio;
 
         [Tooltip("Optional game object to be used for representing the bed in a 'packed' state.")]
-        public DataSoundAsset PackedMesh;
+        public GameObject PackedMesh;
 
         [Tooltip("Optional game object to be used for representing the bed in a 'usable' state.")]
-        public DataSoundAsset UsableMesh;
+        public GameObject UsableMesh;
     }
 }

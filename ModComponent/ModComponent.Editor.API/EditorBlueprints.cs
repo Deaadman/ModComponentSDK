@@ -14,19 +14,29 @@ namespace ModComponent.Editor.API
     {
         protected override Tab[] GetTabs()
         {
-            return new[] { Tab.Common, Tab.About };
+            return new[] { Tab.Common, Tab.Audio, Tab.About };
         }
 
         protected override void OnEnable()
         {
             base.OnEnable();
+            DefinePropertyUnits();
+            DefinePropertyDisplayNames();
+            DefineTabDrawMethods();
+        }
 
+        private void DefinePropertyUnits()
+        {
             propertyUnits = new Dictionary<string, string>()
             {
                 { "KeroseneLitersRequired", "L" },
                 { "GunpowderKGRequired", "KG" },
                 { "DurationMinutes", "MINS" }
             };
+        }
+
+        private void DefinePropertyDisplayNames()
+        {
             propertyDisplayNames = new Dictionary<string, string>()
             {
                 { "Name", "Name (Optional)" },
@@ -34,19 +44,14 @@ namespace ModComponent.Editor.API
                 { "GunpowderKGRequired", "Gunpowder Required" },
                 { "DurationMinutes", "Duration Time" }
             };
+        }
 
-            foreach (FieldInfo field in target.GetType().GetFields(BindingFlags.Public | BindingFlags.Instance))
-            {
-                SerializedProperty property = serializedObject.FindProperty(field.Name);
-                if (property != null)
-                {
-                    serializedProperties[field.Name] = property;
-                }
-            }
-
+        private void DefineTabDrawMethods()
+        {
             tabDrawMethods = new Dictionary<Tab, Action>
             {
                 { Tab.Common, () => DrawCommonFields() },
+                { Tab.Audio, () => DrawAudioFields() },
                 { Tab.About, () => DrawAboutFields() }
             };
         }
@@ -80,23 +85,71 @@ namespace ModComponent.Editor.API
             GUILayout.BeginVertical(ModComponentEditorStyles.BackgroundBox);
             DrawCustomHeading("Blueprint Properties");
 
-            foreach (var pair in serializedProperties)
+            string[] baseClassProperties = new string[]
             {
-                SerializedProperty property = pair.Value;
-                string displayName = propertyDisplayNames.ContainsKey(pair.Key)
-                                     ? propertyDisplayNames[pair.Key]
-                                     : ObjectNames.NicifyVariableName(pair.Key);
+                "Name",
+                "RequiredGear",
+                "RequiredGearUnits",
+                "KeroseneLitersRequired",
+                "GunpowderKGRequired",
+                "RequiredTool",
+                "OptionalTools",
+                "RequiredCraftingLocation",
+                "RequiresLitFire",
+                "RequiresLight",
+                "CraftedResult",
+                "CraftedResultCount",
+                "DurationMinutes",
+                "AppliedSkill",
+                "ImprovedSkill",
+            };
+            DrawFields(baseClassProperties);
 
-                if (propertyUnits.TryGetValue(pair.Key, out string unit))
+            //if (target.GetType() == typeof(ModRecipe) || target.GetType().IsSubclassOf(typeof(ModRecipe)))
+            //{
+            //    DrawCustomHeading("Recipe Properties");
+            //    DrawFields(new string[] {
+            //        "RecipeName",
+            //        "RecipeDescription",
+            //        "RecipeIcon",
+            //        "RequiredSkillLevel",
+            //        "AllowedCookingPots"
+            //    });
+            //}
+
+            GUILayout.EndVertical();
+        }
+
+        private void DrawAudioFields()
+        {
+            GUILayout.BeginVertical(ModComponentEditorStyles.BackgroundBox);
+            DrawCustomHeading("Blueprint Audio Properties");
+
+            DrawFields(new string[] {
+                "CraftingAudio"
+            });
+
+            GUILayout.EndVertical();
+        }
+
+        private void DrawFields(string[] propertyNames)
+        {
+            GUILayout.BeginVertical(ModComponentEditorStyles.BackgroundBox);
+            foreach (string name in propertyNames)
+            {
+                if (serializedProperties.TryGetValue(name, out SerializedProperty property))
                 {
-                    ModComponentEditorStyles.DrawPropertyWithUnit(property, unit, new GUIContent(displayName));
-                }
-                else
-                {
-                    EditorGUILayout.PropertyField(property, new GUIContent(displayName));
+                    string displayName = propertyDisplayNames.ContainsKey(name) ? propertyDisplayNames[name] : ObjectNames.NicifyVariableName(name);
+                    if (propertyUnits.TryGetValue(name, out string unit))
+                    {
+                        ModComponentEditorStyles.DrawPropertyWithUnit(property, unit, new GUIContent(displayName));
+                    }
+                    else
+                    {
+                        EditorGUILayout.PropertyField(property, new GUIContent(displayName));
+                    }
                 }
             }
-
             GUILayout.EndVertical();
         }
     }

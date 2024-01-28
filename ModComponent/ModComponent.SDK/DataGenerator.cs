@@ -1,70 +1,81 @@
 #if UNITY_EDITOR
-using UnityEditor;
-using UnityEditor.Callbacks;
-using UnityEngine;
-using System.Collections.Generic;
-using System.IO;
 using ModComponent.SDK.Components;
 using System;
+using System.Collections.Generic;
+using System.IO;
+using UnityEditor;
+using UnityEngine;
 
 namespace ModComponent.SDK
 {
-    public static class DataGenerator
+    internal static class DataGenerator
     {
-        [DidReloadScripts]
-        private static void OnScriptsReloaded()
+        internal static bool CheckAndPromptForAssetGeneration()
         {
-            GenerateAssets<DataGearAsset>("Assets/_ModComponent/DataAssets/GearItems/Hinterland", GetGearItems(), SetDataGearAssetProperties);
-            GenerateAssets<DataSoundAsset>("Assets/_ModComponent/DataAssets/Sounds", GetSoundNames(), SetDataSoundAssetProperties);
+            string dataAssetsPath = "Assets/_ModComponent/DataAssets";
+            if (!Directory.Exists(dataAssetsPath))
+            {
+                EditorUtility.DisplayDialog(
+                    "Data Assets Generator",
+                    "No Data Assets were found in your project. These are required, import them now.",
+                    "Import");
+
+                return GenerateAllAssets();
+            }
+
+            return true;
         }
 
-        private static void GenerateAssets<T>(string assetFolderPath, Dictionary<string, string> items, System.Action<T, string> setProperties) where T : ScriptableObject
+        internal static bool GenerateAllAssets()
         {
-            if (!Directory.Exists(assetFolderPath))
+            try
             {
-                Directory.CreateDirectory(assetFolderPath);
+                GenerateAssets<DataGearAsset>("Assets/_ModComponent/DataAssets/Hinterland/GearItems", GetGearItems(), SetDataGearAssetProperties, "ModComponent/Assets/Icons/Hinterland/");
+                GenerateAssets<DataSoundAsset>("Assets/_ModComponent/DataAssets/Hinterland/Sounds", GetSoundNames(), SetDataSoundAssetProperties);
+                GenerateAssets<DataLootTableAsset>("Assets/_ModComponent/DataAssets/Hinterland/LootTables", GetLootTableNames(), SetDataLootTableProperties);
+                GenerateAssets<DataSceneAsset>("Assets/_ModComponent/DataAssets/Hinterland/Scenes", GetScenes(), SetDataSceneAssetProperties);
+                GenerateAssets<DataGearAsset>("Assets/_ModComponent/DataAssets/Modded/ModdersToolbox", GetModdersToolBoxItems(), SetDataGearAssetProperties, "ModComponent/Assets/Icons/ModdersToolbox/");
+
+                AssetDatabase.SaveAssets();
+                AssetDatabase.Refresh();
+
+                return true;
             }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Asset generation failed: {ex.Message}");
+                return false;
+            }
+        }
+
+        private static void GenerateAssets<T>(string assetFolderPath, Dictionary<string, string> items, Action<T, string> setProperties, string iconBasePath = "") where T : ScriptableObject
+        {
+            EnsureDirectoryExists(assetFolderPath);
 
             string packagePath = FindPackagePath("com.deadman.modcomponent.sdk");
 
             foreach (var item in items)
             {
-                string assetPath = assetFolderPath + "/" + item.Key + ".asset";
+                string assetPath = Path.Combine(assetFolderPath, item.Key + ".asset");
                 if (!File.Exists(assetPath))
                 {
+                    string iconFullPath = Path.Combine(packagePath, iconBasePath, item.Value + ".png");
                     T asset = ScriptableObject.CreateInstance<T>();
-                    setProperties(asset, packagePath + "/ModComponent/Assets/Icons/Hinterland/" + item.Value + ".png");
+                    setProperties(asset, iconFullPath);
                     AssetDatabase.CreateAsset(asset, assetPath);
                 }
             }
-
-            AssetDatabase.SaveAssets();
-            AssetDatabase.Refresh();
         }
 
-        private static string FindPackagePath(string packageName)
+        private static void EnsureDirectoryExists(string path)
         {
-            var packageInfo = UnityEditor.PackageManager.PackageInfo.FindForAssembly(typeof(DataGenerator).Assembly);
-            if (packageInfo != null && packageInfo.name == packageName)
+            if (!Directory.Exists(path))
             {
-                return packageInfo.assetPath;
+                Directory.CreateDirectory(path);
             }
-
-            // Alternative approach if package is not associated with the current assembly
-            //var packages = UnityEditor.PackageManager.PackageInfo.GetAllRegisteredPackages();
-            //foreach (var package in packages)
-            //{
-            //    if (package.name == packageName)
-            //    {
-            //        return package.assetPath;
-            //    }
-            //}
-
-            throw new InvalidOperationException($"Package '{packageName}' not found.");
         }
 
-
-        private static void GenerateAssets<T>(string assetFolderPath, List<string> names, System.Action<T, string> setProperties) where T : ScriptableObject
+        private static void GenerateAssets<T>(string assetFolderPath, List<string> names, Action<T, string> setProperties) where T : ScriptableObject
         {
             if (!Directory.Exists(assetFolderPath))
             {
@@ -86,15 +97,77 @@ namespace ModComponent.SDK
             AssetDatabase.Refresh();
         }
 
+        private static string FindPackagePath(string packageName)
+        {
+            var packageInfo = UnityEditor.PackageManager.PackageInfo.FindForAssembly(typeof(DataGenerator).Assembly);
+            if (packageInfo != null && packageInfo.name == packageName)
+            {
+                return packageInfo.assetPath;
+            }
+            
+            // Alternative approach if package is not associated with the current assembly
+            //var packages = UnityEditor.PackageManager.PackageInfo.GetAllRegisteredPackages();
+            //foreach (var package in packages)
+            //{
+            //    if (package.name == packageName)
+            //    {
+            //        return package.assetPath;
+            //    }
+            //}
+
+            throw new InvalidOperationException($"Package '{packageName}' not found.");
+        }
+
+        // Icons not setting properly the first time, because these are made before the icons are even imported.
         private static void SetDataGearAssetProperties(DataGearAsset asset, string iconPath)
         {
             asset.Name = Path.GetFileNameWithoutExtension(iconPath);
             asset.Icon = AssetDatabase.LoadAssetAtPath<Texture2D>(iconPath);
+
+            //if (asset.Icon == null) Debug.LogWarning("Icon not found at path: " + iconPath);
         }
 
         private static void SetDataSoundAssetProperties(DataSoundAsset asset, string _)
         {
             asset.Name = asset.name;
+        }
+
+        private static void SetDataLootTableProperties(DataLootTableAsset asset, string _)
+        {
+            asset.Name = asset.name;
+        }
+        
+        private static void SetDataSceneAssetProperties(DataSceneAsset asset, string _)
+        {
+            asset.Name = asset.name;
+        }
+
+        // Last Updated v1.0.2
+        private static Dictionary<string, string> GetModdersToolBoxItems()
+        {
+            return new Dictionary<string, string>
+            {
+                {"GEAR_MetalBoxForge", "ico_GearItem__MetalBoxForge"},
+                {"GEAR_StringDurable", "ico_GearItem__StringDurable"},
+                {"GEAR_RecycledPlastic", "ico_GearItem__RecycledPlastic"},
+                {"GEAR_RecycledGlass", "ico_GearItem__RecycledGlass"},
+                {"GEAR_TapeRoll", "ico_GearItem__TapeRoll"},
+                {"GEAR_Battery9V", "ico_GearItem__Battery9V"},
+                {"GEAR_CrumpledPaper", "ico_GearItem__CrumpledPaper"},
+                {"GEAR_CeramicShards", "ico_GearItem__CeramicShards"},
+                {"GEAR_GlassShards", "ico_GearItem__GlassShards"},
+                {"GEAR_StringBundle", "ico_GearItem__StringBundle"},
+                {"GEAR_GunParts", "ico_GearItem__GunParts"},
+                {"GEAR_NutsNBolts", "ico_GearItem__NutsNBolts"},
+                {"GEAR_ScrapPlastic", "ico_GearItem__ScrapPlastic"},
+                {"GEAR_TarpSheet", "ico_GearItem__TarpSheet"},
+                {"GEAR_ElectronicParts", "ico_GearItem__ElectronicParts"},
+                {"GEAR_Flint", "ico_GearItem__Flint"},
+                {"GEAR_Rock", "ico_GearItem__Rock"},
+                {"GEAR_Bones", "ico_GearItem__Bones"},
+                {"GEAR_NutsNBoltsBox", "ico_GearItem__NutsNBoltsBox"},
+                {"GEAR_RifleBroken", "ico_GearItem__RifleBroken"}
+            };
         }
 
         // Last Updated v2.27
@@ -650,6 +723,293 @@ namespace ModComponent.SDK
                 {"GEAR_WorkBoots", "ico_GearItem__WorkBoots"},
                 {"GEAR_WorkGloves", "ico_GearItem__WorkGloves"},
                 {"GEAR_WorkPants", "ico_GearItem__WorkPants"}
+            };
+        }
+
+        // Last Updated v2.26
+        private static List<string> GetLootTableNames()
+        {
+            return new List<string>
+            {
+                "BackPack",
+                "BackPackCoastal",
+                "BackPackStory",
+                "BathroomCabinet",
+                "briefcase",
+                "Cabinet",
+                "CashRegister",
+                "CoalBin",
+                "DepositBox",
+                "DepositBoxLocked",
+                "Dresser",
+                "EndTable",
+                "EndTable_bedroom",
+                "FileCabinet",
+                "FirewoodBin",
+                "FirewoodBinLocked",
+                "FirstAidKit",
+                "FishingDrawer",
+                "FishingDrawer_story",
+                "FishingFreshWater",
+                "FishingSaltWater",
+                "ForestryCrate",
+                "ForestryCrateLocked",
+                "ForestryCrateMine",
+                "Freezer",
+                "Fridge",
+                "FridgeBasic",
+                "GenericCabinet",
+                "HumanCorpse",
+                "HumanCorpseRare",
+                "KitchenCupboard",
+                "KitchenDrawer",
+                "Laundry",
+                "Locker",
+                "Locker_story",
+                "LockerLocked",
+                "LockerLocked_story",
+                "LootCacheCommon",
+                "LootCacheRare",
+                "LootCacheTrackableCrashBox",
+                "LootCacheTrackableCrashBoxInt",
+                "LootCacheTrackableHidden",
+                "LootCacheTrackableHiddenAmmo",
+                "LootCacheTrackableHiddenClothes",
+                "LootCacheTrackableHiddenFlares",
+                "LootCacheTrackableHiddenFood",
+                "LootCacheTrackableHiddenIntClothes",
+                "LootCacheTrackableHiddenIntCraft",
+                "LootCacheTrackableHiddenIntEmpty",
+                "LootCacheTrackableHiddenIntFlares",
+                "LootCacheTrackableHiddenIntFood",
+                "LootCacheTrackableHiddenIntTools",
+                "LootCacheTrackableHiddenTools",
+                "LootCargoClothingA",
+                "LootCargoClothingB",
+                "LootCargoClothingC",
+                "LootCargoClothingRareA",
+                "LootCargoClothingRareB",
+                "LootCargoClothingRareC",
+                "LootCargoDrinkA",
+                "LootCargoDrinkB",
+                "LootCargoDrinkC",
+                "LootCargoFire",
+                "LootCargoFoodA",
+                "LootCargoFoodB",
+                "LootCargoFoodC",
+                "LootCargoFoodRareA",
+                "LootCargoFoodRareB",
+                "LootCargoMaterialsA",
+                "LootCargoMaterialsB",
+                "LootCargoMaterialsRareB",
+                "LootCargoMedical",
+                "LootCargoMedicalRare",
+                "LootCargoMiscA",
+                "LootCargoMiscB",
+                "LootCargoMiscC",
+                "LootCargoMiscRareA",
+                "LootCargoRifle",
+                "LootCargoShoes",
+                "LootCargoTools",
+                "LootFoodBox",
+                "MedicalSupplies",
+                "MetalBox",
+                "Null_Story",
+                "Oven",
+                "PlasticBox",
+                "PotatoSack",
+                "RifleSupplies",
+                "Safe",
+                "SafeInterloper",
+                "StartBoots",
+                "StartBootsInterloper",
+                "StartCoat",
+                "StartCoatPilgrim",
+                "StartFirstAid",
+                "StartFood",
+                "StartGloves",
+                "StartHat",
+                "StartMisc",
+                "StartMiscPilgrim",
+                "StartMiscStalker",
+                "StartMiscWhite",
+                "StartSocks",
+                "StartSweater",
+                "StartSweaterInterloper",
+                "StartTinder",
+                "Stones",
+                "Suitcase",
+                "TideLine",
+                "TideLineBlizzard",
+                "ToolChest",
+                "ToolChest_sml",
+                "ToolChest_story",
+                "ToolChestDrawer",
+                "ToolChestDrawer_story",
+                "Trash",
+                "VegetableCart",
+                "VegetableCartCarrot",
+                "VegetableCartPotato",
+                "VehicleGloveBox",
+                "VehicleTrunk",
+                "VehicleTrunkCoastal",
+                "VehicleTrunkLocked",
+                "VehicleTrunkLockedCoastal",
+                "VehicleTrunkStory",
+                "Wardrobe_outer",
+                "Wardrobe_regular",
+                "Workbench"
+            };
+        }
+
+        // Last Updated v2.26
+        private static List<string> GetScenes()
+        {
+            return new List<string>
+            {
+                "AFHangar",
+                "AFTerminal",
+                "AirfieldRegion",
+                "AirfieldTrailerB",
+                "AirfieldWoodCabinA",
+                "AshCabinD",
+                "AshCabinF",
+                "AshCanyonRegion",
+                "AshCaveA",
+                "AshCaveB",
+                "AshMine",
+                "AshWoodCabinA",
+                "BankA",
+                "BarnHouseA",
+                "BarnHouseB",
+                "BlackrockCaveA",
+                "BlackrockInteriorASurvival",
+                "BlackrockMineA",
+                "BlackrockPowerplantA",
+                "BlackrockPrisonSurvivalZone",
+                "BlackrockRegion",
+                "BlackrockSteamTunnelsASurvival",
+                "BlackRockTrailerB",
+                "BlackrockTransitionZone",
+                "BunkerA",
+                "BunkerB",
+                "BunkerC",
+                "BunkerXL",
+                "CampOffice",
+                "Cannery",
+                "CanneryMarshTransitionCave",
+                "CanneryTrailerA",
+                "CanyonRoadCave",
+                "CanyonRoadTransitionZone",
+                "CaveB",
+                "CaveC",
+                "CaveD",
+                "ChurchB",
+                "ChurchC",
+                "CoastalHouseA",
+                "CoastalHouseB",
+                "CoastalHouseC",
+                "CoastalHouseD",
+                "CoastalHouseE",
+                "CoastalHouseF",
+                "CoastalHouseH",
+                "CoastalRegion",
+                "CommunityHallA",
+                "ConvenienceStoreA",
+                "CrashMountainRegion",
+                "Dam",
+                "DamCaveTransitionZone",
+                "DamRiverTransitionZone",
+                "DamTrailerB",
+                "DamTransitionZone",
+                "FarmHouseA",
+                "FarmHouseABasement",
+                "FarmHouseB",
+                "FishingCabinA",
+                "FishingCabinC",
+                "FishingCabinD",
+                "GreyMothersHouseA",
+                "HighwayMineTransitionZone",
+                "HighwayTransitionZone",
+                "HouseBasementC",
+                "HouseBasementPV",
+                "HubCave",
+                "HubRegion",
+                "HuntingLodgeA",
+                "IceCaveA",
+                "IceCaveB",
+                "LakeCabinA",
+                "LakeCabinB",
+                "LakeCabinC",
+                "LakeCabinD",
+                "LakeCabinE",
+                "LakeCabinF",
+                "LakeRegion",
+                "LighthouseA",
+                "LongRailTransitionZone",
+                "LongTransitionCave",
+                "MaintenanceShedA",
+                "MaintenanceShedB",
+                "MarshRegion",
+                "MiltonHouseA",
+                "MiltonHouseC",
+                "MiltonHouseD",
+                "MiltonHouseF1",
+                "MiltonHouseF2",
+                "MiltonHouseF3",
+                "MiltonHouseH1",
+                "MiltonHouseH2",
+                "MiltonHouseH3",
+                "MiltonTrailerB",
+                "MineConcentratorBuilding",
+                "MineTransitionZone",
+                "MiningRegion",
+                "MiningRegionMine",
+                "MountainCaveA",
+                "MountainCaveB",
+                "MountainTownCaveA",
+                "MountainTownCaveB",
+                "MountainTownRegion",
+                "PostOfficeA",
+                "PrepperCacheA",
+                "PrepperCacheAEmpty",
+                "PrepperCacheB",
+                "PrepperCacheBEmpty",
+                "PrepperCacheBInterloper",
+                "PrepperCacheC",
+                "PrepperCacheCEmpty",
+                "PrepperCacheD",
+                "PrepperCacheDEmpty",
+                "PrepperCacheE",
+                "PrepperCacheEEmpty",
+                "PrepperCacheEmpty",
+                "PrepperCacheF",
+                "PrepperCacheFEmpty",
+                "PumpHouse",
+                "QuonsetGasStation",
+                "RadioControlHut",
+                "RadioControlHutB",
+                "RadioControlHutC",
+                "RavineTransitionZone",
+                "RiverValleyRegion",
+                "RiverValleyTransitionCave",
+                "RuralRegion",
+                "RuralStoreA",
+                "SafeHouseA",
+                "TracksRegion",
+                "TrailerA",
+                "TrailerB",
+                "TrailerC",
+                "TrailerD",
+                "TrailerE",
+                "TrailerSShape",
+                "WhalingMine",
+                "WhalingShipA",
+                "WhalingStationRegion",
+                "WhalingWarehouseA",
+                "WoodCabinA",
+                "WoodCabinB",
+                "WoodCabinC"
             };
         }
 

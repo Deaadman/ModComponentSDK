@@ -1,5 +1,4 @@
 #if UNITY_EDITOR
-using ModComponent.Editor.SDK;
 using ModComponent.SDK.Components;
 using ModComponent.Utilities;
 using System.IO;
@@ -43,10 +42,15 @@ namespace ModComponent.SDK
             AssetDatabase.CreateAsset(modDefinition, assetPath);
 
             string localizationAssetPath = Path.Combine(specificFolderPath, FileUtilities.SanitizeFileName(modName) + "Localization.asset");
-            DataLocalization dataLocalization = CreateInstance<DataLocalization>();
-            AssetDatabase.CreateAsset(dataLocalization, localizationAssetPath);
+            ModLocalization modLocalization = CreateInstance<ModLocalization>();
+            AssetDatabase.CreateAsset(modLocalization, localizationAssetPath);
 
-            modDefinition.dataLocalization = dataLocalization;
+            string gearSpawnsAssetPath = Path.Combine(specificFolderPath, FileUtilities.SanitizeFileName(modName) + "GearSpawns.asset");
+            ModGearSpawns modGearSpawns = CreateInstance<ModGearSpawns>();
+            AssetDatabase.CreateAsset(modGearSpawns, gearSpawnsAssetPath);
+
+            modDefinition.modLocalization = modLocalization;
+            modDefinition.modGearSpawns = modGearSpawns;
 
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
