@@ -11,11 +11,8 @@ namespace ModComponent.Components
         [Tooltip("An optional name for the blueprint. Only used in error messages.")]
         public string Name;
 
-        [Tooltip("The name of each gear needed to craft this item (e.g., GEAR_Line).")]
-        public DataGearAsset[] RequiredGear;
-
-        [Tooltip("How many of each item are required? This list has to match the RequiredGear list.")]
-        public int[] RequiredGearUnits;
+        [Tooltip("Combination of the name of each gear needed to craft this item (e.g., GEAR_Line) and the quantity required.")]
+        public GearRequirement[] RequiredGear;
 
         [Tooltip("How many liters of kerosene are required?")]
         public float KeroseneLitersRequired;
@@ -55,5 +52,15 @@ namespace ModComponent.Components
 
         [Tooltip("The skill improved on crafting success (e.g., Firestarting, CarcassHarvesting, None if not applicable).")]
         public SkillType ImprovedSkill;
+    }
+
+    [System.Serializable]
+    public class GearRequirement
+    {
+        [Tooltip("The name of each gear needed to craft this item (e.g., GEAR_Line).")]
+        public DataGearAsset GearItem;
+
+        [Tooltip("How many of each item are required?")]
+        public int Count;
     }
 }

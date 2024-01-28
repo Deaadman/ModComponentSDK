@@ -33,8 +33,7 @@ namespace ModComponent.SDK
                 ModBlueprint modBlueprint => new
                 {
                     modBlueprint.Name,
-                    RequiredGear = modBlueprint.RequiredGear?.Zip(modBlueprint.RequiredGearUnits,
-                    (gear, count) => new { Item = gear.name, Count = count }).ToArray(),
+                    RequiredGear = modBlueprint.RequiredGear?.Select(g => new { Item = g.GearItem.name, g.Count }).ToArray(),
                     modBlueprint.KeroseneLitersRequired,
                     modBlueprint.GunpowderKGRequired,
                     RequiredTool = modBlueprint.RequiredTool?.name ?? "",
