@@ -12,12 +12,31 @@ namespace ModComponent.SDK
     {
         internal static bool CheckAndPromptForAssetGeneration()
         {
-            string dataAssetsPath = "Assets/_ModComponent/DataAssets";
-            if (!Directory.Exists(dataAssetsPath))
+            List<string> requiredPaths = new()
+            {
+                "Assets/_ModComponent/DataAssets/Hinterland/GearItems",
+                "Assets/_ModComponent/DataAssets/Hinterland/Liquids",
+                "Assets/_ModComponent/DataAssets/Hinterland/Powders",
+                "Assets/_ModComponent/DataAssets/Hinterland/Sounds",
+                "Assets/_ModComponent/DataAssets/Hinterland/LootTables",
+                "Assets/_ModComponent/DataAssets/Hinterland/Scenes",
+                "Assets/_ModComponent/DataAssets/Modded/ModdersToolbox",
+            };
+
+            List<string> missingFolders = new();
+            foreach (var path in requiredPaths)
+            {
+                if (!Directory.Exists(path))
+                {
+                    missingFolders.Add("\n" + path);
+                }
+            }
+
+            if (missingFolders.Count > 0)
             {
                 EditorUtility.DisplayDialog(
                     "Data Assets Generator",
-                    "No Data Assets were found in your project. These are required, import them now.",
+                    $"The following required data asset folders are missing in your project: \n{string.Join(", ", missingFolders)}\n\n Import them now.",
                     "Import");
 
                 return GenerateAllAssets();
@@ -31,9 +50,13 @@ namespace ModComponent.SDK
             try
             {
                 GenerateAssets<DataGearAsset>("Assets/_ModComponent/DataAssets/Hinterland/GearItems", GetGearItems(), SetDataGearAssetProperties, "ModComponent/Assets/Icons/Hinterland/");
+                GenerateAssets<DataLiquidAsset>("Assets/_ModComponent/DataAssets/Hinterland/Liquids", GetLiquidNames(), SetDataLiquidAssetProperties);
+                GenerateAssets<DataPowderAsset>("Assets/_ModComponent/DataAssets/Hinterland/Powders", GetPowderNames(), SetDataPowderAssetProperties);
                 GenerateAssets<DataSoundAsset>("Assets/_ModComponent/DataAssets/Hinterland/Sounds", GetSoundNames(), SetDataSoundAssetProperties);
                 GenerateAssets<DataLootTableAsset>("Assets/_ModComponent/DataAssets/Hinterland/LootTables", GetLootTableNames(), SetDataLootTableProperties);
                 GenerateAssets<DataSceneAsset>("Assets/_ModComponent/DataAssets/Hinterland/Scenes", GetScenes(), SetDataSceneAssetProperties);
+
+
                 GenerateAssets<DataGearAsset>("Assets/_ModComponent/DataAssets/Modded/ModdersToolbox", GetModdersToolBoxItems(), SetDataGearAssetProperties, "ModComponent/Assets/Icons/ModdersToolbox/");
 
                 AssetDatabase.SaveAssets();
@@ -104,27 +127,14 @@ namespace ModComponent.SDK
             {
                 return packageInfo.assetPath;
             }
-            
-            // Alternative approach if package is not associated with the current assembly
-            //var packages = UnityEditor.PackageManager.PackageInfo.GetAllRegisteredPackages();
-            //foreach (var package in packages)
-            //{
-            //    if (package.name == packageName)
-            //    {
-            //        return package.assetPath;
-            //    }
-            //}
 
             throw new InvalidOperationException($"Package '{packageName}' not found.");
         }
 
-        // Icons not setting properly the first time, because these are made before the icons are even imported.
         private static void SetDataGearAssetProperties(DataGearAsset asset, string iconPath)
         {
             asset.Name = Path.GetFileNameWithoutExtension(iconPath);
             asset.Icon = AssetDatabase.LoadAssetAtPath<Texture2D>(iconPath);
-
-            //if (asset.Icon == null) Debug.LogWarning("Icon not found at path: " + iconPath);
         }
 
         private static void SetDataSoundAssetProperties(DataSoundAsset asset, string _)
@@ -138,6 +148,16 @@ namespace ModComponent.SDK
         }
         
         private static void SetDataSceneAssetProperties(DataSceneAsset asset, string _)
+        {
+            asset.Name = asset.name;
+        }
+
+        private static void SetDataLiquidAssetProperties(DataLiquidAsset asset, string _)
+        {
+            asset.Name = asset.name;
+        }
+
+        private static void SetDataPowderAssetProperties(DataPowderAsset asset, string _)
         {
             asset.Name = asset.name;
         }
@@ -727,6 +747,29 @@ namespace ModComponent.SDK
         }
 
         // Last Updated v2.26
+        private static List<string> GetLiquidNames()
+        {
+            return new List<string>
+            {
+                "LIQUID_Accelerant",
+                "LIQUID_AcornCoffee",
+                "LIQUID_Antiseptic",
+                "LIQUID_BirchbarkTea",
+                "LIQUID_Broth",
+                "LIQUID_BurdockTea",
+                "LIQUID_Coffee",
+                "LIQUID_CookingOil",
+                "LIQUID_GreenTea",
+                "LIQUID_Kerosene",
+                "LIQUID_ReishiTea",
+                "LIQUID_RoseHipTea",
+                "LIQUID_TomatoSoup",
+                "LIQUID_WaterNonPotable",
+                "LIQUID_WaterPotable"
+            };
+        }
+
+        // Last Updated v2.26
         private static List<string> GetLootTableNames()
         {
             return new List<string>
@@ -859,6 +902,18 @@ namespace ModComponent.SDK
                 "Wardrobe_outer",
                 "Wardrobe_regular",
                 "Workbench"
+            };
+        }
+
+        // Last Updated v2.26
+        private static List<string> GetPowderNames()
+        {
+            return new List<string>
+            {
+                "POWDER_Flour",
+                "POWDER_Gunpowder",
+                "POWDER_OatsTin",
+                "POWDER_Salt"
             };
         }
 

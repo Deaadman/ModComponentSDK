@@ -30,8 +30,21 @@ namespace ModComponent.SDK
                 string lastModified = headRequest.GetResponseHeader("last-modified");
                 if (lastModified != lastUpdate)
                 {
-                    EditorPrefs.SetString(LastUpdateKey, lastModified);
-                    return true;
+                    bool userWantsToUpdate = EditorUtility.DisplayDialog(
+                        "Unity Package Updater",
+                        "An update for the Example Mod is available. Would you like to install it now?",
+                        "Update",
+                        "Skip");
+
+                    if (userWantsToUpdate)
+                    {
+                        await DownloadAndInstallPackage(lastModified);
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
             }
             else
@@ -42,7 +55,7 @@ namespace ModComponent.SDK
             return false;
         }
 
-        private static async Task DownloadAndInstallPackage()
+        private static async Task DownloadAndInstallPackage(string lastModified)
         {
             string localPath = Path.Combine(Application.temporaryCachePath, "ExampleMod.unitypackage");
 
@@ -57,6 +70,7 @@ namespace ModComponent.SDK
             {
                 File.WriteAllBytes(localPath, webRequest.downloadHandler.data);
                 AssetDatabase.ImportPackage(localPath, false);
+                EditorPrefs.SetString(LastUpdateKey, lastModified);
             }
         }
 
@@ -80,8 +94,16 @@ namespace ModComponent.SDK
 
             if (userResponse)
             {
-                await DownloadAndInstallPackage();
-                return true;
+                string lastModified = await FetchLastModifiedTimestamp();
+                if (!string.IsNullOrEmpty(lastModified))
+                {
+                    await DownloadAndInstallPackage(lastModified);
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
 
             return false;
@@ -92,6 +114,21 @@ namespace ModComponent.SDK
             var completionSource = new TaskCompletionSource<object>();
             webRequest.SendWebRequest().completed += _ => completionSource.SetResult(null);
             return completionSource.Task;
+        }
+
+        private static async Task<string> FetchLastModifiedTimestamp()
+        {
+            using UnityWebRequest headRequest = UnityWebRequest.Head(ExampleModUrl);
+            await SendWebRequestAsync(headRequest);
+            if (headRequest.result == UnityWebRequest.Result.Success)
+            {
+                return headRequest.GetResponseHeader("last-modified");
+            }
+            else
+            {
+                Debug.LogError("Error fetching last-modified timestamp: " + headRequest.error);
+                return null;
+            }
         }
     }
 }

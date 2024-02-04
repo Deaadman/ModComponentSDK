@@ -2,7 +2,7 @@ using ModComponent.SDK.Components;
 using ModComponent.Utilities;
 using UnityEngine;
 
-namespace ModComponent.Components
+namespace ModComponent.Blueprints
 {
     [HelpURL("https://github.com/dommrogers/ModComponent/blob/master/docs/Blueprints.md")]
     [DisallowMultipleComponent]

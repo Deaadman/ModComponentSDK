@@ -1,5 +1,5 @@
 #if UNITY_EDITOR
-using ModComponent.Components;
+using ModComponent.Blueprints;
 using ModComponent.Utilities;
 using Newtonsoft.Json;
 using System;
@@ -11,7 +11,6 @@ using UnityEditor;
 using UnityEditor.AddressableAssets;
 using UnityEditor.AddressableAssets.Settings;
 using UnityEngine;
-using static ModComponent.SDK.Components.ModGearSpawns;
 using CompressionLevel = System.IO.Compression.CompressionLevel;
 
 namespace ModComponent.SDK.Components
@@ -247,7 +246,9 @@ namespace ModComponent.SDK.Components
         private static void SerializeBlueprints(ModDefinition modDefinition, string modFolderPath)
         {
             string blueprintsFolderPath = Path.Combine(modFolderPath, "blueprints");
+            string recipesFolderPath = Path.Combine(modFolderPath, "recipes");
             Directory.CreateDirectory(blueprintsFolderPath);
+            Directory.CreateDirectory(recipesFolderPath);
 
             foreach (var prefab in modDefinition.Items)
             {
@@ -256,12 +257,15 @@ namespace ModComponent.SDK.Components
                     var serializedBlueprint = DataSerializer.SerializeBlueprint(blueprint);
                     string json = JsonConvert.SerializeObject(serializedBlueprint, Formatting.Indented);
                     string jsonFileName = prefab.name.StartsWith("GEAR_") ? prefab.name[5..] : prefab.name;
-                    string jsonFilePath = Path.Combine(blueprintsFolderPath, jsonFileName + ".json");
+
+                    string folderPath = blueprint is ModRecipe ? recipesFolderPath : blueprintsFolderPath;
+                    string jsonFilePath = Path.Combine(folderPath, jsonFileName + ".json");
 
                     File.WriteAllText(jsonFilePath, json);
                 }
             }
         }
+
 
         private static void SerializeModComponentToJson(ModDefinition modDefinition, string modFolderPath)
         {

@@ -37,7 +37,8 @@ namespace ModComponent.Editor.SDK
             if (isExampleModInstalled)
             {
                 bool exampleModUpdateAvailable = await UnityPackageInstaller.CheckForUpdates();
-                exampleModStatus = exampleModUpdateAvailable ? CheckStatus.Waiting : CheckStatus.Success;
+                exampleModStatus = exampleModUpdateAvailable ? CheckStatus.Waiting : CheckStatus.Success; 
+                // Despite logic working correctly for checking for updating, the status doesn't reflect it properly.
             }
             else
             {

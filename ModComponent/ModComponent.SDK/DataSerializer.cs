@@ -1,4 +1,5 @@
 using ModComponent.Behaviours;
+using ModComponent.Blueprints;
 using ModComponent.Components;
 using System.Linq;
 
@@ -10,26 +11,25 @@ namespace ModComponent.SDK
         {
             return blueprint switch
             {
-                //ModRecipe modRecipe => new
-                //{
-                //    modRecipe.RecipeName,
-                //    modRecipe.RecipeDescription,
-                //    RecipeIcon = modRecipe.RecipeIcon?.Icon.name ?? "",
-                //    modRecipe.RequiredSkillLevel,
-                //    AllowedCookingPots = modRecipe.AllowedCookingPots?.Select(pot => pot.name).ToArray() ?? new string[0],
-                //    BlueprintData = new
-                //    {
-                //        modRecipe.Name,
-                //        RequiredGear = modRecipe.RequiredGear?.Zip(modRecipe.RequiredGearUnits,
-                //    (gear, count) => new { Item = gear.name, Count = count }).ToArray(),
-                //        modRecipe.KeroseneLitersRequired,
-                //        modRecipe.GunpowderKGRequired,
-                //        CraftedResult = modRecipe.CraftedResult?.name ?? "",
-                //        modRecipe.CraftedResultCount,
-                //        modRecipe.DurationMinutes,
-                //        CraftingAudio = modRecipe.CraftingAudio?.name ?? ""
-                //    }
-                //},
+                ModRecipe modRecipe => new
+                {
+                    modRecipe.RecipeName,
+                    modRecipe.RecipeDescription,
+                    RecipeIcon = modRecipe.RecipeIcon?.Icon.name ?? "",
+                    modRecipe.RequiredSkillLevel,
+                    AllowedCookingPots = modRecipe.AllowedCookingPots?.Select(pot => pot.name).ToArray() ?? new string[0],
+                    BlueprintData = new
+                    {
+                        modRecipe.Name,
+                        RequiredGear = modRecipe.RequiredGear?.Select(g => new { Item = g.GearItem.name, g.Count }).ToArray(),
+                        RequiredPowder = modRecipe.RequiredPowder?.Select(g => new { Powder = g.PowderItem.name, g.QuantityInKilograms }).ToArray(),
+                        RequiredLiquid = modRecipe.RequiredLiquid?.Select(g => new { Liquid = g.LiquidItem.name, g.VolumeInLitres }).ToArray(),
+                        CraftedResult = modRecipe.CraftedResult?.name ?? "",
+                        modRecipe.CraftedResultCount,
+                        modRecipe.DurationMinutes,
+                        CraftingAudio = modRecipe.CraftingAudio?.name ?? ""
+                    }
+                },
                 ModBlueprint modBlueprint => new
                 {
                     modBlueprint.Name,

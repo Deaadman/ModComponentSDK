@@ -1,9 +1,8 @@
 #if UNITY_EDITOR
-using ModComponent.Components;
+using ModComponent.Blueprints;
 using ModComponent.Editor.SDK;
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
@@ -12,6 +11,19 @@ namespace ModComponent.Editor.API
     [CustomEditor(typeof(ModBlueprint), true)]
     internal class EditorBlueprints : EditorBase
     {
+        private readonly HashSet<string> hiddenFieldsInModRecipe = new()
+        {
+            "KeroseneLitersRequired", 
+            "GunpowderKGRequired", 
+            "RequiredTool", 
+            "OptionalTools", 
+            "RequiredCraftingLocation",
+            "RequiresLitFire",
+            "RequiresLight",
+            "AppliedSkill",
+            "ImprovedSkill"
+        };
+
         protected override Tab[] GetTabs()
         {
             return new[] { Tab.Common, Tab.Audio, Tab.About };
@@ -31,7 +43,10 @@ namespace ModComponent.Editor.API
             {
                 { "KeroseneLitersRequired", "L" },
                 { "GunpowderKGRequired", "KG" },
-                { "DurationMinutes", "MINS" }
+                { "DurationMinutes", "MINS" },
+
+                //{ "QuantityInKilograms", "KG" },
+                //{ "VolumeInLitres", "L" }
             };
         }
 
@@ -42,7 +57,10 @@ namespace ModComponent.Editor.API
                 { "Name", "Name (Optional)" },
                 { "KeroseneLitersRequired", "Kerosene Required" },
                 { "GunpowderKGRequired", "Gunpowder Required" },
-                { "DurationMinutes", "Duration Time" }
+                { "DurationMinutes", "Duration Time" },
+
+                //{ "QuantityInKilograms", "Quantity" },
+                //{ "VolumeInLitres", "Volume" }
             };
         }
 
@@ -89,7 +107,6 @@ namespace ModComponent.Editor.API
             {
                 "Name",
                 "RequiredGear",
-                "RequiredGearUnits",
                 "KeroseneLitersRequired",
                 "GunpowderKGRequired",
                 "RequiredTool",
@@ -103,19 +120,21 @@ namespace ModComponent.Editor.API
                 "AppliedSkill",
                 "ImprovedSkill",
             };
-            DrawFields(baseClassProperties);
+            DrawFields(baseClassProperties, typeof(ModBlueprint));
 
-            //if (target.GetType() == typeof(ModRecipe) || target.GetType().IsSubclassOf(typeof(ModRecipe)))
-            //{
-            //    DrawCustomHeading("Recipe Properties");
-            //    DrawFields(new string[] {
-            //        "RecipeName",
-            //        "RecipeDescription",
-            //        "RecipeIcon",
-            //        "RequiredSkillLevel",
-            //        "AllowedCookingPots"
-            //    });
-            //}
+            if (target.GetType() == typeof(ModRecipe) || target.GetType().IsSubclassOf(typeof(ModRecipe)))
+            {
+                DrawCustomHeading("Recipe Properties");
+                DrawFields(new string[] {
+                    "RecipeName",
+                    "RecipeDescription",
+                    "RecipeIcon",
+                    "RequiredSkillLevel",
+                    "AllowedCookingPots",
+                    "RequiredPowder",
+                    "RequiredLiquid"
+                }, typeof(ModRecipe));
+            }
 
             GUILayout.EndVertical();
         }
@@ -127,26 +146,29 @@ namespace ModComponent.Editor.API
 
             DrawFields(new string[] {
                 "CraftingAudio"
-            });
+            }, typeof(ModBlueprint));
 
             GUILayout.EndVertical();
         }
 
-        private void DrawFields(string[] propertyNames)
+        private void DrawFields(string[] propertyNames, Type targetType)
         {
             GUILayout.BeginVertical(ModComponentEditorStyles.BackgroundBox);
             foreach (string name in propertyNames)
             {
-                if (serializedProperties.TryGetValue(name, out SerializedProperty property))
+                if (target.GetType() == targetType || !target.GetType().IsSubclassOf(targetType) || !hiddenFieldsInModRecipe.Contains(name))
                 {
-                    string displayName = propertyDisplayNames.ContainsKey(name) ? propertyDisplayNames[name] : ObjectNames.NicifyVariableName(name);
-                    if (propertyUnits.TryGetValue(name, out string unit))
+                    if (serializedProperties.TryGetValue(name, out SerializedProperty property))
                     {
-                        ModComponentEditorStyles.DrawPropertyWithUnit(property, unit, new GUIContent(displayName));
-                    }
-                    else
-                    {
-                        EditorGUILayout.PropertyField(property, new GUIContent(displayName));
+                        string displayName = propertyDisplayNames.ContainsKey(name) ? propertyDisplayNames[name] : ObjectNames.NicifyVariableName(name);
+                        if (propertyUnits.TryGetValue(name, out string unit))
+                        {
+                            ModComponentEditorStyles.DrawPropertyWithUnit(property, unit, new GUIContent(displayName));
+                        }
+                        else
+                        {
+                            EditorGUILayout.PropertyField(property, new GUIContent(displayName));
+                        }
                     }
                 }
             }

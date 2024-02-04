@@ -68,6 +68,41 @@ namespace ModComponent.Editor.API
             EditorGUILayout.EndScrollView();
         }
 
+        protected void DrawArrayProperty(SerializedProperty arrayProperty, string label)
+        {
+            if (arrayProperty != null && arrayProperty.isArray)
+            {
+                GUILayout.BeginVertical("box");
+                EditorGUI.indentLevel++;
+                arrayProperty.isExpanded = EditorGUILayout.Foldout(arrayProperty.isExpanded, label, true);
+
+                if (arrayProperty.isExpanded)
+                {
+                    EditorGUI.indentLevel++;
+                    for (int i = 0; i < arrayProperty.arraySize; i++)
+                    {
+                        EditorGUILayout.PropertyField(arrayProperty.GetArrayElementAtIndex(i));
+                    }
+                    EditorGUI.indentLevel--;
+
+                    GUILayout.BeginHorizontal();
+                    GUILayout.FlexibleSpace();
+                    if (GUILayout.Button("Add Element", GUILayout.Width(120)))
+                    {
+                        arrayProperty.arraySize++;
+                    }
+                    if (GUILayout.Button("Remove Last Element", GUILayout.Width(150)) && arrayProperty.arraySize > 0)
+                    {
+                        arrayProperty.arraySize--;
+                    }
+                    GUILayout.FlexibleSpace();
+                    GUILayout.EndHorizontal();
+                }
+                EditorGUI.indentLevel--;
+                GUILayout.EndVertical();
+            }
+        }
+
         protected bool DrawTabButton(Tab tab, string label)
         {
             bool isSelected = selectedTab == tab;
