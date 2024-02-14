@@ -10,13 +10,15 @@ namespace ModComponent.Editor.SDK
         private static string _currentVersion;
         private static string _latestVersion;
         private static string _latestVersionChanges;
+        private static string _packageName;
         private Vector2 _scrollPosition;
 
-        internal static void Init(string currentVer, string latestVer, string changes)
+        internal static void Init(string currentVer, string latestVer, string changes, string packageName)
         {
             _currentVersion = currentVer;
             _latestVersion = latestVer;
             _latestVersionChanges = MarkdownToRichText(changes);
+            _packageName = packageName;
             var window = GetWindow<EditorAutoUpdater>("Auto Updater");
             window.minSize = new Vector2(720, 650);
             window.Show();
@@ -36,8 +38,8 @@ namespace ModComponent.Editor.SDK
 
         private void DisplayHeader()
         {
-            GUILayout.Label("ModComponent SDK Auto Updater", ModComponentEditorStyles.CenteredLabelBold);
-            GUILayout.Label("A newer version is available for the ModComponent SDK.", EditorStyles.centeredGreyMiniLabel);
+            GUILayout.Label($"{_packageName} Auto Updater", ModComponentEditorStyles.CenteredLabelBold);
+            GUILayout.Label($"A newer version is available for {_packageName}.", EditorStyles.centeredGreyMiniLabel);
             GUILayout.Space(10);
         }
 
@@ -73,7 +75,7 @@ namespace ModComponent.Editor.SDK
 
             if (GUILayout.Button("Update Now", GUILayout.Width(120)))
             {
-                AutoUpdater.UpdatePackage(_latestVersion);
+                AutoUpdater.UpdatePackage(_packageName, _latestVersion);
                 Close();
             }
 

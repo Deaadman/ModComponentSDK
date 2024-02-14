@@ -10,34 +10,55 @@ using UnityEngine;
 
 namespace ModComponent.SDK
 {
+    // More works need to be done.
+    // 1. If an update is found, testing needs to be done for actually installing it.
+    // 2. Same goes with the Example Mod, especially auto imported it for the user.
+    // 3. To get the current version, we need this to point to the Assets/_ModComponent/ExampleMod/ExampleMod.asset file.
+    // 4. Which it will check the version string variable to see if it matches. (We need to somehow lock this field for the ExampleMod only, otherwise users can change it and mess things up)
     internal class AutoUpdater
     {
-        private static readonly string CurrentVersion = ModComponentSDK.SDK_VERSION;
-        private static string _latestVersion;
-        private static string _latestVersionChanges;
+        private static readonly string ModComponentVersion = ModComponentSDK.SDK_VERSION;
+        private static readonly string ExampleModVersion = ModComponentSDK.EXAMPLEMODSDK_VERSION;
 
-        internal static async Task<bool> InitializeUpdateCheck()
+        private static string LatestModComponentVersion;
+        private static string LatestExampleModVersion;
+        private static string LatestVersionChanges;
+
+        internal static async Task<bool> InitializeUpdateCheck(string updateType)
         {
-            await FetchLatestReleaseInfoAsync();
+            bool updateAvailable = false;
+            switch (updateType)
+            {
+                case "modcomponent":
+                    updateAvailable = await FetchLatestReleaseInfoAsync("Deaadman/ModComponentSDK", ModComponentVersion, "ModComponent SDK");
+                    break;
+                case "examplemod":
+                    updateAvailable = await FetchLatestReleaseInfoAsync("Deaadman/ExampleModSDK", ExampleModVersion, "Example Mod");
+                    break;
+            }
 
-            if (_latestVersion != null && _latestVersion != CurrentVersion)
+            if (updateAvailable)
             {
                 EditorApplication.update += OpenUpdateWindow;
-                return true;
             }
-            else
-            {
-                return false;
-            }
+
+            return updateAvailable;
         }
 
         private static void OpenUpdateWindow()
         {
             EditorApplication.update -= OpenUpdateWindow;
-            EditorAutoUpdater.Init(CurrentVersion, _latestVersion, _latestVersionChanges);
+            if (LatestModComponentVersion != null)
+            {
+                EditorAutoUpdater.Init(ModComponentVersion, LatestModComponentVersion, LatestVersionChanges, "ModComponent SDK");
+            }
+            if (LatestExampleModVersion != null)
+            {
+                EditorAutoUpdater.Init(ExampleModVersion, LatestExampleModVersion, LatestVersionChanges, "Example Mod");
+            }
         }
 
-        internal static void UpdatePackage(string latestVersion)
+        internal static void UpdatePackage(string packageName, string latestVersion)
         {
             string manifestPath = Path.Combine(Application.dataPath, "..", "Packages", "manifest.json");
 
@@ -50,40 +71,51 @@ namespace ModComponent.SDK
             string manifestContent = File.ReadAllText(manifestPath);
             var manifestJson = JObject.Parse(manifestContent);
 
-            const string packageName = "modcomponent.sdk";
             JToken packageToken = manifestJson["dependencies"][packageName];
 
             if (packageToken == null)
             {
-                Debug.LogError("Package not found in manifest.json");
+                Debug.LogError($"{packageName} not found in manifest.json");
                 return;
             }
 
             manifestJson["dependencies"][packageName] = latestVersion;
             File.WriteAllText(manifestPath, manifestJson.ToString());
             AssetDatabase.Refresh();
-            Debug.Log("Package updated successfully.");
+            Debug.Log($"{packageName} updated successfully.");
         }
 
-        private static async Task FetchLatestReleaseInfoAsync()
+        private static async Task<bool> FetchLatestReleaseInfoAsync(string repoPath, string currentVersion, string packageName)
         {
             try
             {
                 using var client = new WebClient();
-                const string url = "https://api.github.com/repos/Deaadman/ModComponentSDK/releases/latest";
+                string url = $"https://api.github.com/repos/{repoPath}/releases/latest";
                 client.Headers.Add("User-Agent", "Unity web request");
 
                 string json = await client.DownloadStringTaskAsync(new Uri(url));
                 var jsonObject = JObject.Parse(json);
 
-                _latestVersion = jsonObject["tag_name"].ToString();
-                _latestVersionChanges = jsonObject["body"].ToString();
+                string latestVersion = jsonObject["tag_name"].ToString();
+                if (latestVersion != currentVersion)
+                {
+                    LatestVersionChanges = jsonObject["body"].ToString();
+                    if (packageName == "ModComponent SDK")
+                    {
+                        LatestModComponentVersion = latestVersion;
+                    }
+                    else if (packageName == "Example Mod")
+                    {
+                        LatestExampleModVersion = latestVersion;
+                    }
+                    return true;
+                }
             }
             catch
             {
-                _latestVersion = null;
-                _latestVersionChanges = null;
+                return false;
             }
+            return false;
         }
     }
 }

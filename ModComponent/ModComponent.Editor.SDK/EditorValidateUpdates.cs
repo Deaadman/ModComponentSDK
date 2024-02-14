@@ -8,7 +8,7 @@ namespace ModComponent.Editor.SDK
     internal class EditorValidateUpdates : EditorValidateBase
     {
         private CheckStatus exampleModStatus = CheckStatus.Pending;
-        private CheckStatus projectUpdateStatus = CheckStatus.Pending;
+        private CheckStatus modComponentStatus = CheckStatus.Pending;
 
         [MenuItem("ModComponent SDK/Check for Updates...", false, 50)]
         internal static void ShowWindow()
@@ -24,30 +24,25 @@ namespace ModComponent.Editor.SDK
             GUILayout.FlexibleSpace();
 
             DrawStatus("Example Mod", ref exampleModStatus);
-            DrawStatus("ModComponent SDK", ref projectUpdateStatus);
+            DrawStatus("ModComponent SDK", ref modComponentStatus);
 
             GUILayout.FlexibleSpace();
             GUILayout.EndVertical();
         }
 
+        // Current issue with editor windows.
+        // If both have updates then one will override the other.
+        // Custom editors need to be launched separately.
         private async void StartUpdateCheck()
         {
             exampleModStatus = CheckStatus.Checking;
-            bool isExampleModInstalled = UnityPackageInstaller.IsPackageInstalled();
-            if (isExampleModInstalled)
-            {
-                bool exampleModUpdateAvailable = await UnityPackageInstaller.CheckForUpdates();
-                exampleModStatus = exampleModUpdateAvailable ? CheckStatus.Waiting : CheckStatus.Success; 
-                // Despite logic working correctly for checking for updating, the status doesn't reflect it properly.
-            }
-            else
-            {
-                exampleModStatus = CheckStatus.Failed;
-            }
+            modComponentStatus = CheckStatus.Checking;
 
-            projectUpdateStatus = CheckStatus.Checking;
-            bool projectUpdateAvailable = await AutoUpdater.InitializeUpdateCheck();
-            projectUpdateStatus = projectUpdateAvailable ? CheckStatus.Waiting : CheckStatus.Success;
+            bool exampleModUpdateAvailable = await AutoUpdater.InitializeUpdateCheck("examplemod");
+            exampleModStatus = exampleModUpdateAvailable ? CheckStatus.Waiting : CheckStatus.Success;
+
+            bool modComponentUpdateAvailable = await AutoUpdater.InitializeUpdateCheck("modcomponent");
+            modComponentStatus = modComponentUpdateAvailable ? CheckStatus.Waiting : CheckStatus.Success;
         }
 
         protected override string GetStatusMessage(string baseLabel, CheckStatus status)

@@ -45,6 +45,7 @@ namespace ModComponent.SDK
             return true;
         }
 
+        // Need to heavily improve the perfomance of importing all these assets.
         internal static bool GenerateAllAssets()
         {
             try
