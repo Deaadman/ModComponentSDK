@@ -10,7 +10,6 @@ namespace ModComponent.SDK.Components
         [Serializable]
         public class SceneSpawnEntry
         {
-            [Tooltip("All following item spawn definitions will use that scene, until another scene is defined. E.g. FarmhouseA.")]
             public DataSceneAsset sceneName;
             public List<SceneItemSpawn> sceneItemSpawns = new();
         }
@@ -18,7 +17,6 @@ namespace ModComponent.SDK.Components
         [Serializable]
         public class LoottableSpawnEntry
         {
-            [Tooltip("All following loot table entry definitions will use that loot table, until another loot table is defined. E.g. LootTableVehicleGloveBox.")]
             public DataLootTableAsset lootTableName;
             public List<LootTableSpawn> lootTableSpawns = new();
         }

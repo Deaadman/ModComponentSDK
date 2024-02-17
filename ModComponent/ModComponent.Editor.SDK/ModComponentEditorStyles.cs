@@ -9,7 +9,7 @@ namespace ModComponent.Editor.SDK
         internal static GUIStyle BackgroundBox = new(EditorStyles.helpBox)
         {
             margin = new RectOffset(10, 10, 5, 12),
-            padding = new RectOffset(10, 10, 10, 12)
+            padding = new RectOffset(17, 10, 10, 12)
         };
 
         internal static GUIStyle CenteredLabelBold = new(EditorStyles.label)
