@@ -1,5 +1,6 @@
 #if UNITY_EDITOR
 using ModComponent.SDK;
+using System.IO;
 using UnityEditor;
 using UnityEngine;
 
@@ -30,17 +31,22 @@ namespace ModComponent.Editor.SDK
             GUILayout.EndVertical();
         }
 
-        // Current issue with editor windows.
-        // If both have updates then one will override the other.
-        // Custom editors need to be launched separately.
         private async void StartUpdateCheck()
         {
             exampleModStatus = CheckStatus.Checking;
+
+            bool isExampleModInstalled = Directory.Exists("Assets/_ModComponent/ExampleMod");
+            if (!isExampleModInstalled)
+            {
+                exampleModStatus = CheckStatus.Failed;
+            }
+            else
+            {
+                bool exampleModUpdateAvailable = await AutoUpdater.InitializeUpdateCheck("examplemod");
+                exampleModStatus = exampleModUpdateAvailable ? CheckStatus.Waiting : CheckStatus.Success;
+            }
+
             modComponentStatus = CheckStatus.Checking;
-
-            bool exampleModUpdateAvailable = await AutoUpdater.InitializeUpdateCheck("examplemod");
-            exampleModStatus = exampleModUpdateAvailable ? CheckStatus.Waiting : CheckStatus.Success;
-
             bool modComponentUpdateAvailable = await AutoUpdater.InitializeUpdateCheck("modcomponent");
             modComponentStatus = modComponentUpdateAvailable ? CheckStatus.Waiting : CheckStatus.Success;
         }
@@ -51,7 +57,7 @@ namespace ModComponent.Editor.SDK
             {
                 CheckStatus.Checking => $"Checking {baseLabel} for updates...",
                 CheckStatus.Success => $"{baseLabel} is up to date.",
-                CheckStatus.Failed => $"Update check for {baseLabel} failed.",
+                CheckStatus.Failed => $"{baseLabel} isn't installed.",
                 CheckStatus.Pending => $"{baseLabel} update status not checked.",
                 CheckStatus.Waiting => $"New update available for {baseLabel}.",
                 _ => baseLabel,

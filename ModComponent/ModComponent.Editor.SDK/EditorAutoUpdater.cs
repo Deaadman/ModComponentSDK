@@ -1,5 +1,6 @@
 #if UNITY_EDITOR
 using ModComponent.SDK;
+using System;
 using UnityEditor;
 using UnityEngine;
 
@@ -11,14 +12,16 @@ namespace ModComponent.Editor.SDK
         private static string _latestVersion;
         private static string _latestVersionChanges;
         private static string _packageName;
+        private static Action _onClose;
         private Vector2 _scrollPosition;
 
-        internal static void Init(string currentVer, string latestVer, string changes, string packageName)
+        internal static void Init(string currentVer, string latestVer, string changes, string packageName, Action onClose)
         {
             _currentVersion = currentVer;
             _latestVersion = latestVer;
             _latestVersionChanges = MarkdownToRichText(changes);
             _packageName = packageName;
+            _onClose = onClose;
             var window = GetWindow<EditorAutoUpdater>("Auto Updater");
             window.minSize = new Vector2(720, 650);
             window.Show();
@@ -75,7 +78,15 @@ namespace ModComponent.Editor.SDK
 
             if (GUILayout.Button("Update Now", GUILayout.Width(120)))
             {
-                AutoUpdater.UpdatePackage(_packageName, _latestVersion);
+                if (_packageName == "ModComponent SDK")
+                {
+                    AutoUpdater.UpdatePackage("com.deadman.modcomponent.sdk", _latestVersion);
+                }
+                else if (_packageName == "Example Mod")
+                {
+                    AutoUpdater.UpdateExampleMod(_latestVersion);
+                }
+
                 Close();
             }
 
@@ -94,6 +105,11 @@ namespace ModComponent.Editor.SDK
             markdown = string.Join("\n", lines);
             markdown = System.Text.RegularExpressions.Regex.Replace(markdown, @"\*\*(.*?)\*\*", "<b>$1</b>");
             return markdown.Replace("`", "");
+        }
+
+        private void OnDestroy()
+        {
+            _onClose?.Invoke();
         }
     }
 }

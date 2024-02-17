@@ -7,7 +7,7 @@ namespace ModComponent.Editor.SDK
 {
     internal class EditorValidateProject : EditorValidateBase
     {
-        //private CheckStatus exampleModInstalledStatus = CheckStatus.Pending;
+        private CheckStatus exampleModInstalledStatus = CheckStatus.Pending;
         private CheckStatus assetsGeneratedStatus = CheckStatus.Pending;
 
         [MenuItem("ModComponent SDK/Validate Project", false, 40)]
@@ -23,7 +23,7 @@ namespace ModComponent.Editor.SDK
             GUILayout.BeginVertical();
             GUILayout.FlexibleSpace();
 
-            //DrawStatus("Example Mod", ref exampleModInstalledStatus);
+            DrawStatus("Example Mod", ref exampleModInstalledStatus);
             DrawStatus("Data Assets", ref assetsGeneratedStatus);
 
             GUILayout.FlexibleSpace();
@@ -32,9 +32,9 @@ namespace ModComponent.Editor.SDK
 
         private async void StartProjectValidation()
         {
-            //exampleModInstalledStatus = CheckStatus.Checking;
-            //bool modInstallResult = await UnityPackageInstaller.PromptPackageInstallation();
-            //exampleModInstalledStatus = modInstallResult ? CheckStatus.Success : CheckStatus.Waiting;
+            exampleModInstalledStatus = CheckStatus.Checking;
+            bool exampleModInstalled = await AutoUpdater.PromptAndInstallExampleModIfNeeded();
+            exampleModInstalledStatus = exampleModInstalled ? CheckStatus.Success : CheckStatus.Waiting;
 
             assetsGeneratedStatus = CheckStatus.Checking;
             bool assetsGenerationResult = DataGenerator.CheckAndPromptForAssetGeneration();
