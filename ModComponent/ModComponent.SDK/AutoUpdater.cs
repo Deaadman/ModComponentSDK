@@ -13,8 +13,9 @@ namespace ModComponent.SDK
     // More works need to be done.
     // 1. If an update is found, testing needs to be done for actually installing it.
     // 2. Same goes with the Example Mod, especially auto imported it for the user.
-    // 3. To get the current version, we need this to point to the Assets/_ModComponent/ExampleMod/ExampleMod.asset file.
-    // 4. Which it will check the version string variable to see if it matches. (We need to somehow lock this field for the ExampleMod only, otherwise users can change it and mess things up)
+    // 3. To get the current version, we need this to point to the Assets/_ModComponent/ExampleMod/ExampleMod.asset ScriptableObject.
+    // 4. Which it will check the version string variable to see if it matches to the one on the repository. (This is if the ExampleMod.asset ScriptableObject actually exists. We need to somehow lock this field for the ExampleMod only, otherwise users can change it and mess things up)
+
     internal class AutoUpdater
     {
         private static readonly string ModComponentVersion = ModComponentSDK.SDK_VERSION;

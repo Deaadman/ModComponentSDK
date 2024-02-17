@@ -45,11 +45,13 @@ namespace ModComponent.SDK
             return true;
         }
 
-        // Need to heavily improve the perfomance of importing all these assets.
         internal static bool GenerateAllAssets()
         {
             try
             {
+                AssetDatabase.StartAssetEditing();
+
+                // Hinterland Assets
                 GenerateAssets<DataGearAsset>("Assets/_ModComponent/DataAssets/Hinterland/GearItems", GetGearItems(), SetDataGearAssetProperties, "ModComponent/Assets/Icons/Hinterland/");
                 GenerateAssets<DataLiquidAsset>("Assets/_ModComponent/DataAssets/Hinterland/Liquids", GetLiquidNames(), SetDataLiquidAssetProperties);
                 GenerateAssets<DataPowderAsset>("Assets/_ModComponent/DataAssets/Hinterland/Powders", GetPowderNames(), SetDataPowderAssetProperties);
@@ -57,9 +59,10 @@ namespace ModComponent.SDK
                 GenerateAssets<DataLootTableAsset>("Assets/_ModComponent/DataAssets/Hinterland/LootTables", GetLootTableNames(), SetDataLootTableProperties);
                 GenerateAssets<DataSceneAsset>("Assets/_ModComponent/DataAssets/Hinterland/Scenes", GetScenes(), SetDataSceneAssetProperties);
 
-
+                // Modded Assets
                 GenerateAssets<DataGearAsset>("Assets/_ModComponent/DataAssets/Modded/ModdersToolbox", GetModdersToolBoxItems(), SetDataGearAssetProperties, "ModComponent/Assets/Icons/ModdersToolbox/");
 
+                AssetDatabase.StopAssetEditing();
                 AssetDatabase.SaveAssets();
                 AssetDatabase.Refresh();
 
