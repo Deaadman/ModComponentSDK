@@ -3,113 +3,112 @@ using UnityEngine;
 
 namespace ModComponent.Components
 {
-    [HelpURL("https://github.com/dommrogers/ModComponent/blob/master/docs/Food-Component-Documentation.md")]
+    [HelpURL("https://github.com/Deaadman/ModComponentSDK/wiki/API#modfoodcomponent")]
     public class ModFoodComponent : ModCookableComponent
     {
-        [Tooltip("Days to decay when stored outdoors. 0 means 'Never'. This overrides the basic property 'DaysToDecay'.")]
+        [Tooltip("Outdoor decay time (days); 0 = Never.")]
         public int DaysToDecayOutdoors;
 
-        [Tooltip("Days to decay when stored indoors. 0 means 'Never'. This overrides the basic property 'DaysToDecay'.")]
+        [Tooltip("Indoor decay time (days); 0 = Never.")]
         public int DaysToDecayIndoors;
 
-        [Tooltip("Calories for one complete item with all servings. Calories remaining will scale with weight.")]
+        [Tooltip("Total calories.")]
         public int Calories;
 
-        [Range(0, 1)]
-        [Tooltip("The number of servings contained in this item. Each consumption will be limited to one serving. 1 means 'Consume completely' - the way all pre-existing food items work.")]
+        [Tooltip("Number of servings.")]
         public int Servings;
 
-        [Tooltip("Real-time seconds it takes to eat one complete serving.")]
+        [Tooltip("Eating time (seconds) per serving.")]
         public int EatingTime;
 
-        [Tooltip("Sound to use when the item is either unpackaged or already open.")]
+        [Tooltip("Sound when eating unpackaged/open food.")]
         public DataSoundAsset EatingAudio;
 
-        [Tooltip("Sound to use when the item is still packaged and unopened. Leave empty for unpackaged food.")]
+        [Tooltip("Sound when eating packaged food.")]
         public DataSoundAsset EatingPackagedAudio;
 
-        [Tooltip("How does this affect your thirst? Represents change in percentage points. Negative values increase thirst, positive values reduce thirst.")]
+        [Tooltip("Thirst change (%); negative = increase, positive = decrease.")]
         public int ThirstEffect;
 
-        [Tooltip("Chance in percent to contract food poisoning from an item above 20% condition.")]
+        [Tooltip("Food poisoning chance (>20% condition).")]
         public int FoodPoisoning;
 
-        [Tooltip("Chance in percent to contract food poisoning from an item below 20% condition.")]
+        [Tooltip("Food poisoning chance (<20% condition).")]
         public int FoodPoisoningLowCondition;
 
-        [Tooltip("Parasite Risk increments in percent for each unit eaten. Leave empty for no parasite risk.")]
+        [Tooltip("Parasite risk per unit eaten (%).")]
         public float[] ParasiteRiskIncrements;
 
-        [Tooltip("Is the food item naturally occurring meat or plant?")]
+        [Tooltip("Is this natural food (meat/plant)?")]
         public bool Natural;
 
-        [Tooltip("Is the food item raw or cooked?")]
+        [Tooltip("Is this raw food?")]
         public bool Raw;
 
-        [Tooltip("Is the food item something to drink? (This mainly affects the names of actions and position in the radial menu)")]
+        [Tooltip("Is this a drink?")]
         public bool Drink;
 
-        [Tooltip("Is the food item meat directly from an animal? (E.g. wolf steak, but not beef jerky - mainly for statistics)")]
+        [Tooltip("Is this animal meat?")]
         public bool Meat;
 
-        [Tooltip("Is the food item fish directly from an animal? (E.g. salmon, but not canned sardines - mainly for statistics)")]
+        [Tooltip("Is this fish?")]
         public bool Fish;
 
-        [Tooltip("Is the food item canned? Canned items will yield a 'Recycled Can' when opened properly.")]
+        [Tooltip("Is this canned food?")]
         public bool Canned;
 
-        [Tooltip("Does this item require a tool for opening it? If not enabled, the other settings in this section will be ignored.")]
+        [Tooltip("Requires tool for opening?")]
         public bool Opening;
 
-        [Tooltip("Can it be opened with a can opener?")]
+        [Tooltip("Openable with can opener?")]
         public bool OpeningWithCanOpener;
 
-        [Tooltip("Can it be opened with a knife?")]
+        [Tooltip("Openable with knife?")]
         public bool OpeningWithKnife;
 
-        [Tooltip("Can it be opened with a hatchet?")]
+        [Tooltip("Openable with hatchet?")]
         public bool OpeningWithHatchet;
 
-        [Tooltip("Can it be opened by smashing?")]
+        [Tooltip("Openable by smashing?")]
         public bool OpeningWithSmashing;
 
-        [Tooltip("Does this item affect 'Condition' while sleeping? If not enabled, the other settings in this section will be ignored.")]
+        [Tooltip("Affects condition while sleeping?")]
         public bool AffectCondition;
 
-        [Tooltip("How much additional condition is restored per hour?")]
+        [Tooltip("Condition restored per hour.")]
         public float ConditionRestBonus;
 
-        [Tooltip("Amount of in-game minutes the 'ConditionRestBonus' will be applied.")]
+        [Tooltip("Duration for condition rest bonus (minutes).")]
         public float ConditionRestMinutes;
 
-        [Tooltip("Does this item affect 'Rest'? If not enabled, the other settings in this section will be ignored.")]
+        [Tooltip("Affects rest immediately?")]
         public bool AffectRest;
 
-        [Tooltip("How much 'Rest' is restored/drained immediately after consuming the item. Represents change in percentage points. Negative values drain rest, positive values restore rest.")]
+        [Tooltip("Instant rest change (%).")]
         public float InstantRestChange;
 
-        [Tooltip("Amount of in-game minutes the 'RestFactor' will be applied.")]
+        [Tooltip("Duration for rest factor (minutes).")]
         public int RestFactorMinutes;
 
-        [Tooltip("Does this item affect 'Cold'? If not enabled, the other settings in this section will be ignored.")]
+        [Tooltip("Affects cold immediately?")]
         public bool AffectCold;
 
-        [Tooltip("How much 'Cold' is restored/drained immediately after consuming the item. Represents change in percentage points. Negative values make it feel colder, positive values make it feel warmer.")]
+        [Tooltip("Instant cold change (%).")]
         public float InstantColdChange;
 
-        [Tooltip("Amount of in-game minutes the 'ColdFactor' will be applied.")]
+        [Tooltip("Duration for cold factor (minutes).")]
         public int ColdFactorMinutes;
 
-        [Tooltip("Does this item contain Alcohol? If not enabled, the other settings in this section will be ignored. Currently disabled, but you can set a value for when it's re-enabled.")]
+        [Tooltip("Contains alcohol?")]
         public bool ContainsAlcohol;
 
-        [Tooltip("How much of the item's weight is alcohol?")]
+        [Tooltip("Alcohol weight percentage.")]
         public float AlcoholPercentage;
 
-        [Tooltip("How many in-game minutes does it take for the alcohol to be fully absorbed? This is scaled by current hunger level (the hungrier the faster). The simulated blood alcohol level will slowly raise over this time. Real-life value is around 45 mins for liquids.")]
+        [Tooltip("Alcohol absorption time (minutes).")]
         public float AlcoholUptakeMinutes;
 
-        [Tooltip("How much Vitamin C will be added to the player once consumed?")]
+        [Tooltip("Vitamin C added on consumption.")]
         public int VitaminC;
     }
 }

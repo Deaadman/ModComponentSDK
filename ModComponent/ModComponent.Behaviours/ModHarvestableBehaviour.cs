@@ -3,22 +3,22 @@ using UnityEngine;
 
 namespace ModComponent.Behaviours
 {
-    [HelpURL("https://github.com/dommrogers/ModComponent/blob/master/docs/Harvestable-Behaviour-Documentation.md")]
+    [HelpURL("https://github.com/Deaadman/ModComponentSDK/wiki/API#modharvestablebehaviour")]
     public class ModHarvestableBehaviour : ModBaseBehaviour
     {
-        [Tooltip("The audio to play while harvesting.")]
+        [Tooltip("Sound effect during harvesting.")]
         public DataSoundAsset Audio;
 
-        [Tooltip("How many in-game minutes does it take to harvest this item?")]
+        [Tooltip("Time to harvest (minutes).")]
         public int Minutes;
 
-        [Tooltip("The numbers of each Gear Item that harvesting will yield.")]
+        [Tooltip("Quantities of each item yielded.")]
         public int[] YieldCounts;
 
-        [Tooltip("The names of the Gear Items that harvesting will yield.")]
+        [Tooltip("Names of items yielded.")]
         public DataGearAsset[] YieldNames;
 
-        [Tooltip("The names of the ToolItems that can be used to harvest. Leave empty for harvesting by hand.")]
+        [Tooltip("Tools required for harvesting. None means by hand.")]
         public DataGearAsset[] RequiredToolNames;
     }
 }

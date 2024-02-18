@@ -3,31 +3,31 @@ using UnityEngine;
 
 namespace ModComponent.Behaviours
 {
-    [HelpURL("https://github.com/dommrogers/ModComponent/blob/master/docs/Stackable-Behaviour-Documentation.md")]
+    [HelpURL("https://github.com/Deaadman/ModComponentSDK/wiki/API#modstackablebehaviour")]
     public class ModStackableBehaviour : ModBaseBehaviour
     {
-        [Tooltip("Localization key to be used for stacks with only one item. E.g. '2 arrows'.")]
+        [Tooltip("Text for a single unit in a stack.")]
         public string SingleUnitTextId;
 
-        [Tooltip("Localization key to be used for stacks with multiple items. E.g. '2 arrows'.")]
+        [Tooltip("Text for multiple units in a stack.")]
         public string MultipleUnitTextId;
 
-        [Tooltip("An optional sprite name (from a UIAtlas) that will be added to the stack.")]
+        [Tooltip("Optional sprite for the stack.")]
         public string StackSprite;
 
-        [Tooltip("The default number of units to make a full stack. For example, Coffee tins and Herbal Tea boxes each have 5 units.")]
+        [Tooltip("Number of units for a full stack.")]
         public int UnitsPerItem;
 
-        [Tooltip("Percent chance of the item having a full stack.")]
+        [Tooltip("Chance of item being a full stack.")]
         public float ChanceFull;
 
-        [Tooltip("The items that can be stacked with this item.")]
+        [Tooltip("Items compatible for stacking.")]
         public DataGearAsset[] ShareStackWithGear;
 
-        [Tooltip("The item to instantiate when the stack is split.")]
+        [Tooltip("Item created when the stack is split.")]
         public DataGearAsset InstantiateStackItem;
 
-        [Tooltip("The maximum difference in condition between items in a stack.")]
+        [Tooltip("Max condition difference allowed in a stack.")]
         public float StackConditionDifferenceConstraint;
     }
 }

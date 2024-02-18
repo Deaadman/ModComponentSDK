@@ -3,16 +3,16 @@ using UnityEngine;
 
 namespace ModComponent.Components
 {
-    [HelpURL("https://github.com/dommrogers/ModComponent/blob/master/docs/Generic-Equippable-Component-Documentation.md")]
+    [HelpURL("https://github.com/Deaadman/ModComponentSDK/wiki/API#modgenericequippablecomponent")]
     public class ModGenericEquippableComponent : ModGenericComponent
     {
-        [Tooltip("The GameObject to be used for representing the item while it is equipped.")]
+        [Tooltip("Model used when item is equipped.")]
         public DataGearAsset EquippedModelPrefab;
 
-        [Tooltip("The name of the type implementing the specific game logic of this item.")]
+        [Tooltip("Custom logic type for this item.")]
         public string ImplementationType;
 
-        [Tooltip("The audio that plays when this item is equipped.")]
+        [Tooltip("Sound effect for equipping.")]
         public DataSoundAsset EquippingAudio;
     }
 }

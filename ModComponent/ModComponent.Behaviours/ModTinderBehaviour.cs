@@ -2,13 +2,13 @@ using UnityEngine;
 
 namespace ModComponent.Behaviours
 {
-    [HelpURL("https://github.com/dommrogers/ModComponent/blob/master/docs/Tinder-Behaviour-Documentation.md")]
+    [HelpURL("https://github.com/Deaadman/ModComponentSDK/wiki/API#modtinderbehaviour")]
     public class ModTinderBehaviour : ModBaseBehaviour
     {
-        [Tooltip("In-game seconds offset for fire starting duration from this accelerant. NOT scaled by fire starting skill. Positive values mean 'slower', negative values mean 'faster'.")]
+        [Tooltip("Adjusts fire starting time ('+' for slower, '-' for faster).")]
         public float DurationOffset;
 
-        [Tooltip("Does this item affect the chance for success? Represents percentage points. Positive values increase the chance, negative values reduce it.")]
+        [Tooltip("Changes success chance ('+' increases, '-' decreases).")]
         public float SuccessModifier;
     }
 }

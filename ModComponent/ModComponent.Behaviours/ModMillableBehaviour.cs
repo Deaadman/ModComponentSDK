@@ -1,34 +1,34 @@
 using ModComponent.SDK.Components;
+using ModComponent.Utilities;
 using UnityEngine;
 
 namespace ModComponent.Behaviours
 {
-    [HelpURL("https://github.com/dommrogers/ModComponent/blob/master/docs/Millable-Behaviour-Documentation.md")]
+    [HelpURL("https://github.com/Deaadman/ModComponentSDK/wiki/API#modmillablebehaviour")]
     public class ModMillableBehaviour : ModBaseBehaviour
     {
-        [Tooltip("The number of minutes required to repair the item.")]
+        [Tooltip("Time to repair (minutes).")]
         public int RepairDurationMinutes;
 
-        [Tooltip("The Gear Items required for repairing the item.")]
+        [Tooltip("Items needed for repair.")]
         public DataGearAsset[] RepairRequiredGear;
 
-        [Tooltip("The numbers of each Gear Item required for repairing the item.")]
+        [Tooltip("Amount of each item needed for repair.")]
         public int[] RepairRequiredGearUnits;
 
-        [Tooltip("Can the item be restored from a ruined state?")]
+        [Tooltip("Can be fixed from ruined state?")]
         public bool CanRestoreFromWornOut;
 
-        [Tooltip("The number of minutes required to restore the item.")]
+        [Tooltip("Time to restore (minutes).")]
         public int RecoveryDurationMinutes;
 
-        [Tooltip("The Gear Items required for restoring the item.")]
+        [Tooltip("Items needed for restoration.")]
         public DataGearAsset[] RestoreRequiredGear;
 
-        [Tooltip("The numbers of each Gear Item required for restoring the item.")]
+        [Tooltip("Amount of each item needed for restoration.")]
         public int[] RestoreRequiredGearUnits;
 
-        // Skills needs to be revisted, maybe turn into an enum for easier choice of which skill.
-        [Tooltip("The skill associated with repairing/restoring this item.")]
-        public string Skill;
+        [Tooltip("Skill for repair/restoration.")]
+        public SkillType Skill;
     }
 }

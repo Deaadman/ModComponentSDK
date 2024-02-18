@@ -3,37 +3,37 @@ using UnityEngine;
 
 namespace ModComponent.Components
 {
-    [HelpURL("https://github.com/dommrogers/ModComponent/blob/master/docs/Bed-Component-Documentation.md")]
+    [HelpURL("https://github.com/Deaadman/ModComponentSDK/wiki/API#modbedcomponent")]
     public class ModBedComponent : ModGenericComponent
     {
-        [Tooltip("How many condition points are restored per hour by sleeping in this bed? This is the base rate and applied for the first hour. The second and following hours will benefit from 'AdditionalConditionGainPerHour'.")]
+        [Tooltip("Base condition restored per hour of sleep.")]
         public float ConditionGainPerHour;
 
-        [Tooltip("Additionally restored condition points restored per hour. The n-th hour of sleeping gives (n - 1) * AdditionalConditionGainPerHour additional health points.")]
+        [Tooltip("Extra condition restored from the second hour onwards.")]
         public float AdditionalConditionGainPerHour;
 
-        [Tooltip("Warmth bonus of the bed.")]
+        [Tooltip("Bed's warmth bonus in Celsius.")]
         public float WarmthBonusCelsius;
 
-        [Tooltip("How much condition does this bed item lose per hour of use?")]
+        [Tooltip("Bed condition lost per hour of use.")]
         public float DegradePerHour;
 
-        [Tooltip("Modifier for the chance of bear encounters during sleep. Positive values decrease the chance; negative values increase the chance.")]
+        [Tooltip("Changes bear encounter chance during sleep.")]
         public float BearAttackModifier;
 
-        [Tooltip("Modifier for the chance of wolf encounters during sleep. Positive values decrease the chance; negative values increase the chance.")]
+        [Tooltip("Changes wolf encounter chance during sleep.")]
         public float WolfAttackModifier;
 
-        [Tooltip("Sound to be played when beginning to sleep in this bed. Leave empty for a sensible default.")]
+        [Tooltip("Sound for starting to sleep. Defaults used if empty.")]
         public DataSoundAsset OpenAudio;
 
-        [Tooltip("Sound to be played when ending to sleep in this bed. Leave empty for a sensible default.")]
+        [Tooltip("Sound for waking up. Defaults used if empty.")]
         public DataSoundAsset CloseAudio;
 
-        [Tooltip("Optional game object to be used for representing the bed in a 'packed' state.")]
+        [Tooltip("Mesh for the bed in packed state.")]
         public GameObject PackedMesh;
 
-        [Tooltip("Optional game object to be used for representing the bed in a 'usable' state.")]
+        [Tooltip("Mesh for the bed in usable state.")]
         public GameObject UsableMesh;
     }
 }

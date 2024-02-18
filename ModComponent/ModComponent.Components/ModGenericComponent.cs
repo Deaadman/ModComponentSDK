@@ -4,65 +4,65 @@ using UnityEngine;
 
 namespace ModComponent.Components
 {
-    [HelpURL("https://github.com/dommrogers/ModComponent/blob/master/docs/Generic-Component-Documentation.md")]
+    [HelpURL("https://github.com/Deaadman/ModComponentSDK/wiki/API#modgenericcomponent")]
     [DisallowMultipleComponent]
     public class ModGenericComponent : MonoBehaviour
     {
-        [Tooltip("Localization key to be used for the in-game name of the item.")]
+        [Tooltip("In-game name key.")]
         public string DisplayNameLocalizationId = "GAMEPLAY_NameKey";
 
-        [Tooltip("Localization key to be used for the in-game description of the item.")]
+        [Tooltip("In-game description key.")]
         public string DescriptionLocalizatonId = "GAMEPLAY_DescriptionKey";
 
-        [Tooltip("Localization key to be used for the 'Action' (e.g., 'Equip', 'Eat', ...) button in the inventory. The text is purely cosmetic and will not influence the action the button triggers. Leave empty for a sensible default.")]
+        [Tooltip("Inventory action text key. Defaults if empty.")]
         public string InventoryActionLocalizationId;
 
-        [Tooltip("The weight of the item in kilograms.")]
+        [Tooltip("Weight (kg).")]
         public float WeightKG = 1;
 
-        [Tooltip("The number of days it takes for this item to decay - without use - from 100% to 0%. Leave at 0 if the item should not decay over time.")]
+        [Tooltip("Time to decay (days); 0 for non-decaying.")]
         public int DaysToDecay;
 
-        [Tooltip("The number of hit points an item has. May affect the percent condition lost in a struggle.")]
+        [Tooltip("Maximum hit points.")]
         public float MaxHP = 100;
 
-        [Tooltip("The initial condition of the item when found or crafted.")]
+        [Tooltip("Initial condition on discovery or creation.")]
         public InitialCondition InitialCondition;
 
-        [Tooltip("The inventory category to be used for this item. Leave at Auto for a sensible default.")]
+        [Tooltip("Inventory category. Auto for default.")]
         public InventoryCategory InventoryCategory;
 
-        [Tooltip("Sound to play when the item is picked up.")]
+        [Tooltip("Pickup sound effect.")]
         public DataSoundAsset PickUpAudio;
 
-        [Tooltip("Sound to play when the item is dropped.")]
+        [Tooltip("Drop sound effect.")]
         public DataSoundAsset PutBackAudio;
 
-        [Tooltip("Sound to play when the item is holstered.")]
+        [Tooltip("Holster sound effect.")]
         public DataSoundAsset StowAudio;
 
-        [Tooltip("Sound to play when the item wore out during an action.")]
+        [Tooltip("Worn-out sound effect.")]
         public DataSoundAsset WornOutAudio;
 
-        [Tooltip("Will the item be inspected when picked up? If not enabled, the item will go straight to the inventory.")]
+        [Tooltip("Inspect upon pickup?")]
         public bool InspectOnPickup = true;
 
-        [Tooltip("Distance from the camera during inspect.")]
+        [Tooltip("Inspect camera distance.")]
         public float InspectDistance = 1;
 
-        [Tooltip("Rotation angles (in degrees) during inspect. Use [0, 0, 0] for no rotation.")]
+        [Tooltip("Inspect rotation angles.")]
         public Vector3 InspectAngles;
 
-        [Tooltip("Offset from the center during inspect. Use [0, 0, 0] for no offset.")]
+        [Tooltip("Inspect offset.")]
         public Vector3 InspectOffset;
 
-        [Tooltip("Scales the item during inspect. Use [1, 1, 1] for no scaling.")]
+        [Tooltip("Inspect scale.")]
         public Vector3 InspectScale = new(1, 1, 1);
 
-        [Tooltip("Model to show when not inspecting the item. Leave empty to have the normal model and inspect model be the same.")]
+        [Tooltip("Model for normal view.")]
         public GameObject NormalModel;
 
-        [Tooltip("Model to show when inspecting the item. Leave empty to have the normal model and inspect model be the same.")]
+        [Tooltip("Model for inspect view.")]
         public GameObject InspectModel;
     }
 }

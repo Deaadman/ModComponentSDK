@@ -1,17 +1,19 @@
 using UnityEngine;
 
+using TextAlignment = ModComponent.Utilities.TextAlignment;
+
 namespace ModComponent.Components
 {
-    [HelpURL("https://github.com/dommrogers/ModComponent/blob/master/docs/Collectible-Component-Documentation.md")]
+    [HelpURL("https://github.com/Deaadman/ModComponentSDK/wiki/API#modcollectiblecomponent")]
     public class ModCollectibleComponent : ModGenericComponent
     {
-        [Tooltip("The localization id for the hud message displayed after this item is picked up.")]
+        [Tooltip("HUD message ID for post-pickup.")]
         public string HudMessageLocalizationId;
 
-        [Tooltip("The localization id for the narrative content of the item.")]
+        [Tooltip("ID for item's narrative text.")]
         public string NarrativeTextLocalizationId;
 
-        [Tooltip("The alignment of the narrative text.")]
-        public Utilities.TextAlignment TextAlignment;
+        [Tooltip("Narrative text alignment.")]
+        public TextAlignment TextAlignment;
     }
 }

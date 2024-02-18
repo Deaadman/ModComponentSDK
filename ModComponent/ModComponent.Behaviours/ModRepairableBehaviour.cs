@@ -3,25 +3,25 @@ using UnityEngine;
 
 namespace ModComponent.Behaviours
 {
-    [HelpURL("https://github.com/dommrogers/ModComponent/blob/master/docs/Repairable-Behaviour-Documentation.md")]
+    [HelpURL("https://github.com/Deaadman/ModComponentSDK/wiki/API#modrepairablebehaviour")]
     public class ModRepairableBehaviour : ModBaseBehaviour
     {
-        [Tooltip("The audio to play while repairing.")]
+        [Tooltip("Sound effect during repair.")]
         public DataSoundAsset Audio;
 
-        [Tooltip("How many in-game minutes does it take to repair this item?")]
+        [Tooltip("Time to repair (minutes).")]
         public int Minutes;
 
-        [Tooltip("How much condition does repairing restore?")]
+        [Tooltip("Condition restored by repair.")]
         public int Condition;
 
-        [Tooltip("The name of the tools suitable for repair. At least one of those will be required for repairing. Leave empty if this item should be repairable without tools.")]
+        [Tooltip("Tools required for repair. None means tool-free.")]
         public DataGearAsset[] RequiredTools;
 
-        [Tooltip("The names of the materials required for repair.")]
+        [Tooltip("Materials needed for repair.")]
         public DataGearAsset[] MaterialNames;
 
-        [Tooltip("The number of materials required for repair.")]
+        [Tooltip("Quantity of each material needed.")]
         public int[] MaterialCounts;
     }
 }

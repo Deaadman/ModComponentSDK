@@ -2,16 +2,16 @@ using UnityEngine;
 
 namespace ModComponent.Behaviours
 {
-    [HelpURL("https://github.com/dommrogers/ModComponent/blob/master/docs/Accelerant-Behaviour-Documentation.md")]
+    [HelpURL("https://github.com/Deaadman/ModComponentSDK/wiki/API#modaccelerantbehaviour")]
     public class ModAccelerantBehaviour : ModBaseBehaviour
     {
-        [Tooltip("Is the item destroyed immediately after use?")]
+        [Tooltip("Destroys the item after one use.")]
         public bool DestroyedOnUse;
 
-        [Tooltip("In-game seconds offset for fire starting duration from this accelerant. NOT scaled by fire starting skill. Positive values mean 'slower', negative values mean 'faster'.")]
+        [Tooltip("Changes how long it takes to start a fire. '+' slows it down, '-' speeds it up.")]
         public float DurationOffset;
 
-        [Tooltip("Does this item affect the chance for success? Represents percentage points. Positive values increase the chance, negative values reduce it.")]
+        [Tooltip("Modifies success chance. '+' increases, '-' decreases.")]
         public float SuccessModifier;
     }
 }

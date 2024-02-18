@@ -3,22 +3,22 @@ using UnityEngine;
 
 namespace ModComponent.Components
 {
-    [HelpURL("https://github.com/dommrogers/ModComponent/blob/master/docs/Cooking-Pot-Component-Documentation.md")]
+    [HelpURL("https://github.com/Deaadman/ModComponentSDK/wiki/API#modcookingpotcomponent")]
     public class ModCookingPotComponent : ModGenericComponent
     {
-        [Tooltip("Can the item cook liquids?")]
+        [Tooltip("Allows cooking of liquids.")]
         public bool CanCookLiquid;
 
-        [Tooltip("Can the item cook grub? Cookable canned food counts as grub.")]
+        [Tooltip("Allows cooking of canned food and similar.")]
         public bool CanCookGrub;
 
-        [Tooltip("Can the item cook meat?")]
+        [Tooltip("Allows cooking of meat.")]
         public bool CanCookMeat;
 
-        [Tooltip("The total water capacity of the item.")]
+        [Tooltip("Maximum water capacity (liters).")]
         public float Capacity;
 
-        [Tooltip("Template item to be used in the mapping process.")]
+        [Tooltip("Template for cooking process.")]
         public DataGearAsset Template;
     }
 }

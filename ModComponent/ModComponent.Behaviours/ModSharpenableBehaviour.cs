@@ -3,25 +3,25 @@ using UnityEngine;
 
 namespace ModComponent.Behaviours
 {
-    [HelpURL("https://github.com/dommrogers/ModComponent/blob/master/docs/Sharpenable-Behaviour-Documentation.md")]
+    [HelpURL("https://github.com/Deaadman/ModComponentSDK/wiki/API#modsharpenablebehaviour")]
     public class ModSharpenableBehaviour : ModBaseBehaviour
     {
-        [Tooltip("The sound to play while sharpening. Leave empty for a sensible default.")]
+        [Tooltip("Sharpening sound effect. Default used if empty.")]
         public DataSoundAsset Audio;
 
-        [Tooltip("How many in-game minutes does it take to sharpen this item at minimum skill.")]
+        [Tooltip("Sharpening time with minimum skill (minutes).")]
         public int MinutesMin;
 
-        [Tooltip("How many in-game minutes does it take to sharpen this item at maximum skill.")]
+        [Tooltip("Sharpening time with maximum skill (minutes).")]
         public int MinutesMax;
 
-        [Tooltip("How much condition is restored to this item at minimum skill.")]
+        [Tooltip("Condition restored at minimum skill.")]
         public float ConditionMin;
 
-        [Tooltip("How much condition is restored to this item at maximum skill.")]
+        [Tooltip("Condition restored at maximum skill.")]
         public float ConditionMax;
 
-        [Tooltip("Which tools can be used to sharpen this item, e.g., 'GEAR_SharpeningStone'. Leave empty to make this sharpenable without tools.")]
+        [Tooltip("Tools for sharpening. No tool needed if empty.")]
         public DataGearAsset[] Tools;
     }
 }

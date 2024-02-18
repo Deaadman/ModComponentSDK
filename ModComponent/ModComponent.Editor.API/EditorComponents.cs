@@ -139,9 +139,9 @@ namespace ModComponent.Editor.API
                 { "MeatAvailableMinKG", "Meat Available Minimum" },
                 { "MeatAvailableMaxKG", "Meat Available Maximum" },
 
-                //{ "SurveyGameMinutes", "Survey Time" },
-                //{ "SurveyRealSeconds", "Survey Real Time" },
-                //{ "SurveySkillExtendedHours", "Survey Skill Extended" },
+                { "SurveyGameMinutes", "Survey Time" },
+                { "SurveyRealSeconds", "Survey Real Time" },
+                { "SurveySkillExtendedHours", "Survey Skill Extended" },
 
                 { "MinLayer", "Minimum Layer" },
                 { "MaxLayer", "Maximum Layer" },
@@ -303,7 +303,6 @@ namespace ModComponent.Editor.API
                     "Region",
                     "MinLayer",
                     "MaxLayer",
-                    "MovementSound",
                     "Footwear",
                     "DaysToDecayWornOutside",
                     "DaysToDecayWornInside",
@@ -553,6 +552,14 @@ namespace ModComponent.Editor.API
                 DrawCustomHeading("Charcoal Audio Properties");
                 DrawFields(new string[] {
                     "SurveyLoopAudio"
+                });
+            }
+
+            if (target.GetType() == typeof(ModClothingComponent) || target.GetType().IsSubclassOf(typeof(ModClothingComponent)))
+            {
+                DrawCustomHeading("Clothing Audio Properties");
+                DrawFields(new string[] {
+                    "MovementSound"
                 });
             }
 

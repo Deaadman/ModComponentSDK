@@ -4,28 +4,28 @@ using UnityEngine;
 
 namespace ModComponent.Components
 {
-    [HelpURL("https://github.com/dommrogers/ModComponent/blob/master/docs/First-Aid-Component-Documentation.md")]
+    [HelpURL("https://github.com/Deaadman/ModComponentSDK/wiki/API#modfirstaidcomponent")]
     public class ModFirstAidComponent : ModGenericComponent
     {
-        [Tooltip("Localization key for the progress bar message while using the item.")]
+        [Tooltip("Progress bar message ID during use.")]
         public string ProgressBarMessage;
 
-        [Tooltip("Localization key for indicating the possible action with this item.")]
+        [Tooltip("Action description message ID.")]
         public string RemedyText;
 
-        [Tooltip("Amount of condition instantly restored after using this item.")]
+        [Tooltip("Health restored immediately upon use.")]
         public int InstantHealing;
 
-        [Tooltip("Type of first aid provided by this item.")]
+        [Tooltip("First aid action type.")]
         public FirstAidType FirstAidType;
 
-        [Tooltip("Time in seconds to use this item.")]
+        [Tooltip("Usage time (seconds).")]
         public int TimeToUseSeconds;
 
-        [Tooltip("How many items are required for one dose or application.")]
+        [Tooltip("Item quantity needed per use.")]
         public int UnitsPerUse;
 
-        [Tooltip("Sound to play when using the item.")]
+        [Tooltip("Sound effect for using item.")]
         public DataSoundAsset UseAudio;
     }
 }

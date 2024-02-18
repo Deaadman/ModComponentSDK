@@ -3,10 +3,10 @@ using UnityEngine;
 
 namespace ModComponent.Components
 {
-    [HelpURL("https://github.com/dommrogers/ModComponent/blob/master/docs/Ammo-Component-Documentation.md")]
+    [HelpURL("https://github.com/Deaadman/ModComponentSDK/wiki/API#modammocomponent")]
     public class ModAmmoComponent : ModGenericComponent
     {
-        [Tooltip("The type of gun item which determines what the ammo is used for.")]
+        [Tooltip("Specifies the gun type this ammo is compatible with.")]
         public AmmoForGunType AmmoForGunType;
     }
 }

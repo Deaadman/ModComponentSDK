@@ -3,40 +3,40 @@ using UnityEngine;
 
 namespace ModComponent.Components
 {
-    [HelpURL("https://github.com/dommrogers/ModComponent/blob/master/docs/Body-Harvest-Component-Documentation.md")]
+    [HelpURL("https://github.com/Deaadman/ModComponentSDK/wiki/API#modbodyharvestcomponent")]
     public class ModBodyHarvestComponent : ModGenericComponent
     {
-        [Tooltip("Can this be carried like a rabbit carcass?")]
+        [Tooltip("Allows carrying like a rabbit carcass.")]
         public bool CanCarry;
 
-        [Tooltip("The id for the sound to be played while harvesting.")]
+        [Tooltip("Sound effect for harvesting.")]
         public DataSoundAsset HarvestAudio;
 
-        [Tooltip("The name of the object prefab for the guts.")]
+        [Tooltip("Prefab for guts.")]
         public DataGearAsset GutPrefab;
 
-        [Tooltip("The number of guts in each harvest.")]
+        [Tooltip("Quantity of guts obtained per harvest.")]
         public int GutQuantity;
 
-        [Tooltip("The weight of the gut before the player harvests it.")]
+        [Tooltip("Weight of each gut unit (kg).")]
         public float GutWeightKgPerUnit;
 
-        [Tooltip("The name of the object prefab for the hide.")]
+        [Tooltip("Prefab for hide.")]
         public DataGearAsset HidePrefab;
 
-        [Tooltip("The number of hides in each harvest.")]
+        [Tooltip("Quantity of hides obtained per harvest.")]
         public int HideQuantity;
 
-        [Tooltip("The weight of the hide before the player harvests it.")]
+        [Tooltip("Weight of each hide unit (kg).")]
         public float HideWeightKgPerUnit;
 
-        [Tooltip("The name of the object prefab for the raw meat.")]
+        [Tooltip("Prefab for raw meat.")]
         public DataGearAsset MeatPrefab;
 
-        [Tooltip("The minimum amount of meat in each harvest.")]
+        [Tooltip("Minimum meat weight available (kg).")]
         public float MeatAvailableMinKG;
 
-        [Tooltip("The maximum amount of meat in each harvest.")]
+        [Tooltip("Maximum meat weight available (kg).")]
         public float MeatAvailableMaxKG;
     }
 }

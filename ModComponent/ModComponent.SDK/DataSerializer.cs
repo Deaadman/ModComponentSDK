@@ -211,8 +211,8 @@ namespace ModComponent.SDK
                     modClothingComponent.HoursToDryNearFire,
                     modClothingComponent.HoursToDryWithoutFire,
                     modClothingComponent.HoursToFreeze,
-                    modClothingComponent.MainTexture,
-                    modClothingComponent.BlendTexture,
+                    MainTexture = modClothingComponent.MainTexture != null ? modClothingComponent.MainTexture.name : "",
+                    BlendTexture = modClothingComponent.BlendTexture != null ? modClothingComponent.BlendTexture.name : "",
                     modClothingComponent.DrawLayer,
                     modClothingComponent.ImplementationType
                 },
@@ -687,7 +687,7 @@ namespace ModComponent.SDK
                     modMillableBehaviour.RecoveryDurationMinutes,
                     RestoreRequiredGear = modMillableBehaviour.RestoreRequiredGear?.Select(restoreRequiredGear => restoreRequiredGear.name).ToArray(),
                     modMillableBehaviour.RestoreRequiredGearUnits,
-                    modMillableBehaviour.Skill
+                    Skill = modMillableBehaviour.Skill.ToString()
                 },
                 ModRepairableBehaviour modRepairableBehaviour => new
                 {

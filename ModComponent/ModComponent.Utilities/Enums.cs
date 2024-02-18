@@ -100,17 +100,20 @@ namespace ModComponent.Utilities
         RAW_MEAT
     }
 
+    // Last Updated v2.26
     public enum SkillType
     {
-        Archery,
-        CarcassHarvesting,
-        Cooking,
+        None,
         Firestarting,
-        Gunsmithing,
+        CarcassHarvesting,
         IceFishing,
-        ClothingRepair,
+        Cooking,
         Rifle,
-        ToolRepair
+        Archery,
+        ClothingRepair,
+        ToolRepair,
+        Revolver,
+        Gunsmithing
     }
 
     public enum TextAlignment

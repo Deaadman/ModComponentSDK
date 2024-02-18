@@ -3,31 +3,31 @@ using UnityEngine;
 
 namespace ModComponent.Behaviours
 {
-    [HelpURL("https://github.com/dommrogers/ModComponent/blob/master/docs/FireStarter-Behaviour-Documentation.md")]
+    [HelpURL("https://github.com/Deaadman/ModComponentSDK/wiki/API#modfirestarterbehaviour")]
     public class ModFireStarterBehaviour : ModBaseBehaviour
     {
-        [Tooltip("Is the item destroyed immediately after use?")]
+        [Tooltip("Destroyed after use?")]
         public bool DestroyedOnUse;
 
-        [Tooltip("How many times can this item be used?")]
+        [Tooltip("Total uses available.")]
         public float NumberOfUses;
 
-        [Tooltip("What sound to play during usage.")]
+        [Tooltip("Sound played when used.")]
         public DataSoundAsset OnUseSoundEvent;
 
-        [Tooltip("Does the item require sunlight to work?")]
+        [Tooltip("Needs sunlight to function?")]
         public bool RequiresSunLight;
 
-        [Tooltip("Set the condition to 0% after the fire starting finished (either successful or not).")]
+        [Tooltip("Condition drops to 0% after use.")]
         public bool RuinedAfterUse;
 
-        [Tooltip("How many in-game seconds this item will take to ignite tinder.")]
+        [Tooltip("Time to ignite tinder (seconds).")]
         public float SecondsToIgniteTinder;
 
-        [Tooltip("How many in-game seconds this item will take to ignite a torch.")]
+        [Tooltip("Time to ignite torch (seconds).")]
         public float SecondsToIgniteTorch;
 
-        [Tooltip("Does this item affect the chance for success? Represents percentage points. Positive values increase the chance, negative values reduce it.")]
+        [Tooltip("Modifies success chance ('+' increases, '-' decreases).")]
         public float SuccessModifier;
     }
 }

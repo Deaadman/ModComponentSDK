@@ -3,75 +3,73 @@ using UnityEngine;
 
 namespace ModComponent.Components
 {
-    [HelpURL("https://github.com/dommrogers/ModComponent/blob/master/docs/Clothing-Component-Documentation.md")]
+    [HelpURL("https://github.com/Deaadman/ModComponentSDK/wiki/API#modclothingcomponent")]
     public class ModClothingComponent : ModGenericComponent
     {
-        [Tooltip("Region where this clothing can be worn.")]
+        [Tooltip("Wearable region (e.g., Head, Torso).")]
         public ClothingRegion Region;
 
-        [Tooltip("The innermost layer at which the clothing item can be worn (Base, Mid, Top, or Top2).")]
+        [Tooltip("Innermost wearable layer.")]
         public ClothingLayer MinLayer;
 
-        [Tooltip("The outermost layer at which the clothing item can be worn (Base, Mid, Top, or Top2).")]
+        [Tooltip("Outermost wearable layer.")]
         public ClothingLayer MaxLayer;
 
-        [Tooltip("The type of sound made when moving while wearing this clothing item.")]
+        [Tooltip("Sound made by movement.")]
         public ClothingMovementSound MovementSound;
 
-        [Tooltip("The type of footwear this clothing item represents.")]
+        [Tooltip("Type of footwear.")]
         public FootwearType Footwear;
 
-        [Tooltip("Number of days it takes for this clothing item to decay from 100% to 0% while being worn outside.")]
+        [Tooltip("Decay time outside (days).")]
         public float DaysToDecayWornOutside;
 
-        [Tooltip("Number of days it takes for this clothing item to decay from 100% to 0% while being worn inside.")]
+        [Tooltip("Decay time inside (days).")]
         public float DaysToDecayWornInside;
 
-        [Tooltip("Warmth bonus in degrees Celsius when the clothing item is in perfect condition and completely dry.")]
+        [Tooltip("Warmth bonus when dry (°C).")]
         public float Warmth;
 
-        [Tooltip("Warmth bonus in degrees Celsius when the clothing item is in perfect condition and completely wet.")]
+        [Tooltip("Warmth bonus when wet (°C).")]
         public float WarmthWhenWet;
 
-        [Tooltip("Windproof bonus in degrees Celsius when the clothing item is in perfect condition and completely wet.")]
+        [Tooltip("Windproof bonus when wet (°C).")]
         public float Windproof;
 
-        [Tooltip("How much water is repelled by this clothing item.")]
+        [Tooltip("Waterproofness level.")]
         public float Waterproofness;
 
-        [Tooltip("Damage reduction in percent when receiving certain types of damage.")]
+        [Tooltip("Damage reduction (%) from certain attacks.")]
         public float Toughness;
 
-        [Tooltip("Sprint stamina reduction in percent.")]
+        [Tooltip("Reduction in sprint stamina (%).")]
         public float SprintBarReduction;
 
-        [Range(0, 100)]
-        [Tooltip("Decreases the chance that a wolf will attack. Only applies in certain situations. 100 means 'guaranteed not to attack'; 0 means 'same as without the buff'.")]
+        [Tooltip("Reduces wolf attack chance (%).")]
         public int DecreaseAttackChance;
 
-        [Range(0, 100)]
-        [Tooltip("Increases the chance that a wolf will flee immediately when spotting the player. 100 means 'guaranteed to flee'; 0 means 'same as without the buff'.")]
+        [Tooltip("Increases wolf flee chance (%).")]
         public int IncreaseFleeChance;
 
-        [Tooltip("Hours required to dry this clothing item next to a fire when it is completely wet.")]
+        [Tooltip("Drying time near fire (hours).")]
         public float HoursToDryNearFire;
 
-        [Tooltip("Hours required to dry this clothing item without a fire when it is completely wet.")]
+        [Tooltip("Drying time without fire (hours).")]
         public float HoursToDryWithoutFire;
 
-        [Tooltip("Hours required for this clothing to completely freeze once it gets wet.")]
+        [Tooltip("Freezing time (hours).")]
         public float HoursToFreeze;
 
-        [Tooltip("Base name of the texture to represent this clothing item in the paper doll view.")]
-        public string MainTexture;
+        [Tooltip("Main texture for paper doll view.")]
+        public Texture2D MainTexture;
 
-        [Tooltip("Name of the blend texture used for the paper doll view.")]
-        public string BlendTexture;
+        [Tooltip("Blend texture for paper doll view.")]
+        public Texture2D BlendTexture;
 
-        [Tooltip("Drawing layer (drawing order) to be used for this clothing item.")]
+        [Tooltip("Drawing order layer.")]
         public int DrawLayer;
 
-        [Tooltip("The name of the type implementing the specific game logic of this item.")]
+        [Tooltip("Custom logic implementation type.")]
         public string ImplementationType;
     }
 }

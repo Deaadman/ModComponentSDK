@@ -39,7 +39,7 @@ namespace ModComponent.Editor
         {
             GUILayout.Space(5);
             GUILayout.Label("To get started, explore the following links:", ModComponentEditorStyles.CenteredLabel);
-            DrawButtonWithLink("Beginner's Guide", "");
+            DrawButtonWithLink("Beginner's Guide", "https://github.com/Deaadman/ModComponentSDK/wiki/Beginner's-Guide");
             DrawButtonWithLink("Documentation", "https://github.com/Deaadman/ModComponentSDK/wiki");
             GUILayout.Space(10);
         }

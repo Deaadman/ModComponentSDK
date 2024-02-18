@@ -3,16 +3,16 @@ using UnityEngine;
 
 namespace ModComponent.Behaviours
 {
-    [HelpURL("https://github.com/dommrogers/ModComponent/blob/master/docs/Evolve-Behaviour-Documentation.md")]
+    [HelpURL("https://github.com/Deaadman/ModComponentSDK/wiki/API#modevolvebehaviour")]
     public class ModEvolveBehaviour : ModBaseBehaviour
     {
-        [Tooltip("Name of the item into which this item will evolve. E.g. 'GEAR_GutDried'")]
+        [Tooltip("Target item's name for evolution.")]
         public DataGearAsset TargetItemName;
 
-        [Tooltip("How many in-game hours does this item take to evolve from 0% to 100%?")]
+        [Tooltip("Time in in-game hours to evolve from 0% to 100%.")]
         public int EvolveHours;
 
-        [Tooltip("Does this item only evolve when it is stored indoors?")]
+        [Tooltip("Evolves only when stored indoors.")]
         public bool IndoorsOnly;
     }
 }

@@ -3,10 +3,10 @@ using UnityEngine;
 
 namespace ModComponent.Behaviours
 {
-    [HelpURL("https://github.com/dommrogers/ModComponent/blob/master/docs/Scent-Behaviour-Documentation.md")]
+    [HelpURL("https://github.com/Deaadman/ModComponentSDK/wiki/API#modscentbehaviour")]
     public class ModScentBehaviour : ModBaseBehaviour
     {
-        [Tooltip("What type of smell does this item have? Affects wildlife detection radius and smell strength.")]
+        [Tooltip("Type of scent and its effect on wildlife.")]
         public ScentCategory ScentCategory;
     }
 }

@@ -4,34 +4,34 @@ using UnityEngine;
 
 namespace ModComponent.Components
 {
-    [HelpURL("https://github.com/dommrogers/ModComponent/blob/master/docs/Cookable-Component-Documentation.md")]
+    [HelpURL("https://github.com/Deaadman/ModComponentSDK/wiki/API#modcookablecomponent")]
     public class ModCookableComponent : ModGenericComponent
     {
-        [Tooltip("Can this be cooked/heated? If not enabled, the other settings in this section will be ignored.")]
+        [Tooltip("Enables cooking/heating.")]
         public bool Cooking = true;
 
-        [Tooltip("How many in-game minutes does it take to cook/heat this item?")]
+        [Tooltip("Time to cook/heat (minutes).")]
         public int CookingMinutes;
 
-        [Tooltip("How many units of this item are required for cooking?")]
+        [Tooltip("Units needed for cooking.")]
         public int CookingUnitsRequired;
 
-        [Tooltip("How many liters of water are required for cooking this item? Only potable water applies.")]
+        [Tooltip("Water needed for cooking (liters).")]
         public float CookingWaterRequired;
 
-        [Tooltip("Convert the item into this item when cooking completes. Leave empty to only heat the item without converting it.")]
+        [Tooltip("Result after cooking.")]
         public DataGearAsset CookingResult;
 
-        [Tooltip("How many in-game minutes until this item becomes burnt after being 'cooked'?")]
+        [Tooltip("Time until item burns after cooking (minutes).")]
         public int BurntMinutes;
 
-        [Tooltip("What type of cookable is this? Affects where and how this item can be cooked.")]
+        [Tooltip("Type of cookable item.")]
         public CookableType Type;
 
-        [Tooltip("Sound to use when cooking/heating the item. Leave empty for a sensible default.")]
+        [Tooltip("Cooking sound effect. Defaults if empty.")]
         public DataSoundAsset CookingAudio;
 
-        [Tooltip("Sound to use when putting the item into a pot or on a stove. Leave empty for a sensible default.")]
+        [Tooltip("Sound for starting to cook. Defaults if empty.")]
         public DataSoundAsset StartCookingAudio;
     }
 }

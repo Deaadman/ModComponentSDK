@@ -175,7 +175,7 @@ namespace ModComponent.SDK
         internal static void UpdateExampleMod(string latestVersion)
         {
             string tempFilePath = Path.Combine(Path.GetTempPath(), "ExampleMod.unitypackage");
-            DownloadAndImportUnityPackage("https://github.com/Deadman/ExampleModSDK/releases/latest/download/ExampleMod.unitypackage", tempFilePath);
+            _ = DownloadAndImportUnityPackage("https://github.com/Deadman/ExampleModSDK/releases/latest/download/ExampleMod.unitypackage", tempFilePath);
         }
 
         internal static void UpdatePackage(string packageName, string latestVersion)

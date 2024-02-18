@@ -4,63 +4,63 @@ using UnityEngine;
 
 namespace ModComponent.Blueprints
 {
-    [HelpURL("https://github.com/dommrogers/ModComponent/blob/master/docs/Blueprints.md")]
+    [HelpURL("https://github.com/Deaadman/ModComponentSDK/wiki/API#modblueprint")]
     [DisallowMultipleComponent]
     public class ModBlueprint : MonoBehaviour
     {
-        [Tooltip("An optional name for the blueprint. Only used in error messages.")]
+        [Tooltip("Optional blueprint name for error logging.")]
         public string Name;
 
-        [Tooltip("Combination of the name of each gear needed to craft this item (e.g., GEAR_Line) and the quantity required.")]
+        [Tooltip("Required items and quantities for crafting.")]
         public GearRequirement[] RequiredGear;
 
-        [Tooltip("How many liters of kerosene are required?")]
+        [Tooltip("Kerosene needed (liters).")]
         public float KeroseneLitersRequired;
 
-        [Tooltip("How much gunpowder is required (in kilograms)?")]
+        [Tooltip("Gunpowder needed (kg).")]
         public float GunpowderKGRequired;
 
-        [Tooltip("Tool required to craft (e.g., GEAR_Knife).")]
+        [Tooltip("Mandatory tool for crafting.")]
         public DataGearAsset RequiredTool;
 
-        [Tooltip("List of optional tools to speed up the crafting process or to use in place of the required tool.")]
+        [Tooltip("Optional tools to improve or substitute crafting.")]
         public DataGearAsset[] OptionalTools;
 
-        [Tooltip("Where to craft? (Anywhere, Workbench, Forge, AmmoWorkbench)")]
+        [Tooltip("Crafting location requirement.")]
         public WorkbenchType RequiredCraftingLocation;
 
-        [Tooltip("Does it require a lit fire in the ammo workbench to craft?")]
+        [Tooltip("Need a lit fire to craft?")]
         public bool RequiresLitFire;
 
-        [Tooltip("Does it require light to craft?")]
+        [Tooltip("Need light to craft?")]
         public bool RequiresLight;
 
-        [Tooltip("The name of the item produced.")]
+        [Tooltip("Crafting result item.")]
         public DataGearAsset CraftedResult;
 
-        [Tooltip("Number of the item produced.")]
+        [Tooltip("Amount produced.")]
         public int CraftedResultCount;
 
-        [Tooltip("Number of in-game minutes required.")]
+        [Tooltip("Crafting time (minutes).")]
         public int DurationMinutes;
 
-        [Tooltip("Audio to be played.")]
+        [Tooltip("Sound effect during crafting.")]
         public DataSoundAsset CraftingAudio;
 
-        [Tooltip("The skill associated with crafting this item (e.g., Gunsmithing, None if not applicable).")]
+        [Tooltip("Skill associated with crafting.")]
         public SkillType AppliedSkill;
 
-        [Tooltip("The skill improved on crafting success (e.g., Firestarting, CarcassHarvesting, None if not applicable).")]
+        [Tooltip("Skill improved upon successful crafting.")]
         public SkillType ImprovedSkill;
     }
 
     [System.Serializable]
     public class GearRequirement
     {
-        [Tooltip("The name of each gear needed to craft this item (e.g., GEAR_Line).")]
+        [Tooltip("Required gear item name.")]
         public DataGearAsset GearItem;
 
-        [Tooltip("How many of each item are required?")]
+        [Tooltip("Quantity required.")]
         public int Count;
     }
 }

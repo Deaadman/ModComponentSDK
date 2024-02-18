@@ -3,19 +3,19 @@ using UnityEngine;
 
 namespace ModComponent.Components
 {
-    [HelpURL("https://github.com/dommrogers/ModComponent/blob/master/docs/Liquid-Component-Documentation.md")]
+    [HelpURL("https://github.com/Deaadman/ModComponentSDK/wiki/API#modliquidcomponent")]
     public class ModLiquidComponent : ModGenericComponent
     {
-        [Tooltip("What type of liquid does this container hold?")]
+        [Tooltip("Type of liquid contained.")]
         public LiquidType LiquidType;
 
-        [Tooltip("The maximum capacity (in liters) of the container.")]
+        [Tooltip("Maximum liquid capacity (liters).")]
         public float LiquidCapacityLiters;
 
-        [Tooltip("Should the amount be randomized?")]
+        [Tooltip("Enable to randomize initial liquid amount.")]
         public bool RandomizedQuantity;
 
-        [Tooltip("The initial amount of liquid this container contains. Does nothing if the quantity is randomized.")]
+        [Tooltip("Initial liquid amount (liters), ignored if randomized.")]
         public float LiquidLiters;
     }
 }

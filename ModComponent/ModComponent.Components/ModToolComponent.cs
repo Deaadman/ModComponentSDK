@@ -4,88 +4,88 @@ using UnityEngine;
 
 namespace ModComponent.Components
 {
-    [HelpURL("https://github.com/dommrogers/ModComponent/blob/master/docs/Tool-Component-Documentation.md")]
+    [HelpURL("https://github.com/Deaadman/ModComponentSDK/wiki/API#modtoolcomponent")]
     public class ModToolComponent : ModGenericEquippableComponent
     {
-        [Tooltip("The type of the tool item. This determines for which actions it can be used.")]
+        [Tooltip("Defines actions the tool can be used for.")]
         public ToolKind ToolType;
 
-        [Tooltip("None, HackSaw, Hatchet, Hammer, Knife")]
+        [Tooltip("Specific tool type for more granular action distinction.")]
         public ToolKind ToolKind;
 
-        [Tooltip("How many condition points per use does this tool item lose?")]
+        [Tooltip("Condition lost per use.")]
         public float DegradeOnUse;
 
-        [Tooltip("Can this item be used for crafting, repairing, or both?")]
+        [Tooltip("Usage type: crafting, repairing, or both.")]
         public ToolUsage Usage;
 
-        [Tooltip("Bonus to the relevant skill when using this item.")]
+        [Tooltip("Skill improvement bonus when used.")]
         public int SkillBonus;
 
-        [Tooltip("Multiplier for crafting and repair times. Represents percent.")]
+        [Tooltip("Time multiplier for crafting/repairing (%).")]
         public float CraftingTimeMultiplier;
 
-        [Tooltip("How many condition points does the tool degrade while being used for crafting?")]
+        [Tooltip("Condition lost during crafting per hour.")]
         public float DegradePerHourCrafting;
 
-        [Tooltip("Can this tool be used to break down items?")]
+        [Tooltip("Usable for item breakdown?")]
         public bool BreakDown;
 
-        [Tooltip("Multiplier for the time required to break down an item. Represents percent.")]
+        [Tooltip("Time multiplier for item breakdown (%).")]
         public float BreakDownTimeMultiplier;
 
-        [Tooltip("Can this tool item be used to open locked containers?")]
+        [Tooltip("Usable for forcing locks?")]
         public bool ForceLocks;
 
-        [Tooltip("Sound to play while forcing a lock.")]
+        [Tooltip("Sound for lock forcing.")]
         public DataSoundAsset ForceLockAudio;
 
-        [Tooltip("Can this tool item be used to clear ice fishing holes?")]
+        [Tooltip("Usable for clearing ice fishing holes?")]
         public bool IceFishingHole;
 
-        [Tooltip("How many condition points does the tool lose when completely clearing an ice fishing hole?")]
+        [Tooltip("Condition lost clearing ice hole.")]
         public float IceFishingHoleDegradeOnUse;
 
-        [Tooltip("How many in-game minutes does it take to completely clear an ice fishing hole?")]
+        [Tooltip("Time to clear ice fishing hole (min).")]
         public int IceFishingHoleMinutes;
 
-        [Tooltip("Sound to play while clearing an ice fishing hole.")]
+        [Tooltip("Sound for ice hole clearing.")]
         public DataSoundAsset IceFishingHoleAudio;
 
-        [Tooltip("Can this tool item be used to harvest carcasses?")]
+        [Tooltip("Usable for carcass harvesting?")]
         public bool CarcassHarvesting;
 
-        [Tooltip("How many in-game minutes does it take to harvest one kg of unfrozen meat?")]
+        [Tooltip("Time to harvest meat (min/kg).")]
         public int MinutesPerKgMeat;
 
-        [Tooltip("How many in-game minutes does it take to harvest one kg of frozen meat?")]
+        [Tooltip("Time to harvest frozen meat (min/kg).")]
         public int MinutesPerKgFrozenMeat;
 
-        [Tooltip("How many in-game minutes does it take to harvest one hide?")]
+        [Tooltip("Time to harvest a hide (min).")]
         public int MinutesPerHide;
 
-        [Tooltip("How many in-game minutes does it take to harvest one gut?")]
+        [Tooltip("Time to harvest a gut (min).")]
         public int MinutesPerGut;
 
-        [Tooltip("How many condition points does the tool degrade while being used for harvesting carcasses?")]
+        [Tooltip("Condition lost harvesting carcasses per hour.")]
         public float DegradePerHourHarvesting;
 
-        [Tooltip("Can this tool item be used during a struggle with wildlife?")]
+        [Tooltip("Bonus during wildlife struggle?")]
         public bool StruggleBonus;
 
-        [Tooltip("Multiplier for the damage dealt.")]
+        [Tooltip("Damage multiplier in struggle.")]
         public float DamageMultiplier;
 
-        [Tooltip("Multiplier for the chance the animal will flee (breaking the struggle before the 'struggle bar' is filled).")]
+        [Tooltip("Multiplier for animal flee chance in struggle.")]
         public float FleeChanceMultiplier;
 
-        [Tooltip("Multiplier for the amount of the 'struggle bar' that is filled with each hit.")]
+        [Tooltip("Struggle bar fill multiplier per hit.")]
         public float TapMultiplier;
 
-        [Tooltip("Can this tool cause a puncture wound? If enabled, this will cause the animal to bleed out.")]
+        [Tooltip("Can cause bleed out in animals?")]
         public bool CanPuncture;
 
-        [Tooltip("Multiplier for the time it takes the animal to bleed out after receiving a puncture wound.")]
+        [Tooltip("Bleed out time multiplier after puncture.")]
         public float BleedoutMultiplier;
     }
 }

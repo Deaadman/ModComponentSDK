@@ -3,16 +3,16 @@ using UnityEngine;
 
 namespace ModComponent.Components
 {
-    [HelpURL("https://github.com/dommrogers/ModComponent/blob/master/docs/Powder-Component-Documentation.md")]
+    [HelpURL("https://github.com/Deaadman/ModComponentSDK/wiki/API#modpowdercomponent")]
     public class ModPowderComponent : ModGenericComponent
     {
-        [Tooltip("The type of powder this container holds. Gunpowder is the only option right now.")]
+        [Tooltip("Type of powder contained.")]
         public PowderType PowderType;
 
-        [Tooltip("The maximum weight this container can hold.")]
+        [Tooltip("Maximum capacity in kilograms.")]
         public float CapacityKG;
 
-        [Tooltip("The percent probability that this container will be found full.")]
+        [Tooltip("Chance of finding this container full (%).")]
         [Range(0, 100)]
         public float ChanceFull;
     }

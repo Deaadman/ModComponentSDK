@@ -3,13 +3,13 @@ using UnityEngine;
 
 namespace ModComponent.Components
 {
-    [HelpURL("https://github.com/dommrogers/ModComponent/blob/master/docs/Random-Weighted-Item-Component-Documentation.md")]
+    [HelpURL("https://github.com/Deaadman/ModComponentSDK/wiki/API#modrandomweighteditemcomponent")]
     public class ModRandomWeightedItemComponent : ModGenericComponent
     {
-        [Tooltip("The names of the gear items that this could spawn. Must be the same length as ItemWeights")]
+        [Tooltip("Potential gear items to spawn.")]
         public DataGearAsset[] ItemNames;
 
-        [Tooltip("The integer weights of the gear items that this could spawn. Must be the same length as ItemNames")]
+        [Tooltip("Weights determining spawn likelihood for each item.")]
         public int[] ItemWeights;
     }
 }
