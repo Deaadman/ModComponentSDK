@@ -3,6 +3,7 @@ using ModComponent.SDK.Components;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -12,16 +13,18 @@ namespace ModComponent.SDK
     {
         internal static bool CheckAndPromptForAssetGeneration()
         {
+            bool needGeneration = false;
+
             List<string> requiredPaths = new()
-            {
-                "Assets/_ModComponent/DataAssets/Hinterland/GearItems",
-                "Assets/_ModComponent/DataAssets/Hinterland/Liquids",
-                "Assets/_ModComponent/DataAssets/Hinterland/Powders",
-                "Assets/_ModComponent/DataAssets/Hinterland/Sounds",
-                "Assets/_ModComponent/DataAssets/Hinterland/LootTables",
-                "Assets/_ModComponent/DataAssets/Hinterland/Scenes",
-                "Assets/_ModComponent/DataAssets/Modded/ModdersToolbox",
-            };
+        {
+            "Assets/_ModComponent/DataAssets/Hinterland/GearItems",
+            "Assets/_ModComponent/DataAssets/Hinterland/Liquids",
+            "Assets/_ModComponent/DataAssets/Hinterland/Powders",
+            "Assets/_ModComponent/DataAssets/Hinterland/Sounds",
+            "Assets/_ModComponent/DataAssets/Hinterland/LootTables",
+            "Assets/_ModComponent/DataAssets/Hinterland/Scenes",
+            "Assets/_ModComponent/DataAssets/Modded/ModdersToolbox",
+        };
 
             List<string> missingFolders = new();
             foreach (var path in requiredPaths)
@@ -42,7 +45,56 @@ namespace ModComponent.SDK
                 return GenerateAllAssets();
             }
 
+            foreach (var path in requiredPaths)
+            {
+                var expectedAssets = GetExpectedAssetsForPath(path);
+                foreach (var expectedAsset in expectedAssets)
+                {
+                    if (!File.Exists(Path.Combine(path, expectedAsset + ".asset")))
+                    {
+                        needGeneration = true;
+                        break;
+                    }
+                }
+                if (needGeneration) break;
+            }
+
+            if (needGeneration)
+            {
+                EditorUtility.DisplayDialog(
+                    "Data Assets Generator",
+                    "One or more required data assets are missing in your project.\n\n Import them now.",
+                    "Import");
+                return GenerateAllAssets();
+            }
+
             return true;
+        }
+
+        private static readonly Dictionary<string, AssetNameProvider> pathToAssetNameProviders = new()
+        {
+            ["Assets/_ModComponent/DataAssets/Hinterland/GearItems"] = () => GetGearItems().Keys,
+            ["Assets/_ModComponent/DataAssets/Hinterland/Liquids"] = () => GetLiquidNames(),
+            ["Assets/_ModComponent/DataAssets/Hinterland/Powders"] = () => GetPowderNames(),
+            ["Assets/_ModComponent/DataAssets/Hinterland/Sounds"] = () => GetSoundNames(),
+            ["Assets/_ModComponent/DataAssets/Hinterland/LootTables"] = () => GetLootTableNames(),
+            ["Assets/_ModComponent/DataAssets/Hinterland/Scenes"] = () => GetScenes(),
+            ["Assets/_ModComponent/DataAssets/Modded/ModdersToolbox"] = () => GetModdersToolBoxItems().Keys,
+        };
+
+        private delegate IEnumerable<string> AssetNameProvider();
+
+        internal static IEnumerable<string> GetExpectedAssetsForPath(string path)
+        {
+            if (pathToAssetNameProviders.TryGetValue(path, out var provider))
+            {
+                return provider();
+            }
+            else
+            {
+                Debug.LogWarning($"No asset name provider found for path: {path}. This may indicate a new path that needs to be mapped.");
+                return Enumerable.Empty<string>();
+            }
         }
 
         internal static bool GenerateAllAssets()
