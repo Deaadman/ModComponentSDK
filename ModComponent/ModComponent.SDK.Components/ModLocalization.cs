@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ModComponent.SDK.Components
 {
-    [HelpURL("https://github.com/Deaadman/ModComponentSDK/wiki/Workspace---SDK-Information#mod-localization-assets")]
+    [HelpURL("https://github.com/Deaadman/ModComponentSDK/wiki/Workspace-Information#mod-localization-assets")]
     public class ModLocalization : ScriptableObject
     {
         [Serializable]
