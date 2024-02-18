@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace ModComponent.SDK.Components
 {
+    [HelpURL("https://github.com/Deaadman/ModComponentSDK/wiki/Workspace---SDK-Information#mod-definition-assets")]
     public class ModDefinition : ScriptableObject
     {
         public string Name;

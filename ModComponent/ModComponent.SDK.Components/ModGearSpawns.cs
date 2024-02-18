@@ -4,36 +4,42 @@ using UnityEngine;
 
 namespace ModComponent.SDK.Components
 {
-    [HelpURL("https://github.com/dommrogers/ModComponent/blob/master/docs/Gear-Spawns.md")]
+    [HelpURL("https://github.com/Deaadman/ModComponentSDK/wiki/Workspace---SDK-Information#mod-localization-assets")]
     public class ModGearSpawns : ScriptableObject
     {
         [Serializable]
         public class SceneSpawnEntry
         {
+            [Tooltip("Scene name.")]
             public DataSceneAsset sceneName;
+
+            [Tooltip("Items to spawn in scene.")]
             public List<SceneItemSpawn> sceneItemSpawns = new();
         }
 
         [Serializable]
         public class LoottableSpawnEntry
         {
+            [Tooltip("Loot table name.")]
             public DataLootTableAsset lootTableName;
+
+            [Tooltip("Items in loot table.")]
             public List<LootTableSpawn> lootTableSpawns = new();
         }
 
         [Serializable]
-        public class SceneItemSpawn 
+        public class SceneItemSpawn
         {
-            [Tooltip("The name of the item being spawned. E.g. GEAR_Knife.")]
+            [Tooltip("Item name to spawn.")]
             public DataGearAsset itemName;
 
-            [Tooltip("The position is a Vector with 3 mandatory components separated by comma.")]
+            [Tooltip("Spawn position (x,y,z).")]
             public Vector3 position;
 
-            [Tooltip("The rotation is a Vector with 3 mandatory components, representing the euler angles of the corresponding Quaternion.")]
+            [Tooltip("Spawn rotation (euler angles).")]
             public Vector3 rotation;
 
-            [Tooltip("Spawn Chance is a numeric value representing the probability in per cent that the item actually spawns, so '100' or above means \"will definitely spawn\" and '0' or below means \"will definitely not spawn\".")]
+            [Tooltip("Chance of spawning (%) 0-100.")]
             [Range(0, 100)]
             public int spawnChance;
         }
@@ -41,14 +47,17 @@ namespace ModComponent.SDK.Components
         [Serializable]
         public class LootTableSpawn
         {
-            [Tooltip("The name of the item being spawned. E.g. GEAR_Knife.")]
+            [Tooltip("Item name to spawn.")]
             public DataGearAsset itemName;
 
-            [Tooltip("The weight represents the \"size\" of the item in the loot table. \"Bigger\" items are more likely to be selected, \"smaller\" items are less likely to be selected. 0 means the item cannot be selected. There is no upper limit.")]
+            [Tooltip("Item weight in loot table.")]
             public int weight;
         }
 
+        [Tooltip("Scene-based item spawn configurations.")]
         public List<SceneSpawnEntry> sceneGearSpawnEntries = new();
+
+        [Tooltip("Loot table item spawn configurations.")]
         public List<LoottableSpawnEntry> lootTableGearSpawnEntries = new();
     }
 }

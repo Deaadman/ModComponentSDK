@@ -29,21 +29,21 @@ namespace ModComponent.Editor.SDK
             DrawCustomHeading("General Properties");
 
             EditorGUI.BeginDisabledGroup(true);
-            modDefinition.Name = EditorGUILayout.TextField(new GUIContent("Name", "The name of this ModComponent."), modDefinition.Name);
-            modDefinition.Author = EditorGUILayout.TextField(new GUIContent("Author", "The name of the author which created this ModComponent."), modDefinition.Author);
+            modDefinition.Name = EditorGUILayout.TextField(new GUIContent("Name", "ModComponent name."), modDefinition.Name);
+            modDefinition.Author = EditorGUILayout.TextField(new GUIContent("Author", "Creator of this ModComponent."), modDefinition.Author);
             EditorGUI.EndDisabledGroup();
 
-            modDefinition.Version = EditorGUILayout.TextField(new GUIContent("Version", "The current version of this ModComponent."), modDefinition.Version);
+            modDefinition.Version = EditorGUILayout.TextField(new GUIContent("Version", "Version of this ModComponent."), modDefinition.Version);
 
             EditorGUILayout.Space(10);
             DrawCustomHeading("Required Dependencies (Optional)");
-            EditorGUILayout.PropertyField(requiredMods, new GUIContent("Required Mods", "A list of mods that this ModComponent depends on to work. Leave blank if it depends on none."), true);
-            modDefinition.RequiresDLC = EditorGUILayout.Toggle(new GUIContent("Requires DLC", "Does this ModComponent require TFTFT (Tales of The Far Territory) to work?"), modDefinition.RequiresDLC);
+            EditorGUILayout.PropertyField(requiredMods, new GUIContent("Required Mods", "Required mods for functionality."), true);
+            modDefinition.RequiresDLC = EditorGUILayout.Toggle(new GUIContent("Requires DLC", "TFTFT DLC requirement."), modDefinition.RequiresDLC);
 
             EditorGUILayout.Space(10);
             DrawCustomHeading("Content Properties");
-            EditorGUILayout.PropertyField(items, new GUIContent("GEAR Item Prefabs", "Drag and drop any 'GEAR_' Prefabs into this field."), true);
-            EditorGUILayout.PropertyField(icons, new GUIContent("Inventory, Crafting & Paperdoll Textures", "Drag and drop any of those textures into this field. DO NOT drag textures used on your materials into this field."), true);
+            EditorGUILayout.PropertyField(items, new GUIContent("GEAR Prefabs", "GEAR_ Prefabs associated with this ModComponent."), true);
+            EditorGUILayout.PropertyField(icons, new GUIContent("Inventory, Crafting & Paperdoll Textures", "Icons and textures."), true);
 
             GUILayout.EndVertical();
         }

@@ -4,81 +4,81 @@ using UnityEngine;
 
 namespace ModComponent.SDK.Components
 {
-    [HelpURL("https://github.com/dommrogers/ModComponent/blob/master/docs/Localizations.md")]
+    [HelpURL("https://github.com/Deaadman/ModComponentSDK/wiki/Workspace---SDK-Information#mod-localization-assets")]
     public class ModLocalization : ScriptableObject
     {
         [Serializable]
         public class LocalizationEntry
         {
-            [Tooltip("The localization key for this entry.")]
+            [Tooltip("Key for this localization entry.")]
             public string localizationKey;
 
-            [Tooltip("Languages for this entry.")]
+            [Tooltip("Localized text for various languages.")]
             public Languages languages = new();
         }
 
         [Serializable]
         public class Languages
         {
-            [Tooltip("English language localization.")]
+            [Tooltip("Text in English.")]
             public string English = "";
 
-            [Tooltip("German language localization.")]
+            [Tooltip("Text in German.")]
             public string German = "";
 
-            [Tooltip("Russian language localization.")]
+            [Tooltip("Text in Russian.")]
             public string Russian = "";
 
-            [Tooltip("French language localization.")]
+            [Tooltip("Text in French.")]
             public string French = "";
 
-            [Tooltip("Japanese language localization.")]
+            [Tooltip("Text in Japanese.")]
             public string Japanese = "";
 
-            [Tooltip("Korean language localization.")]
+            [Tooltip("Text in Korean.")]
             public string Korean = "";
 
-            [Tooltip("Simplified Chinese language localization.")]
+            [Tooltip("Text in Simplified Chinese.")]
             public string SimplifiedChinese = "";
 
-            [Tooltip("Swedish language localization.")]
+            [Tooltip("Text in Swedish.")]
             public string Swedish = "";
 
-            [Tooltip("Traditional Chinese language localization.")]
+            [Tooltip("Text in Traditional Chinese.")]
             public string TraditionalChinese = "";
 
-            [Tooltip("Turkish language localization.")]
+            [Tooltip("Text in Turkish.")]
             public string Turkish = "";
 
-            [Tooltip("Norwegian language localization.")]
+            [Tooltip("Text in Norwegian.")]
             public string Norwegian = "";
 
-            [Tooltip("Spanish language localization.")]
+            [Tooltip("Text in Spanish.")]
             public string Spanish = "";
 
-            [Tooltip("Portuguese (Portugal) language localization.")]
+            [Tooltip("Text in Portuguese (Portugal).")]
             public string PortuguesePortugal = "";
 
-            [Tooltip("Portuguese (Brazil) language localization.")]
+            [Tooltip("Text in Portuguese (Brazil).")]
             public string PortugueseBrazil = "";
 
-            [Tooltip("Dutch language localization.")]
+            [Tooltip("Text in Dutch.")]
             public string Dutch = "";
 
-            [Tooltip("Finnish language localization.")]
+            [Tooltip("Text in Finnish.")]
             public string Finnish = "";
 
-            [Tooltip("Italian language localization.")]
+            [Tooltip("Text in Italian.")]
             public string Italian = "";
 
-            [Tooltip("Polish language localization.")]
+            [Tooltip("Text in Polish.")]
             public string Polish = "";
 
-            [Tooltip("Ukrainian language localization.")]
+            [Tooltip("Text in Ukrainian.")]
             public string Ukrainian = "";
         }
 
-        [Tooltip("List of localization entries.")]
+        [Tooltip("All localization entries.")]
         public List<LocalizationEntry> localizationEntries = new();
     }
 }
