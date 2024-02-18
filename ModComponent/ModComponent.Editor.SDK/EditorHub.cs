@@ -87,7 +87,7 @@ namespace ModComponent.Editor
         internal static void Init()
         {
             var window = GetWindow<EditorHubWindow>("About Page");
-            window.minSize = new Vector2(400, 320);
+            window.minSize = new Vector2(400, 325);
             window.Show();
         }
 
