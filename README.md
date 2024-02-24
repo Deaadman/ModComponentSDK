@@ -3,9 +3,14 @@
 
 ---
 
-<p align="center">
-    <a href="https://github.com/Deaadman/ModComponentSDK/issues?q=is%3Aissue+is%3Aopen+label%3A%22bug+report%22"><img src="https://img.shields.io/github/issues-search/Deaadman/ModComponentSDK?label=Bug%20Reports&color=red&style=for-the-badge&query=is%3Aissue+is%3Aopen+label%3A%22bug+report%22"></a>
-    <a href="https://github.com/Deaadman/ModComponentSDK/issues?q=is%3Aissue+is%3Aopen+label%3A%22feature+request%22"><img src="https://img.shields.io/github/issues-search/Deaadman/ModComponentSDK?label=Feature%20Requests&style=for-the-badge&query=is%3Aissue+is%3Aopen+label%3A%22feature+request%22"></a>
+<div align="center">
+
+[![Latest Release](https://img.shields.io/github/v/release/Deaadman/ExampleModSDK?label=Latest%20Release&style=for-the-badge)](https://github.com/Deaadman/ExampleModSDK/releases/latest)
+
+[![Feature Requests](https://img.shields.io/github/issues-search/Deaadman/ModComponentSDK?label=Feature%20Requests&style=for-the-badge&query=is%3Aissue+is%3Aopen+label%3A%22feature+request%22)](https://github.com/Deaadman/ModComponentSDK/issues?q=is%3Aissue+is%3Aopen+label%3A%22feature+request%22)
+[![Bug Reports](https://img.shields.io/github/issues-search/Deaadman/ModComponentSDK?label=Bug%20Reports&color=red&style=for-the-badge&query=is%3Aissue+is%3Aopen+label%3A%22bug+report%22)](https://github.com/Deaadman/ModComponentSDK/issues?q=is%3Aissue+is%3Aopen+label%3A%22bug+report%22)
+
+</div>
 
 ---
 
@@ -35,7 +40,6 @@ However, a massive thanks to those who have previously worked on documentation a
 
 | Type | Author | Last Updated |
 | - | - | - |
-| | | |
 | **Tutorials** | | |
 | [ModComponent Basic Guide](https://github.com/TLD-Mods/Guides/blob/main/ModComponent%20Basic%20Guide.md) | [Jods-Its](https://github.com/Jods-Its) | 26th June 2023 |
 | [ModComponent Tutorial](https://stmsantana.github.io/ModComponentDocs/TutorialTP/index.html) | [stmSantana](https://github.com/stmSantana) | 7th May 2022 |
