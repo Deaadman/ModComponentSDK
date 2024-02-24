@@ -4,8 +4,8 @@
 ---
 
 <p align="center">
-    <a href="https://github.com/Deaadman/ModComponentSDK/releases/latest"><img src="https://img.shields.io/github/v/release/Deaadman/ModComponentSDK?label=latest&style=for-the-badge"></a>
-    <a href="https://github.com/Deaadman/ModComponentSDK/issues"><img src="https://img.shields.io/github/issues/Deaadman/ModComponentSDK?style=for-the-badge"></a>
+    <a href="https://github.com/Deaadman/ModComponentSDK/issues?q=is%3Aissue+is%3Aopen+label%3A%22bug+report%22"><img src="https://img.shields.io/github/issues-search/Deaadman/ModComponentSDK?label=Bug%20Reports&color=red&style=for-the-badge&query=is%3Aissue+is%3Aopen+label%3A%22bug+report%22"></a>
+    <a href="https://github.com/Deaadman/ModComponentSDK/issues?q=is%3Aissue+is%3Aopen+label%3A%22feature+request%22"><img src="https://img.shields.io/github/issues-search/Deaadman/ModComponentSDK?label=Feature%20Requests&style=for-the-badge&query=is%3Aissue+is%3Aopen+label%3A%22feature+request%22"></a>
 
 ---
 
