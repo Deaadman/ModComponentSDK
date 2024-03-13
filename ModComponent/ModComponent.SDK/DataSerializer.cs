@@ -99,8 +99,8 @@ namespace ModComponent.SDK
                     InspectAngles = new float[] { modBedComponent.InspectAngles.x, modBedComponent.InspectAngles.y, modBedComponent.InspectAngles.z },
                     InspectOffset = new float[] { modBedComponent.InspectOffset.x, modBedComponent.InspectOffset.y, modBedComponent.InspectOffset.z },
                     InspectScale = new float[] { modBedComponent.InspectScale.x, modBedComponent.InspectScale.y, modBedComponent.InspectScale.z },
-                    modBedComponent.NormalModel,
-                    modBedComponent.InspectModel,
+                    NormalModel = modBedComponent.NormalModel != null ? modBedComponent.NormalModel.name : "",
+                    InspectModel = modBedComponent.InspectModel != null ? modBedComponent.InspectModel.name : "",
 
                     modBedComponent.ConditionGainPerHour,
                     modBedComponent.AdditionalConditionGainPerHour,
