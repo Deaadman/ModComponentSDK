@@ -75,8 +75,8 @@ namespace ModComponent.SDK
                     InspectAngles = new float[] { modAmmoComponent.InspectAngles.x, modAmmoComponent.InspectAngles.y, modAmmoComponent.InspectAngles.z },
                     InspectOffset = new float[] { modAmmoComponent.InspectOffset.x, modAmmoComponent.InspectOffset.y, modAmmoComponent.InspectOffset.z },
                     InspectScale = new float[] { modAmmoComponent.InspectScale.x, modAmmoComponent.InspectScale.y, modAmmoComponent.InspectScale.z },
-                    modAmmoComponent.NormalModel,
-                    modAmmoComponent.InspectModel,
+                    NormalModel = modAmmoComponent.NormalModel != null ? modAmmoComponent.NormalModel.name : "",
+                    InspectModel = modAmmoComponent.InspectModel != null ? modAmmoComponent.InspectModel.name : "",
 
                     AmmoForGunType = modAmmoComponent.AmmoForGunType.ToString()
                 },
@@ -132,8 +132,8 @@ namespace ModComponent.SDK
                     InspectAngles = new float[] { modBodyHarvestComponent.InspectAngles.x, modBodyHarvestComponent.InspectAngles.y, modBodyHarvestComponent.InspectAngles.z },
                     InspectOffset = new float[] { modBodyHarvestComponent.InspectOffset.x, modBodyHarvestComponent.InspectOffset.y, modBodyHarvestComponent.InspectOffset.z },
                     InspectScale = new float[] { modBodyHarvestComponent.InspectScale.x, modBodyHarvestComponent.InspectScale.y, modBodyHarvestComponent.InspectScale.z },
-                    modBodyHarvestComponent.NormalModel,
-                    modBodyHarvestComponent.InspectModel,
+                    NormalModel = modBodyHarvestComponent.NormalModel != null ? modBodyHarvestComponent.NormalModel.name : "",
+                    InspectModel = modBodyHarvestComponent.InspectModel != null ? modBodyHarvestComponent.InspectModel.name : "",
 
                     modBodyHarvestComponent.CanCarry,
                     HarvestAudio = modBodyHarvestComponent.HarvestAudio?.name ?? "",
@@ -191,8 +191,8 @@ namespace ModComponent.SDK
                     InspectAngles = new float[] { modClothingComponent.InspectAngles.x, modClothingComponent.InspectAngles.y, modClothingComponent.InspectAngles.z },
                     InspectOffset = new float[] { modClothingComponent.InspectOffset.x, modClothingComponent.InspectOffset.y, modClothingComponent.InspectOffset.z },
                     InspectScale = new float[] { modClothingComponent.InspectScale.x, modClothingComponent.InspectScale.y, modClothingComponent.InspectScale.z },
-                    modClothingComponent.NormalModel,
-                    modClothingComponent.InspectModel,
+                    NormalModel = modClothingComponent.NormalModel != null ? modClothingComponent.NormalModel.name : "",
+                    InspectModel = modClothingComponent.InspectModel != null ? modClothingComponent.InspectModel.name : "",
                     Region = modClothingComponent.Region.ToString(),
                     MinLayer = modClothingComponent.MinLayer.ToString(),
                     MaxLayer = modClothingComponent.MaxLayer.ToString(),
@@ -259,8 +259,8 @@ namespace ModComponent.SDK
                     InspectAngles = new float[] { modFoodComponent.InspectAngles.x, modFoodComponent.InspectAngles.y, modFoodComponent.InspectAngles.z },
                     InspectOffset = new float[] { modFoodComponent.InspectOffset.x, modFoodComponent.InspectOffset.y, modFoodComponent.InspectOffset.z },
                     InspectScale = new float[] { modFoodComponent.InspectScale.x, modFoodComponent.InspectScale.y, modFoodComponent.InspectScale.z },
-                    modFoodComponent.NormalModel,
-                    modFoodComponent.InspectModel,
+                    NormalModel = modFoodComponent.NormalModel != null ? modFoodComponent.NormalModel.name : "",
+                    InspectModel = modFoodComponent.InspectModel != null ? modFoodComponent.InspectModel.name : "",
 
                     modFoodComponent.Cooking,
                     modFoodComponent.CookingMinutes,
